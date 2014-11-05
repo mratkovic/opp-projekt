@@ -8,22 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Klasa koja nasljeduje {@link HttpServlet} i zaduzena je za odjavu korisnika.
- *
- * @author Marko Ratkovic
- * @version 1.0
- */
-@WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/uvjeti")
+public class PrikaziUvjeteKoristenjaServlet extends HttpServlet {
 	/** Defaultni serial version UID. */
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected final void doGet(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
-		req.getSession().invalidate();
-		resp.sendRedirect(req.getContextPath() + "/servleti/pocetna");
+		req.getRequestDispatcher("/WEB-INF/pages/UvjetiKoristenja.jsp").forward(req, resp);
 	}
 
 }

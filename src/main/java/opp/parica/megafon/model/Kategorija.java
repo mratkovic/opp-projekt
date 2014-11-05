@@ -82,7 +82,7 @@ public class Kategorija {
 	public void setOglasi(final List<Oglas> oglasi) {
 		this.oglasi = oglasi;
 	}
-	@Column(name = "jeSkriven")
+	@Column
 	public Boolean getJeBesplatna() {
 		return jeBesplatna;
 	}

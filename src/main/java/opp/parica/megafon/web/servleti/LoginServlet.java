@@ -43,36 +43,36 @@ public class LoginServlet extends HttpServlet {
 		if (!loginForm.hasError()) {
 			Admin tmp = new Admin();
 			loginForm.fillToObject(tmp);
+			// provjera koji je tip korisnika
 			Admin admin = DAOProvider.getDAO().dohvatiAdmin(tmp.getUsername(), tmp.getPasswordHash());
-
 			PravnaOsoba oglasivacP = DAOProvider.getDAO().dohvatiPravnaOsoba(tmp.getUsername(),
 				tmp.getPasswordHash());
 			FizickaOsoba oglasivacF = DAOProvider.getDAO().dohvatiFizickaOsoba(tmp.getUsername(),
 				tmp.getPasswordHash());
 
+			boolean found = false;
 			if (admin != null) {
 				loginMethod(req, admin);
-				resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/main");
-				return;
+				found = true;
 			} else if (oglasivacP != null) {
 				loginMethod(req, oglasivacP);
-				resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/main");
-				return;
+				found = true;
 			} else if (oglasivacF != null) {
 				loginMethod(req, oglasivacF);
-				resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/main");
-				return;
+				found = true;
 			} else {
-				req.setAttribute("msg",
-					"Username i/ili password je pogrešan");
+				req.setAttribute("msg", "Username i/ili password je pogrešan");
 				loginForm.setPassword("");
-				req.setAttribute("zapis", loginForm);
 			}
 
-		} else {
-			req.setAttribute("zapis", loginForm);
+			if (found) {
+				resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
+				return;
+			}
+
 		}
 
+		req.setAttribute("zapis", loginForm);
 		req.getRequestDispatcher("/WEB-INF/pages/Login.jsp").forward(req,
 			resp);
 	}
@@ -98,7 +98,5 @@ public class LoginServlet extends HttpServlet {
 					+ "' " + ((FizickaOsoba) user).getPrezime());
 
 		}
-
 	}
-
 }

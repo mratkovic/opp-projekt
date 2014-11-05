@@ -28,7 +28,7 @@ public class RegistracijaAdminaServlet extends HttpServlet {
 		throws ServletException, IOException {
 		boolean postojiAdmin = DAOProvider.getDAO().postojiAdmin();
 		if (postojiAdmin && req.getSession().getAttribute("admin") == null) {
-			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/main");
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 		} else {
 			System.out.println("Nepostoji admin ili se stvara novi!");
 			// registrirajAdmina i ostala sranja koja vec imas za napravit
@@ -42,7 +42,7 @@ public class RegistracijaAdminaServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String metoda = req.getParameter("metoda");
 		if (!"Pohrani".equals(metoda)) {
-			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/main");
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 			return;
 		}
 
@@ -65,7 +65,7 @@ public class RegistracijaAdminaServlet extends HttpServlet {
 				LoginServlet.loginMethod(req, admin);
 			}
 
-			req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 
 		} else {
@@ -87,12 +87,12 @@ public class RegistracijaAdminaServlet extends HttpServlet {
 			int brTipova = Integer.parseInt(prop.getProperty("brTipova").trim());
 			for (int i = 1; i <= brTipova; ++i) {
 				String naziv = prop.getProperty("tip" + i + "_naziv").trim();
-				String cijena = prop.getProperty("tip" + i + "_cijena").trim();
+				Double cijena = Double.parseDouble(prop.getProperty("tip" + i + "_cijena").trim());
 				TipClanstva t = new TipClanstva();
 				t.setNaziv(naziv);
 				t.setClanarina(cijena);
 
-				DAOProvider.getDAO().dodajTipRacuna(t);
+				DAOProvider.getDAO().dodajTipClanstva(t);
 			}
 
 			int brKategorija = Integer.parseInt(prop.getProperty("brKategorija").trim());
@@ -126,7 +126,7 @@ public class RegistracijaAdminaServlet extends HttpServlet {
 				}
 			}
 		}
-		System.out.println(DAOProvider.getDAO().dohvatiSveTipoveRacuna());
+		System.out.println(DAOProvider.getDAO().dohvatiSveTipoveClanstva());
 		System.out.println(DAOProvider.getDAO().dohvatiSveKategorije());
 	}
 }

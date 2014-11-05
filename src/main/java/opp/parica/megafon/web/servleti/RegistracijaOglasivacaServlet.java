@@ -15,7 +15,6 @@ import opp.parica.megafon.model.FizickaOsoba;
 import opp.parica.megafon.model.Oglas;
 import opp.parica.megafon.model.Oglasivac;
 import opp.parica.megafon.model.PravnaOsoba;
-import opp.parica.megafon.model.TipClanstva;
 import opp.parica.megafon.web.servlets.forme.FizickaOsobaRegistracijaForma;
 import opp.parica.megafon.web.servlets.forme.OglasivacRegistracijaForma;
 import opp.parica.megafon.web.servlets.forme.PravnaOsobaRegistracijaForma;
@@ -37,9 +36,10 @@ public class RegistracijaOglasivacaServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 
 		if (req.getSession().getAttribute("logged") != null) {
+			req.setAttribute("title", "Greška");
 			req.setAttribute("msg", "Već ste prijavljeni! "
 				+ "Ukoliko želite stvoriti novi račun prethodno se odjavite.");
-			req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 		}
 
@@ -52,7 +52,7 @@ public class RegistracijaOglasivacaServlet extends HttpServlet {
 		req.setAttribute("zapisFO", fizickaRegForm);
 		req.setAttribute("jePravna", false);
 		req.setAttribute("jeFizicka", false);
-		req.getRequestDispatcher("/WEB-INF/pages/RegistrationForm.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/pages/RegistracijaOglasivaca.jsp").forward(req, resp);
 
 	}
 
@@ -64,14 +64,13 @@ public class RegistracijaOglasivacaServlet extends HttpServlet {
 		String metoda = req.getParameter("metoda");
 
 		if (!"Pohrani".equals(metoda)) {
-			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/main");
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 			return;
 		}
 
 		String tipOglasivaca = req.getParameter("odabraniTip");
 		OglasivacRegistracijaForma regForm;
 		Oglasivac oglasivac;
-		TipClanstva t;
 
 		if (tipOglasivaca.equals("fo")) {
 			regForm = new FizickaOsobaRegistracijaForma();
@@ -93,19 +92,17 @@ public class RegistracijaOglasivacaServlet extends HttpServlet {
 		}
 
 		if (regForm.hasError()) {
-			req.getRequestDispatcher("/WEB-INF/pages/RegistrationForm.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/pages/RegistracijaOglasivaca.jsp").forward(req, resp);
 		} else {
 			regForm.fillToObject(oglasivac);
 			oglasivac.setDatumRegistracije(new Date());
-			oglasivac.setTipRacuna(DAOProvider.getDAO().dohvatiTipRacuna("Besplatni"));
+			oglasivac.setTipClanstva(DAOProvider.getDAO().dohvatiTipClanstva("Besplatni"));
 			oglasivac.setDatumIstekaClanarine(null);
 			oglasivac.setSviOglasi(new ArrayList<Oglas>());
 
 			DAOProvider.getDAO().dodajOglasivaca(oglasivac);
 			LoginServlet.loginMethod(req, oglasivac);
 			req.getRequestDispatcher("/WEB-INF/pages/RegistriranOglasivac.jsp").forward(req, resp);
-
 		}
-
 	}
 }

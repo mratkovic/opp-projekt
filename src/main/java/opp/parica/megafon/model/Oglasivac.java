@@ -41,7 +41,7 @@ public abstract class Oglasivac implements SuceljePrijava{
 	/** Hash lozinke. */
 	private String passwordHash;
 	/** Tip racuna korisnika. */
-	private TipClanstva tipRacuna;
+	private TipClanstva tipClanstva;
 	/** Lista svih oglasa nekog autora. */
 	private List<Oglas> sviOglasi;
 	/** Adresa oglasivaca. */
@@ -62,18 +62,18 @@ public abstract class Oglasivac implements SuceljePrijava{
 	 */
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	public TipClanstva getTipRacuna() {
-		return tipRacuna;
+	public TipClanstva getTipClanstva() {
+		return tipClanstva;
 	}
 
 	/**
 	 * Metoda koja postavlja tip racuna.
 	 *
-	 * @param tipRacuna
+	 * @param tipClanstva
 	 *            tip racuna
 	 */
-	public void setTipRacuna(final TipClanstva tipRacuna) {
-		this.tipRacuna = tipRacuna;
+	public void setTipClanstva(final TipClanstva tipClanstva) {
+		this.tipClanstva = tipClanstva;
 	}
 
 	/**
@@ -185,7 +185,7 @@ public abstract class Oglasivac implements SuceljePrijava{
 	@Override
 	public String toString() {
 		return "Oglasivac [id=" + id + ", oib=" + oib + ", email=" + email + ", username=" + username
-			+ ", passwordHash=" + passwordHash + ", tipRacuna=" + tipRacuna + ", sviOglasi=" + sviOglasi
+			+ ", passwordHash=" + passwordHash + ", tipClanstva=" + tipClanstva + ", sviOglasi=" + sviOglasi
 			+ ", adresa=" + adresa + ", telefon=" + telefon + ", datumRegistracije=" + datumRegistracije
 			+ ", datumIstekaClanarine=" + datumIstekaClanarine + "]";
 	}

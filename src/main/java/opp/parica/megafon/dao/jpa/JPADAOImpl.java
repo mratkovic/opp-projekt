@@ -104,7 +104,7 @@ public class JPADAOImpl implements DAO {
 	}
 
 	@Override
-	public void dodajTipRacuna(final TipClanstva tip) {
+	public void dodajTipClanstva(final TipClanstva tip) {
 		EntityManager em = JPAEMProvider.getEntityManager();
 		if (tip.getId() == null) {
 			em.persist(tip);
@@ -127,14 +127,13 @@ public class JPADAOImpl implements DAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public TipClanstva dohvatiTipRacuna(final String naziv) {
+	public TipClanstva dohvatiTipClanstva(final String naziv) {
 		EntityManager em = JPAEMProvider.getEntityManager();
 		List<TipClanstva> t =
 			em.createQuery("select tip from TipClanstva as tip "
 				+ "where tip.naziv=:naziv")
 				.setParameter("naziv", naziv)
 				.getResultList();
-		System.out.println(t);
 		if (t == null || t.isEmpty()) {
 			return null;
 		} else {
@@ -185,7 +184,6 @@ public class JPADAOImpl implements DAO {
 		if (fo != null) {
 			return fo;
 		}
-		// nepostoji
 		return null;
 	}
 
@@ -219,10 +217,10 @@ public class JPADAOImpl implements DAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object dohvatiSveTipoveRacuna() {
+	public Object dohvatiSveTipoveClanstva() {
 		EntityManager em = JPAEMProvider.getEntityManager();
-		List<TipClanstva> tipoviRacuna = em.createQuery("from TipClanstva").getResultList();
-		return tipoviRacuna;
+		List<TipClanstva> tipoviClanstva = em.createQuery("from TipClanstva").getResultList();
+		return tipoviClanstva;
 	}
 
 	@SuppressWarnings("unchecked")

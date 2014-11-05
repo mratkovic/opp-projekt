@@ -22,7 +22,7 @@ public class PromjenaLozinkeServlet  extends HttpServlet {
 	protected final void doGet(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
 		if (req.getSession().getAttribute("logged") == null) {
-			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/main");
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 			System.out.println(DAOProvider.getDAO().dohvatiSveKategorije());
 		} else {
 			req.setAttribute("zapis", new PromjenaLozinkeForma());
@@ -36,7 +36,7 @@ public class PromjenaLozinkeServlet  extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String metoda = req.getParameter("metoda");
 		if (!"Pohrani".equals(metoda)) {
-			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/main");
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 			return;
 		}
 		PromjenaLozinkeForma form = new PromjenaLozinkeForma();
@@ -56,7 +56,7 @@ public class PromjenaLozinkeServlet  extends HttpServlet {
 
 				req.setAttribute("msg", "Promjena lozinke uspješna");
 				req.setAttribute("title", "Promjena lozinke");
-				req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req,resp);
+				req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req,resp);
 				return;
 
 			} else if (oglasivac != null &&
@@ -69,7 +69,7 @@ public class PromjenaLozinkeServlet  extends HttpServlet {
 
 				req.setAttribute("msg", "Promjena lozinke uspješna");
 				req.setAttribute("title", "Promjena lozinke");
-				req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req,resp);
+				req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req,resp);
 				return;
 
 			} else {

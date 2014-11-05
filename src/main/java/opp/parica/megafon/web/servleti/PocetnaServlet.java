@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Marko Ratkovic
  * @version 1.0
  */
-@WebServlet("/servleti/main")
+@WebServlet("/servleti/pocetna")
 public class PocetnaServlet extends HttpServlet {
 	/** Defaultni serial version UID. */
 	private static final long serialVersionUID = 1L;
@@ -23,14 +23,8 @@ public class PocetnaServlet extends HttpServlet {
 	@Override
 	protected final void doGet(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
-
 		req.getRequestDispatcher("/WEB-INF/pages/Index.jsp").forward(req,
 			resp);
-	}
-
-	@Override
-	protected final void doPost(final HttpServletRequest req, final HttpServletResponse resp)
-		throws ServletException, IOException {
 	}
 
 }

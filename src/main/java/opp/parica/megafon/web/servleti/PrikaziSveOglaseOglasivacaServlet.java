@@ -22,12 +22,17 @@ public class PrikaziSveOglaseOglasivacaServlet extends HttpServlet {
 	protected final void doGet(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
 		String idParam = req.getParameter("id");
-		if (idParam == null) {
+		boolean korisnikPrikazujeSvoje = false;
+		if (idParam == null && req.getSession().getAttribute("user") == null) {
 			req.setAttribute("title", "Greška");
 			req.setAttribute("msg",
 				"Neispravan poziv. Nedostaje parametar 'id' koji oznacava oglasivaca ciji se oglasi prikazuju.");
-			req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
+		} else if (idParam == null && req.getSession().getAttribute("user") != null) {
+			// oglasivac zeli svoje oglase prikazat
+			korisnikPrikazujeSvoje = true;
+			idParam = ((Oglasivac) req.getSession().getAttribute("user")).getId().toString();
 		}
 		long id;
 		try {
@@ -38,7 +43,7 @@ public class PrikaziSveOglaseOglasivacaServlet extends HttpServlet {
 				"msg",
 				"Neispravan poziv. Parametar 'id' koji oznacava oglasivaca"
 					+ " je neispravnog formata. Ocekivana cijelobrojna vrijednost.");
-			req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 		}
 		Oglasivac oglasivac = DAOProvider.getDAO().dohvatiOglasivaca(id);
@@ -46,14 +51,14 @@ public class PrikaziSveOglaseOglasivacaServlet extends HttpServlet {
 
 		req.setAttribute("oglasi", oglasi);
 		req.setAttribute("autor", oglasivac.getUsername());
-		if (req.getParameter("admin") == null) {
+		if (req.getSession().getAttribute("admin") == null && !korisnikPrikazujeSvoje) {
 			// za korisnike, prikaz oglasa
 			req.getRequestDispatcher("/WEB-INF/pages/PrikaziOglaseOglasivaca.jsp").forward(req, resp);
-		}else {
-			// za admina, prikaz liste oglasa i mogucnost brisanja
+		} else {
+			// za admina, prikaz liste oglasa i mogucnost brisanja ili za
+			// logiranog autora
 			req.getRequestDispatcher("/WEB-INF/pages/IzlistajOglaseOglasivaca.jsp").forward(req, resp);
 		}
 
 	}
-
 }

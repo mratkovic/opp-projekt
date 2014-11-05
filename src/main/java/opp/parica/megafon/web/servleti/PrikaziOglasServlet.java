@@ -24,7 +24,7 @@ public class PrikaziOglasServlet extends HttpServlet {
 			req.setAttribute("title", "Greška");
 			req.setAttribute("msg",
 				"Neispravan poziv. Nedostaje parametar 'id' koji oznacava oglas koji se treba prikazati.");
-			req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 		}
 		long id;
@@ -36,7 +36,7 @@ public class PrikaziOglasServlet extends HttpServlet {
 				"msg",
 				"Neispravan poziv. Parametar 'id' koji oznacava oglas"
 					+ " je neispravnog formata. Ocekivana cijelobrojna vrijednost.");
-			req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 		}
 		Oglas o = DAOProvider.getDAO().dohvatiOglas(id);

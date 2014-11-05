@@ -18,14 +18,14 @@ import javax.persistence.Table;
  * @version 1.0
  */
 @Entity
-@Table(name = "tip_racuna")
+@Table(name = "tip_clanstva")
 public class TipClanstva {
 	/** Identifikator korisnika. */
 	private Long id;;
 	/** Naziv tipa racuna. */
 	private String naziv;
 	/** Iznos mjesecne clanarine. */
-	private String clanarina;
+	private Double clanarina;
 	/** Lista korisnika tog tipa koji imaju modelirani tip clanarine. */
 	private List<Oglasivac> oglasavaci;
 
@@ -75,7 +75,7 @@ public class TipClanstva {
 	 *
 	 * @return iznos clanarine
 	 */
-	public String getClanarina() {
+	public Double getClanarina() {
 		return clanarina;
 	}
 
@@ -85,8 +85,8 @@ public class TipClanstva {
 	 * @param clanarina
 	 *            iznos clanarine
 	 */
-	@Column(length = 200, nullable = false)
-	public void setClanarina(final String clanarina) {
+	@Column(nullable = false)
+	public void setClanarina(final Double clanarina) {
 		this.clanarina = clanarina;
 	}
 
@@ -101,7 +101,7 @@ public class TipClanstva {
 	 *
 	 * @return lista oglasivaca
 	 */
-	@OneToMany(mappedBy = "tipRacuna", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+	@OneToMany(mappedBy = "tipClanstva", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
 	public List<Oglasivac> getOglasavaci() {
 		return oglasavaci;
 	}

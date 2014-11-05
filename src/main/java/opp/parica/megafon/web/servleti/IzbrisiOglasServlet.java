@@ -25,7 +25,7 @@ public class IzbrisiOglasServlet extends HttpServlet {
 			req.setAttribute("title", "Greška");
 			req.setAttribute("msg",
 				"Neispravan poziv. Nedostaje parametar 'id' koji oznacava oglasivaca koji se brise.");
-			req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 		}
 		long id;
@@ -37,7 +37,7 @@ public class IzbrisiOglasServlet extends HttpServlet {
 				"msg",
 				"Neispravan poziv. Parametar 'id' koji oznacava oglas koji se brise"
 					+ " je neispravnog formata. Ocekivana cijelobrojna vrijednost.");
-			req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 		}
 
@@ -53,14 +53,14 @@ public class IzbrisiOglasServlet extends HttpServlet {
 
 		if (!canDelete) {
 			req.setAttribute("msg", "Nedovoljna razina prava za izmjenu sadrzaja.");
-			req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 		}
 		Oglas o = DAOProvider.getDAO().dohvatiOglas(id);
 		DAOProvider.getDAO().izbrisiOglas(id);
 		req.setAttribute("title", "Brisanje uspjesno");
 		req.setAttribute("msg", "Oglas '" + o.getNaslov() + "' izbrisan iz baze podataka");
-		req.getRequestDispatcher("/WEB-INF/pages/DisplayMsg.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 
 	}
 

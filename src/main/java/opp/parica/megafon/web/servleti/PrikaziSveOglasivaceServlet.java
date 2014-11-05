@@ -21,7 +21,7 @@ public class PrikaziSveOglasivaceServlet extends HttpServlet {
 	protected final void doGet(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
 		if (req.getSession().getAttribute("admin") == null) {
-			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/main");
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 		} else {
 			List<Oglasivac> oglasivaci = DAOProvider.getDAO().dohvatiSveOglasavace();
 			req.setAttribute("oglasivaci", oglasivaci);

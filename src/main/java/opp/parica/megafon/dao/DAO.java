@@ -20,7 +20,7 @@ public interface DAO{
 
 	boolean postojiAdmin();
 
-	void dodajTipRacuna(TipClanstva tip);
+	void dodajTipClanstva(TipClanstva tip);
 
 	void dodajKategoriju(Kategorija k);
 
@@ -32,7 +32,7 @@ public interface DAO{
 
 	Admin dohvatiAdmin(String username, String passwordHash);
 
-	TipClanstva dohvatiTipRacuna(String naziv);
+	TipClanstva dohvatiTipClanstva(String naziv);
 
 	Oglasivac dohvatiOglasivaca(long id);
 
@@ -42,7 +42,7 @@ public interface DAO{
 
 	Oglas dohvatiOglas(long id);
 
-	Object dohvatiSveTipoveRacuna();
+	Object dohvatiSveTipoveClanstva();
 
 	List<Admin> dohvatiSveAdmine();
 

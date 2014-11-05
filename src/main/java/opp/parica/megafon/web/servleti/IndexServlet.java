@@ -22,7 +22,7 @@ public class IndexServlet extends HttpServlet {
 	@Override
 	protected final void doGet(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
-		resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/main");
+		resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 	}
 
 }
