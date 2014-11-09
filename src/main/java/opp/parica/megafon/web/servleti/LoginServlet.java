@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 	protected final void doGet(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
 		if (req.getSession().getAttribute("logged") != null) {
-			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/main");
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 		} else {
 			req.setAttribute("zapis", new PrijavaKorisnikaForma());
 			req.getRequestDispatcher("/WEB-INF/pages/Login.jsp").forward(req, resp);

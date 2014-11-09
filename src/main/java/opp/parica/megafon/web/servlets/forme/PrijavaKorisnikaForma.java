@@ -62,16 +62,6 @@ public class PrijavaKorisnikaForma extends ApstraktnaWebForma {
 	}
 
 	/**
-	 * Metoda koja postavlja vrijednost korisnickom imena.
-	 *
-	 * @param nick
-	 *            the nick to set
-	 */
-	public final void setUsername(final String username) {
-		this.username = username;
-	}
-
-	/**
 	 * Metoda koja dohvaca lozinku.
 	 *
 	 * @return the password
@@ -80,19 +70,15 @@ public class PrijavaKorisnikaForma extends ApstraktnaWebForma {
 		return password;
 	}
 
-	/**
-	 * Metoda koja postavlja vrijednost lozinke.
-	 *
-	 * @param password
-	 *            the password to set
-	 */
-	public final void setPassword(final String password) {
-		this.password = password;
-	}
 
 	@Override
 	public void fillFromObject(final Object obj) {
 		// ne koristi se
+	}
+
+	public void setPassword(final String password) {
+		this.password = password;
+
 	}
 
 }

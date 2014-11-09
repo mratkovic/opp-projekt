@@ -16,11 +16,31 @@
 
 			<div id="site_menu">
 				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="gallery.html" class="current">Gallery</a></li>
-					<li><a href="news.html">News</a></li>
-					<li><a href="blog.html">Blog</a></li>
-					<li class="last"><a href="contact.html">Contact</a></li>
+					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
+					<li><a href="/megafon/servleti/">Pretraga</a></li>
+					<li><a href="/megafon/servleti/">O nama</a></li>
+
+					<c:choose>
+						<c:when test='${sessionScope["logged"] == null}'>
+							<li><a href="/megafon/servleti/login">Prijava</a></li>
+							<li class="last"><a href="/megafon/servleti/register">Registracija</a></li>
+						</c:when>
+						<c:otherwise>
+							<c:choose>
+								<c:when test='${sessionScope["admin"] == null}'>
+									<li class="last"><a href="/megafon/servleti/admin"
+										class="current">Postavke</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
+									<li class="last"><a
+										href="/megafon/servleti/prikaziOglaseOglasivaca">Moji
+											oglasi</a></li>
+									<li class="last"><a href="/megafon/servleti/user">Postavke</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 
 				<div id="search_box">

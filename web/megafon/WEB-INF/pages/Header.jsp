@@ -12,7 +12,7 @@
 			<c:when test='${sessionScope["logged"] == null}'>
 				<li><a class = 'userbarA' href="/megafon/servleti/register">Registracija</a></li>
 				<li class=separator>|</li>
-				<li><a class = 'userbarA'  href="/megafon/servleti/login">Login</a></li>
+				<li><a class = 'userbarA'  href="/megafon/servleti/login">Prijava</a></li>
 				<li class=separator>|</li>
 				<li>Gost</li>
 				<li class=separator>|</li>

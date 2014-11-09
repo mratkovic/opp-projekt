@@ -13,25 +13,16 @@ public class PravnaOsobaRegistracijaForma extends OglasivacRegistracijaForma {
 
 
 	{
-		setExtension("_po");
+		setEkstenzija("_po");
 	}
 
 	public String getNaziv() {
 		return naziv;
 	}
 
-	public void setNaziv(final String naziv) {
-		this.naziv = naziv;
-	}
-
 	public String getFax() {
 		return fax;
 	}
-
-	public void setFax(final String fax) {
-		this.fax = fax;
-	}
-
 	@Override
 	public void fillFromHttpRequest(final HttpServletRequest req) {
 		super.fillFromHttpRequest(req);

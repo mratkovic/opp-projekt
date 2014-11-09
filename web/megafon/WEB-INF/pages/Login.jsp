@@ -16,11 +16,11 @@
 
 			<div id="site_menu">
 				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="gallery.html" class="current">Gallery</a></li>
-					<li><a href="news.html">News</a></li>
-					<li><a href="blog.html">Blog</a></li>
-					<li class="last"><a href="contact.html">Contact</a></li>
+					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
+					<li><a href="/megafon/servleti/">Pretraga</a></li>
+					<li><a href="/megafon/servleti/">O nama</a></li>
+					<li><a href="/megafon/servleti/login" class="current">Prijava</a></li>
+					<li class="last"><a href="/megafon/servleti/register">Registracija</a></li>
 				</ul>
 
 				<div id="search_box">
@@ -65,11 +65,12 @@
 									<div class="greska">${zapis.getError('password')}</div>
 								</c:if></td>
 						</tr>
-						
+
 						<tr>
 							<td></td>
-							<td class=botuni><input type="submit" name="metoda" value="Pohrani">
-								<input type="submit" name="metoda" value="Odustani"></td>
+							<td class=botuni><input type="submit" name="metoda"
+								value="Pohrani"> <input type="submit" name="metoda"
+								value="Odustani"></td>
 						</tr>
 					</table>
 					<div class="greska">${msg}</div>

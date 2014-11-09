@@ -56,11 +56,29 @@
 
 		<div id="site_menu">
 			<ul>
-				<li><a href="index.html" class="current">Home</a></li>
-				<li><a href="gallery.html">Gallery</a></li>
-				<li><a href="news.html">News</a></li>
-				<li><a href="blog.html">Blog</a></li>
-				<li class="last"><a href="contact.html">Contact</a></li>
+				<li><a href="/megafon/servleti/pocetna" class="current">Početna</a></li>
+				<li><a href="/megafon/servleti/">Pretraga</a></li>
+				<li><a href="/megafon/servleti/">O nama</a></li>
+
+				<c:choose>
+					<c:when test='${sessionScope["logged"] == null}'>
+						<li><a href="/megafon/servleti/login">Prijava</a></li>
+						<li class="last"><a href="/megafon/servleti/register">Registracija</a></li>
+					</c:when>
+					<c:otherwise>
+						<c:choose>
+							<c:when test='${sessionScope["admin"] == null}'>
+								<li class="last"><a href="/megafon/servleti/admin">Postavke</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
+								<li class="last"><a
+									href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
+								<li class="last"><a href="/megafon/servleti/user">Postavke</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 
 			<div id="search_box">
@@ -99,7 +117,7 @@
 								<div class="cleaner"></div>
 							</div>
 						</div>
-						
+
 						<div class="als-item">
 							<div class="lp_box lp_box_last">
 								<h6>2N1ullam ut neque neque</h6>
@@ -111,7 +129,7 @@
 								<div class="cleaner"></div>
 							</div>
 						</div>
-						
+
 						<div class="als-item">
 							<div class="lp_box lp_box_last">
 								<h6>3N1ullam ut neque neque</h6>
@@ -123,7 +141,7 @@
 								<div class="cleaner"></div>
 							</div>
 						</div>
-						
+
 						<div class="als-item">
 							<div class="lp_box lp_box_last">
 								<h6>4N1ullam ut neque neque</h6>
@@ -152,10 +170,9 @@
 				Nemate korisnicki racun na portalu? Registrirajte se <a
 					href="/megafon/servleti/register">ovdje</a>
 			</p>
-			
+
 			<p>
-				Promini pass <a
-					href="/megafon/servleti/promjenaLozinke">ovdje</a>
+				Promini pass <a href="/megafon/servleti/promjenaLozinke">ovdje</a>
 			</p>
 		</div>
 		<!-- end of main -->

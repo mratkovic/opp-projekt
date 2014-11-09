@@ -10,7 +10,7 @@ public class FizickaOsobaRegistracijaForma extends OglasivacRegistracijaForma {
 	/** Prezime korisnika. */
 	private String prezime;
 	{
-		setExtension("_fo");
+		setEkstenzija("_fo");
 	}
 	@Override
 	public void fillFromHttpRequest(final HttpServletRequest req) {
@@ -58,17 +58,9 @@ public class FizickaOsobaRegistracijaForma extends OglasivacRegistracijaForma {
 	public String getIme() {
 		return ime;
 	}
-
-	public void setIme(final String ime) {
-		this.ime = ime;
-	}
-
 	public String getPrezime() {
 		return prezime;
 	}
 
-	public void setPrezime(final String prezime) {
-		this.prezime = prezime;
-	}
 
 }

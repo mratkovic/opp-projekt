@@ -12,26 +12,13 @@ public class PromjenaLozinkeForma extends ApstraktnaWebForma {
 		return oldPass;
 	}
 
-	public void setOldPass(final String oldPass) {
-		this.oldPass = oldPass;
-	}
-
 	public String getPassword1() {
 		return password1;
-	}
-
-	public void setPassword1(final String password1) {
-		this.password1 = password1;
 	}
 
 	public String getPassword2() {
 		return password2;
 	}
-
-	public void setPassword2(final String password2) {
-		this.password2 = password2;
-	}
-
 	@Override
 	public void fillFromHttpRequest(final HttpServletRequest req) {
 		oldPass = trimParameter(req.getParameter("oldPass"));

@@ -16,11 +16,14 @@
 
 			<div id="site_menu">
 				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="gallery.html" class="current">Gallery</a></li>
-					<li><a href="news.html">News</a></li>
-					<li><a href="blog.html">Blog</a></li>
-					<li class="last"><a href="contact.html">Contact</a></li>
+					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
+					<li><a href="/megafon/servleti/">Pretraga</a></li>
+					<li><a href="/megafon/servleti/">O nama</a></li>
+
+					<li class="last"><a href="/megafon/servleti/admin"
+						class="current">Postavke</a></li>
+
+
 				</ul>
 
 				<div id="search_box">

@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
-<title>Promjena lozinke</title>
+<title>Promjena tipa članstva</title>
 </head>
 
 
@@ -28,9 +28,9 @@
 						</c:when>
 						<c:otherwise>
 							<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
-								<li class="last"><a
-									href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
-								<li class="last"><a href="/megafon/servleti/user">Postavke</a></li>
+							<li class="last"><a
+								href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
+							<li class="last"><a href="/megafon/servleti/user">Postavke</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -49,50 +49,39 @@
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Promjena lozinke</h2>
+				<h2>Promjena tipa članstva</h2>
 				<p>
-					Promjena pristupne lozinke <br> Potrebno je ispuniti zadanu
-					formu za promjenu lozinke.
+					Promjena tipa članstva oglašivača <br> Informirajte se o
+					pogodnostima različitih tipova članstva te odaberite željeni
 				</p>
 			</div>
 
 			<div id="site_main">
-				<form action="/megafon/servleti/promjenaLozinke" method="post">
+
+				<p>Trenutni tip članstva: ${trenutniTip}</p>
+				<p>Datum isteka članstva: ${datumIsteka}</p>
+				<p class=fusnota>*Ukoliko se ne obnovi članarina do datuma
+					isteka, tip računa se prebacuje u Besplatni tip</p>
+				<p class=fusnota>*Ukoliko već imate neki od plačenih modela
+					clanstva, te odlučite odabrati i platiti članarinu za isti tip u
+					tom slucaju vam se postoječi datum isteka produzi za dodatnih
+					mjesec dana</p>
+				<form action="/megafon/servleti/promjenaTipa" method="post">
+
+					<select name="odabraniTip" size="1">
+						<c:forEach var="tip" items="${tipoviRacuna}">
+							<option value='${tip.naziv}'>${tip.naziv}-${tip.clanarina}
+								kn/mjesec
+						</c:forEach>
+					</select>
 					<table>
-						<tr>
-							<td class=firstCol><label for="oldPass">Trenutna
-									lozinka:</label></td>
-							<td><input type="password" name="oldPass"
-								value='${zapis.oldPass}' size=40> <c:if
-									test="${zapis.hasError('oldPass')}">
-									<div class="greska">${zapis.getError('oldPass')}</div>
-								</c:if></td>
-						</tr>
-						<tr>
-							<td class=firstCol><label for="password1">Nova
-									ozinka:</label></td>
-							<td><input type="password" name="password1"
-								value='${zapis.password1}' size=40> <c:if
-									test="${zapis.hasError('password1')}">
-									<div class="greska">${zapis.getError('password1')}</div>
-								</c:if></td>
-						</tr>
-						<tr>
-							<td class=firstCol><label for="password2">Potvrda
-									nove lozinke:</label></td>
-							<td><input type="password" name="password2"
-								value='${zapis.password2}' size=40> <c:if
-									test="${zapis.hasError('password2')}">
-									<div class="greska">${zapis.getError('password2')}</div>
-								</c:if></td>
-						</tr>
 						<tr>
 							<td></td>
 							<td class=botuni><input type="submit" name="metoda"
-								value="Pohrani"> <input type="submit" name="metoda"
-								value="Odustani"></td>
+								value="Promjeni tip"></td>
 						</tr>
 					</table>
+
 				</form>
 			</div>
 			<!-- end of main -->

@@ -24,16 +24,6 @@ public class RegistracijaAdminaForma extends ApstraktnaWebForma {
 	}
 
 	/**
-	 * Metoda koja postavlja vrijednost identifikatora.
-	 *
-	 * @param id
-	 *            the id to set
-	 */
-	public final void setId(final String id) {
-		this.id = id;
-	}
-
-	/**
 	 * Metoda koja dohvaca korisnicko ime.
 	 *
 	 * @return korisnicko ime
@@ -43,32 +33,12 @@ public class RegistracijaAdminaForma extends ApstraktnaWebForma {
 	}
 
 	/**
-	 * Metoda koja postavlja korisnicko ime.
-	 *
-	 * @param username
-	 *            korisnicko ime
-	 */
-	public void setUsername(final String username) {
-		this.username = username;
-	}
-
-	/**
 	 * Metoda koja dohvaca zaporke.
 	 *
 	 * @return the password
 	 */
 	public final String getPassword() {
 		return password;
-	}
-
-	/**
-	 * Metoda koja postavlja vrijednost zaporke korisnika.
-	 *
-	 * @param password
-	 *            the password to set
-	 */
-	public final void setPassword(final String password) {
-		this.password = password;
 	}
 
 	@Override

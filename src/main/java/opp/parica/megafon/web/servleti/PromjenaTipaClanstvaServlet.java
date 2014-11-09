@@ -3,6 +3,7 @@ package opp.parica.megafon.web.servleti;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import opp.parica.megafon.dao.DAOProvider;
 import opp.parica.megafon.model.Oglasivac;
 import opp.parica.megafon.model.TipClanstva;
-
+@WebServlet("/servleti/promjenaTipa")
 public class PromjenaTipaClanstvaServlet extends HttpServlet {
 	/** Defaultni serial version UID. */
 	private static final long serialVersionUID = 1L;
@@ -38,23 +39,27 @@ public class PromjenaTipaClanstvaServlet extends HttpServlet {
 		IOException {
 		req.setCharacterEncoding("UTF-8");
 		String metoda = req.getParameter("metoda");
-		if (!"Pohrani".equals(metoda)) {
+		if (!"Promjeni tip".equals(metoda)) {
 			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 			return;
 		}
 
 		String odabraniTip = req.getParameter("odabraniTip");
-		Oglasivac oglasivac = (Oglasivac) req.getSession().getAttribute("oglasivac");
-		String tko = oglasivac.informacijeOOglasivacu();
-		String komu = "Megafon, portal za oglašavanje";
+		Oglasivac oglasivac = (Oglasivac) req.getSession().getAttribute("user");
+		String buyer = oglasivac.informacijeOOglasivacu();
+		String seller = "Megafon, portal za oglašavanje";
 		TipClanstva tr = DAOProvider.getDAO().dohvatiTipClanstva(odabraniTip);
-		String iznos = tr.getClanarina() + ",00 HRK";
-		String sto = tr.getNaziv() + " tip racuna, 1 mjesec";
+		String price = String.format("%.2f", tr.getClanarina()) + " HRK";
+		String item = tr.getNaziv() + " tip racuna, 1 mjesec";
+		String total = price;
 
-		req.setAttribute("tko", tko);
-		req.setAttribute("sto", sto);
-		req.setAttribute("komu", komu);
-		req.setAttribute("iznos", iznos);
+		req.setAttribute("buyer", buyer);
+		req.setAttribute("item", item);
+		req.setAttribute("seller", seller);
+		req.setAttribute("price", price);
+		req.setAttribute("qty", 1);
+		req.setAttribute("total", total);
 		// preusmjeri na banku
+		req.getRequestDispatcher("/WEB-INF/pages/BankaSucelje.jsp").forward(req, resp);
 	}
 }

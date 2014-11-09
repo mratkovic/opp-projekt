@@ -795,6 +795,10 @@ a.more:hover {
 .tipOglasivacaRadio label{
 	padding-right: 50px;
 }
+.tipOglasivacaRadio {
+	padding-bottom: 35px;
+	font-size: 1.5em;
+}
 
 .botuni {
 	padding-top: 25px;
@@ -808,6 +812,10 @@ a.more:hover {
 	padding-bottom: 15px;
 	font-weight: bold;
 	padding-top: 25;
+}
+
+.fusnota {
+	font-size: 0.8em;
 }
 
 
