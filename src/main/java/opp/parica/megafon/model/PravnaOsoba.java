@@ -58,8 +58,8 @@ public class PravnaOsoba extends Oglasivac {
 	}
 
 	@Override
-	public String informacijeOOglasivacu() {
-		return naziv + ", " + getAdresa();
+	public String dohvatiKorisnikInfo() {
+		return String.format("%s '%s'", naziv, getUsername());
 	}
 
 }

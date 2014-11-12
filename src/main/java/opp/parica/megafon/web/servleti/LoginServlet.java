@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import opp.parica.megafon.dao.DAOProvider;
 import opp.parica.megafon.model.Admin;
 import opp.parica.megafon.model.FizickaOsoba;
-import opp.parica.megafon.model.Oglasivac;
+import opp.parica.megafon.model.Korisnik;
 import opp.parica.megafon.model.PravnaOsoba;
 import opp.parica.megafon.web.servlets.forme.PrijavaKorisnikaForma;
 
@@ -77,26 +77,18 @@ public class LoginServlet extends HttpServlet {
 			resp);
 	}
 
-	static final void loginMethod(final HttpServletRequest req, final Admin user) {
-		req.getSession().setAttribute("admin", user);
-		req.getSession().setAttribute("logged", user.getUsername());
-	}
-
-	static final void loginMethod(final HttpServletRequest req, final Oglasivac user) {
+	static final void loginMethod(final HttpServletRequest req, final Korisnik user) {
 		if (user instanceof PravnaOsoba) {
 			PravnaOsoba po = (PravnaOsoba) user;
 			req.getSession().setAttribute("user", po);
-			req.getSession().setAttribute("logged",
-				((PravnaOsoba) user).getNaziv() + " '" + user.getUsername()
-					+ "' ");
-
 		} else if (user instanceof FizickaOsoba) {
 			FizickaOsoba fo = (FizickaOsoba) user;
 			req.getSession().setAttribute("user", fo);
-			req.getSession().setAttribute("logged",
-				((FizickaOsoba) user).getIme() + " '" + user.getUsername()
-					+ "' " + ((FizickaOsoba) user).getPrezime());
-
+		} else {
+			req.getSession().setAttribute("admin", user);
 		}
+		req.getSession().setAttribute("logged", user.dohvatiKorisnikInfo());
+
+
 	}
 }

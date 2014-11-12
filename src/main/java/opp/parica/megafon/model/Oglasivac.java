@@ -7,9 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -27,19 +24,13 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "oglasivac")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Oglasivac implements SuceljePrijava{
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Oglasivac extends Korisnik{
 
-	/** Identifikator korisnika. */
-	private Long id;;
 	/** OIB oglasivaca. */
 	private String oib;
 	/** Kontakt mail korisika. */
 	private String email;
-	/** Korisnicko ime za prijavu */
-	private String username;
-	/** Hash lozinke. */
-	private String passwordHash;
 	/** Tip racuna korisnika. */
 	private TipClanstva tipClanstva;
 	/** Lista svih oglasa nekog autora. */
@@ -76,26 +67,7 @@ public abstract class Oglasivac implements SuceljePrijava{
 		this.tipClanstva = tipClanstva;
 	}
 
-	/**
-	 * Metoda koja dohvaca identifikator.
-	 *
-	 * @return the id
-	 */
-	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
-	public final Long getId() {
-		return id;
-	}
 
-	/**
-	 * Metoda koja postavlja vrijednost identifikatora.
-	 *
-	 * @param id
-	 *            the id to set
-	 */
-	public final void setId(final Long id) {
-		this.id = id;
-	}
 
 	/**
 	 * Metoda koja dohvaca oib.
@@ -115,29 +87,6 @@ public abstract class Oglasivac implements SuceljePrijava{
 	 */
 	public void setOib(final String oib) {
 		this.oib = oib;
-	}
-
-
-	/**
-	 * Metoda koja dohvaca korisnicko ime.
-	 *
-	 * @return korisnicko ime
-	 */
-	@Override
-	@Column(length = 200, nullable = false)
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * Metoda koja postavlja korisnicko ime.
-	 *
-	 * @param username
-	 *            korisnicko ime
-	 */
-	@Override
-	public void setUsername(final String username) {
-		this.username = username;
 	}
 
 	/**
@@ -160,35 +109,6 @@ public abstract class Oglasivac implements SuceljePrijava{
 		this.email = email;
 	}
 
-	/**
-	 * Metoda koja dohvaca hash zaporke.
-	 *
-	 * @return the passwordHash
-	 */
-	@Override
-	@Column(length = 40, nullable = false)
-	public final String getPasswordHash() {
-		return passwordHash;
-	}
-
-	/**
-	 * Metoda koja postavlja vrijednost hash zaporke korisnika.
-	 *
-	 * @param passwordHash
-	 *            the passwordHash to set
-	 */
-	@Override
-	public final void setPasswordHash(final String passwordHash) {
-		this.passwordHash = passwordHash;
-	}
-
-	@Override
-	public String toString() {
-		return "Oglasivac [id=" + id + ", oib=" + oib + ", email=" + email + ", username=" + username
-			+ ", passwordHash=" + passwordHash + ", tipClanstva=" + tipClanstva + ", sviOglasi=" + sviOglasi
-			+ ", adresa=" + adresa + ", telefon=" + telefon + ", datumRegistracije=" + datumRegistracije
-			+ ", datumIstekaClanarine=" + datumIstekaClanarine + "]";
-	}
 
 	public String informacijeOOglasivacu() {
 		return "";
@@ -270,7 +190,7 @@ public abstract class Oglasivac implements SuceljePrijava{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
 		return result;
 	}
 
@@ -286,11 +206,11 @@ public abstract class Oglasivac implements SuceljePrijava{
 			return false;
 		}
 		Oglasivac other = (Oglasivac) obj;
-		if (id == null) {
-			if (other.id != null) {
+		if (getId() == null) {
+			if (other.getId() != null) {
 				return false;
 			}
-		} else if (!id.equals(other.id)) {
+		} else if (!getId().equals(other.getId())) {
 			return false;
 		}
 		return true;

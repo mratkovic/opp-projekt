@@ -60,9 +60,11 @@ public class FizickaOsoba extends Oglasivac {
 	}
 
 	@Override
-	public String informacijeOOglasivacu() {
-		return ime + " " + prezime + ", " + getAdresa();
+	public String dohvatiKorisnikInfo() {
+		return String.format("%s '%s' %s", ime, getUsername(), prezime);
 	}
+
+
 
 
 }
