@@ -57,7 +57,7 @@
 			</div>
 
 			<div id="site_main">
-				<form action="/megafon/servleti/promjenaLozinke" method="post">
+				<form action="/megafon/servleti/uredi/lozinka" method="post">
 					<table>
 						<tr>
 							<td class=firstCol><label for="oldPass">Trenutna

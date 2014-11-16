@@ -10,7 +10,7 @@
 	 <div class="userbar">
 		<c:choose>
 			<c:when test='${sessionScope["logged"] == null}'>
-				<li><a class = 'userbarA' href="/megafon/servleti/register">Registracija</a></li>
+				<li><a class = 'userbarA' href="/megafon/servleti/registracija/oglasivac">Registracija</a></li>
 				<li class=separator>|</li>
 				<li><a class = 'userbarA'  href="/megafon/servleti/login">Prijava</a></li>
 				<li class=separator>|</li>

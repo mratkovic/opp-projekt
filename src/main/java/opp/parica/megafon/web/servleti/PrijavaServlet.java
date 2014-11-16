@@ -16,7 +16,7 @@ import opp.parica.megafon.model.PravnaOsoba;
 import opp.parica.megafon.web.servlets.forme.PrijavaKorisnikaForma;
 
 @WebServlet("/servleti/login")
-public class LoginServlet extends HttpServlet {
+public class PrijavaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -2642786903348555772L;
 
@@ -88,6 +88,7 @@ public class LoginServlet extends HttpServlet {
 			req.getSession().setAttribute("admin", user);
 		}
 		req.getSession().setAttribute("logged", user.dohvatiKorisnikInfo());
+		req.getSession().setAttribute("id", user.getId());
 
 
 	}

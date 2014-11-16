@@ -5,6 +5,7 @@ import java.util.List;
 import opp.parica.megafon.model.Admin;
 import opp.parica.megafon.model.FizickaOsoba;
 import opp.parica.megafon.model.Kategorija;
+import opp.parica.megafon.model.Korisnik;
 import opp.parica.megafon.model.Oglas;
 import opp.parica.megafon.model.Oglasivac;
 import opp.parica.megafon.model.PravnaOsoba;
@@ -49,5 +50,11 @@ public interface DAO{
 	List<Kategorija> dohvatiSveKategorije();
 
 	List<Oglas> dohvatiOglaseOglasivaca(Oglasivac oglasivac);
+
+	Korisnik dohvatiKorisnika(long id);
+
+	TipClanstva dohvatiTipClanstva(long idTip);
+
+	Kategorija dohvatiKategoriju(long id);
 
 }

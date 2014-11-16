@@ -12,13 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 @Entity
 @Table(name = "kategorija")
 public class Kategorija {
-
-
-
+	public static final String[] TIPOVI = { "NUM", "TXT" };
+	public static final String[] OSNOVNE_STAVKE = { "Naziv oglasa",
+		"Cijena", "Opis", "Video link", "Slike"};
 
 	private Long id;
 	private String naziv;

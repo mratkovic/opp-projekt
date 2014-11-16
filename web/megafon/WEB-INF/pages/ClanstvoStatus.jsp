@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%pageContext.setAttribute("razmak", " - ");%>
+<%
+	pageContext.setAttribute("razmak", " - ");
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
@@ -57,33 +59,20 @@
 			</div>
 
 			<div id="site_main">
+
+				<h4>${msg}</h4>
+				<p>
+					<br>
+				</p>
 				<p>Trenutni tip članstva: ${trenutniTip}</p>
 				<p>Datum isteka članstva: ${datumIsteka}</p>
 				<p>
 					<br>
 				</p>
-				<p>
-					<br>
-				</p>
-				<p>
-				<h3>Odabir novog tipa članstva</h3>
-				</p>
-				<form action="/megafon/servleti/uredi/tip" method="post">
-
-					<select name="odabraniTip" size="1">
-						<c:forEach var="tip" items="${tipoviRacuna}">
-							<option value='${tip.naziv}'>${tip.naziv}${razmak}${tip.clanarina} kn/mjesec
-						</c:forEach>
-
-					</select> <input type="submit" name="metoda" value="Promjeni tip">
-
-				</form>
-				<p class=fusnota>*Ukoliko se ne obnovi članarina do datuma
-					isteka, tip računa se prebacuje u Besplatni tip</p>
-				<p class=fusnota>*Ukoliko već imate neki od plačenih modela
-					clanstva, te odlučite odabrati i platiti članarinu za isti tip u
-					tom slucaju vam se postoječi datum isteka produzi za dodatnih
-					mjesec dana</p>
+				<ul>
+					<li><a href=/megafon/servleti/uredi/tip> Povratak na
+							stranicu za promjenu tipa članstva</a></li>
+				</ul>
 			</div>
 			<!-- end of main -->
 		</div>

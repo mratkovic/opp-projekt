@@ -26,7 +26,7 @@
 				<c:choose>
 					<c:when test='${sessionScope["logged"] == null}'>
 						<li><a href="/megafon/servleti/login">Prijava</a></li>
-						<li class="last"><a href="/megafon/servleti/register">Registracija</a></li>
+						<li class="last"><a href="/megafon/servleti/registracija/oglasivac">Registracija</a></li>
 					</c:when>
 					<c:otherwise>
 						<c:choose>

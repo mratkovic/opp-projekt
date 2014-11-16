@@ -72,7 +72,7 @@
 							</c:when>
 							<c:otherwise>
 								<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
-								<li class="last"><a
+								<li><a
 									href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
 								<li class="last"><a href="/megafon/servleti/user">Postavke</a></li>
 							</c:otherwise>
@@ -168,11 +168,20 @@
 
 			<p>
 				Nemate korisnicki racun na portalu? Registrirajte se <a
-					href="/megafon/servleti/register">ovdje</a>
+					href="/megafon/servleti/registracija/oglasivac">ovdje</a>
+			</p>
+			
+			<p>
+				Nemate korisnicki racun na portalu? Registrirajte admina <a
+					href="/megafon/servleti/registracija/admin">ovdje</a>
 			</p>
 
 			<p>
-				Promini pass <a href="/megafon/servleti/promjenaLozinke">ovdje</a>
+				Promini pass <a href="/megafon/servleti/uredi/lozinka">ovdje</a>
+			</p>
+			
+			<p>
+				Uredi <a href="/megafon/servleti/uredi/korisnik?id=${id}" >ovdje</a>
 			</p>
 		</div>
 		<!-- end of main -->

@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
-<title>Registracija</title>
+<title>Stvaranje Kategorije</title>
 </head>
 
 
@@ -38,55 +38,45 @@
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Stvaranje novog administratora</h2>
+				<h2>Stvaranje nove kategorije oglasa</h2>
 				<p>
-					Stvaranje novog administratora portala za oglašavanje. <br>
-					Potrebno je ispuniti zadanu formu za registraciju administratora.
+					Stvaranje nove kategorije oglasa. <br> Potrebno je ispuniti
+					zadanu formu za stvaranje kategorije.
 				</p>
 			</div>
 
 			<div id="site_main">
-				<form action="/megafon/servleti/registracija/admin" method="post">
+
+				<form action="/megafon/servleti/stvoriKategoriju" method="post">
 					<table>
 						<tr>
-							<td class=firstCol><label for="ID"></label></td>
-							<td><input type="hidden" name="id" value='${zapis.id}'
-								size=5> <c:if test="${zapis.hasError('id')}">
-									<div class="greska">${zapis.getError('id')}</div>
+							<td class=firstCol><label for="naziv">Naziv
+									kategorije:</label></td>
+							<td><input type="text" name="naziv" value='${zapis.naziv}'
+								size=40> <c:if test="${zapis.hasError('naziv')}">
+									<div class="greska">${zapis.getError('naziv')}</div>
 								</c:if></td>
 						</tr>
 						<tr>
-							<td class=firstCol><label for="ime">Ime:</label></td>
-							<td><input type="text" name="ime" value='${zapis.ime}'
-								size=40> <c:if test="${zapis.hasError('ime')}">
-									<div class="greska">${zapis.getError('ime')}</div>
+
+							<td class=firstCol><label for="nadkategorije">Nadkategorija:</label></td>
+							<td><select name="kategorija" size="1">
+									<c:forEach var="tip" items="${kategorija}">
+										<option value='${tip.id}'>${tip.naziv}
+									</c:forEach>
+							</select> <c:if test="${zapis.hasError('nadkategorija')}">
+									<div class="greska">${zapis.getError('nadkategorija')}</div>
 								</c:if></td>
 						</tr>
 						<tr>
-							<td class=firstCol><label for="prezime">Prezime:</label></td>
-							<td><input type="text" name="prezime"
-								value='${zapis.prezime}' size=40> <c:if
-									test="${zapis.hasError('prezime')}">
-									<div class="greska">${zapis.getError('prezime')}</div>
+							<td class=firstCol><label for="nadkategorije">Besplatna:</label></td>
+							<td><input type="checkbox" name="jeBesplatna" value="true">
+								<c:if test="${zapis.hasError('jeBesplatna')}">
+									<div class="greska">${zapis.getError('jeBesplatna')}</div>
 								</c:if></td>
 						</tr>
-						<tr>
-							<td class=firstCol><label for="username">Korisnicko
-									ime:</label></td>
-							<td><input type="text" name="username"
-								value='${zapis.username}' size=40> <c:if
-									test="${zapis.hasError('username')}">
-									<div class="greska">${zapis.getError('username')}</div>
-								</c:if></td>
-						</tr>
-						<tr>
-							<td class=firstCol><label for="password">Lozinka:</label></td>
-							<td><input type="password" name="password"
-								value='${zapis.password}' size=40> <c:if
-									test="${zapis.hasError('password')}">
-									<div class="greska">${zapis.getError('password')}</div>
-								</c:if></td>
-						</tr>
+						
+						
 						<tr>
 							<td></td>
 							<td><input type="submit" name="metoda" value="Pohrani">

@@ -17,6 +17,7 @@
 
 			<div id="site_menu">
 				<ul>
+					<li><a href="/megafon/servleti/pocetna" class='current'>${title}</a></li>
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
 					<li><a href="/megafon/servleti/">Pretraga</a></li>
 					<li><a href="/megafon/servleti/">O nama</a></li>
@@ -24,7 +25,7 @@
 					<c:choose>
 						<c:when test='${sessionScope["logged"] == null}'>
 							<li><a href="/megafon/servleti/login">Prijava</a></li>
-							<li class="last"><a href="/megafon/servleti/register">Registracija</a></li>
+							<li class="last"><a href="/megafon/servleti/registracija/oglasivac">Registracija</a></li>
 						</c:when>
 						<c:otherwise>
 							<c:choose>

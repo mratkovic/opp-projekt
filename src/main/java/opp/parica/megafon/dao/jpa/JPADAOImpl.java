@@ -8,6 +8,7 @@ import opp.parica.megafon.dao.DAO;
 import opp.parica.megafon.model.Admin;
 import opp.parica.megafon.model.FizickaOsoba;
 import opp.parica.megafon.model.Kategorija;
+import opp.parica.megafon.model.Korisnik;
 import opp.parica.megafon.model.Oglas;
 import opp.parica.megafon.model.Oglasivac;
 import opp.parica.megafon.model.PravnaOsoba;
@@ -145,17 +146,12 @@ public class JPADAOImpl implements DAO {
 	@Override
 	public boolean postojiKorisnik(final String username) {
 		EntityManager em = JPAEMProvider.getEntityManager();
-		List<Oglasivac> oglasivaci =
-			em.createQuery("select b from Oglasivac as b where b.username=:username")
+		List<Oglasivac> users =
+			em.createQuery("select b from Korisnik as b where b.username=:username")
 				.setParameter("username", username)
 				.getResultList();
 
-		List<Oglasivac> admini =
-			em.createQuery("select b from Admin as b where b.username=:username")
-				.setParameter("username", username)
-				.getResultList();
-
-		if ((admini == null || admini.isEmpty()) && (oglasivaci == null || oglasivaci.isEmpty())) {
+		if (users == null || users.isEmpty()) {
 			return false;
 		} else {
 			System.out.println("Korisnicko ime zauzeto");
@@ -185,6 +181,30 @@ public class JPADAOImpl implements DAO {
 			return fo;
 		}
 		return null;
+	}
+
+	@Override
+	public Kategorija dohvatiKategoriju(final long id) {
+		Kategorija kategorija = JPAEMProvider.getEntityManager().
+			find(Kategorija.class, id);
+		return kategorija;
+	}
+
+	@Override
+	public TipClanstva dohvatiTipClanstva(final long idTip) {
+		TipClanstva tip = JPAEMProvider.getEntityManager().find(TipClanstva.class, idTip);
+		return tip;
+	}
+
+	@Override
+	public Korisnik dohvatiKorisnika(final long id) {
+		Oglasivac o = dohvatiOglasivaca(id);
+		if (o != null) {
+			return o;
+		}
+
+		Admin a = JPAEMProvider.getEntityManager().find(Admin.class, id);
+		return a;
 	}
 
 	@Override

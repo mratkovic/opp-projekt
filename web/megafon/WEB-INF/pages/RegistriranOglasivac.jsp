@@ -53,7 +53,7 @@
 				<p>
 					Ukoliko zelite se informirati o naprednijim tipovima racuna, te
 					promjeniti vas tip kliknite <a
-						href="/megafon/servleti/promjenaTipa"> ovdje</a>
+						href="/megafon/servleti/uredi/tip"> ovdje</a>
 				</p>
 
 			</div>

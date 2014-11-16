@@ -33,7 +33,7 @@ public class OglasivacRegistracijaForma extends ApstraktnaWebForma {
 		username = trimParameter(req.getParameter("username" + ekstenzija));
 		password = req.getParameter("password" + ekstenzija);
 		telefon = req.getParameter("telefon" + ekstenzija);
-
+		id = req.getParameter("id");
 		uvjetiPrihvaceni = !trimParameter(req.getParameter("prihvacam" + ekstenzija)).isEmpty();
 	}
 
@@ -41,11 +41,14 @@ public class OglasivacRegistracijaForma extends ApstraktnaWebForma {
 	public void fillToObject(final Object obj) {
 		if (obj instanceof Oglasivac) {
 			Oglasivac usr = (Oglasivac) obj;
-			usr.setUsername(username);
-			try {
-				String passwordHash = new SHA1(password).getHexDigest();
-				usr.setPasswordHash(passwordHash);
-			} catch (Exception e) {
+
+			if (usr.getId() == null) {
+				usr.setUsername(username);
+				try {
+					String passwordHash = new SHA1(password).getHexDigest();
+					usr.setPasswordHash(passwordHash);
+				} catch (Exception e) {
+				}
 			}
 
 			usr.setAdresa(adresa);
@@ -83,7 +86,7 @@ public class OglasivacRegistracijaForma extends ApstraktnaWebForma {
 		} else if (DAOProvider.getDAO().postojiKorisnik(username)) {
 			getErrors().put("username" + ekstenzija, "Korisničko ime vec postoji u bazi");
 		}
-		if (password.isEmpty()) {
+		if (password != null && password.isEmpty()) {
 			getErrors().put("password" + ekstenzija, "Polje 'Zaporka' je obavezno");
 			password = "";
 		}
@@ -97,8 +100,8 @@ public class OglasivacRegistracijaForma extends ApstraktnaWebForma {
 
 		if (telefon.isEmpty()) {
 			getErrors().put("telefon" + ekstenzija, "Polje 'telefon' je obavezno");
-		} else if (!oib.matches("^[+]?[0-9 /-]*")) {
-			getErrors().put("oib" + ekstenzija, "Polje 'telefon' neispravnog formata");
+		} else if (!telefon.matches("^[+]?[0-9 /-]*")) {
+			getErrors().put("telefon" + ekstenzija, "Polje 'telefon' neispravnog formata");
 		}
 		if (adresa.isEmpty()) {
 			getErrors().put("adresa" + ekstenzija, "Polje 'adresa' je obavezno");
@@ -114,6 +117,7 @@ public class OglasivacRegistracijaForma extends ApstraktnaWebForma {
 		}
 
 	}
+
 	public String getId() {
 		return id;
 	}
@@ -134,7 +138,6 @@ public class OglasivacRegistracijaForma extends ApstraktnaWebForma {
 		return password;
 	}
 
-
 	public String getAdresa() {
 		return adresa;
 	}
@@ -146,7 +149,5 @@ public class OglasivacRegistracijaForma extends ApstraktnaWebForma {
 	public void setEkstenzija(final String ekstenzija) {
 		this.ekstenzija = ekstenzija;
 	}
-
-
 
 }

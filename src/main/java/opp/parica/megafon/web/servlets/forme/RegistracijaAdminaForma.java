@@ -13,6 +13,10 @@ public class RegistracijaAdminaForma extends ApstraktnaWebForma {
 	private String username;
 	/** Hash lozinke. */
 	private String password;
+	/** Ime korisnika. */
+	private String ime;
+	/** Prezime korisnika. */
+	private String prezime;
 
 	/**
 	 * Metoda koja dohvaca identifikator.
@@ -44,8 +48,10 @@ public class RegistracijaAdminaForma extends ApstraktnaWebForma {
 	@Override
 	public void fillFromHttpRequest(final HttpServletRequest req) {
 		username = trimParameter(req.getParameter("username"));
-		password = trimParameter(req.getParameter("password"));
-
+		password = req.getParameter("password");
+		ime = trimParameter(req.getParameter("ime"));
+		prezime = trimParameter(req.getParameter("prezime"));
+		id = trimParameter(req.getParameter("id"));
 	}
 
 	@Override
@@ -53,8 +59,13 @@ public class RegistracijaAdminaForma extends ApstraktnaWebForma {
 		if (obj instanceof Admin) {
 			Admin usr = (Admin) obj;
 			usr.setUsername(username);
-			String hash = new SHA1(password).getHexDigest();
-			usr.setPasswordHash(hash);
+			if (usr.getId() == null) {
+				usr.setUsername(username);
+				String hash = new SHA1(password).getHexDigest();
+				usr.setPasswordHash(hash);
+			}
+			usr.setIme(ime);
+			usr.setPrezime(prezime);
 		}
 
 	}
@@ -70,19 +81,36 @@ public class RegistracijaAdminaForma extends ApstraktnaWebForma {
 			}
 			username = usr.getUsername();
 			password = null;
+			ime = usr.getIme();
+			prezime = usr.getPrezime();
 		}
 	}
 
 	@Override
 	public void validate() {
 		getErrors().clear();
-		if (username == null || username.length() == 0) {
+		if (username.isEmpty()) {
 			getErrors().put("username", "Korisničko ime prazno");
 		} else if (DAOProvider.getDAO().postojiKorisnik(username)) {
 			getErrors().put("username", "Korisničko ime vec postoji u bazi");
-		}if (password == null || password.isEmpty()) {
+		}
+		if (password == null || password.isEmpty()) {
 			getErrors().put("password", "Lozinka prazna");
 		}
+		if (ime.isEmpty()) {
+			getErrors().put("ime", "Polje 'Ime' je obavezno");
+		}
+		if (prezime.isEmpty()) {
+			getErrors().put("prezime", "Polje 'Prezime' je obavezno");
+		}
+	}
+
+	public String getIme() {
+		return ime;
+	}
+
+	public String getPrezime() {
+		return prezime;
 	}
 
 }

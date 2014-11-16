@@ -251,7 +251,7 @@ a.more:hover {
 #site_menu ul li a {
 	display: block;
 	width: 100px;
-	height: 32px;
+	height: 38px;
 	padding: 15px 0 0;
 	margin: 0;
 	font-size: 14px;
@@ -266,7 +266,7 @@ a.more:hover {
 
 #site_menu ul li a:hover, #site_menu ul li .current {
 	color: #fff;
-	height: 38px;
+	height: 38x;
 	padding: 13px 0 0 0;
 	background: url(../images/site_menu_hover.png) bottom center no-repeat;
 	border-bottom: 3px solid white;
