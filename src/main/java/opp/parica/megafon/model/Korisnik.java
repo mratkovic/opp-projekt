@@ -125,4 +125,6 @@ public abstract class Korisnik {
 	}
 
 	public abstract  String dohvatiKorisnikInfo();
+
+
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import opp.parica.megafon.dao.DAOProvider;
 import opp.parica.megafon.model.Oglas;
+import opp.parica.megafon.web.servlets.forme.OglasForma;
 
 @WebServlet("/servleti/prikaziOglas")
 public class PrikaziOglasServlet extends HttpServlet {
@@ -40,7 +41,9 @@ public class PrikaziOglasServlet extends HttpServlet {
 			return;
 		}
 		Oglas o = DAOProvider.getDAO().dohvatiOglas(id);
-		req.setAttribute("oglas", o);
+		OglasForma forma = new OglasForma();
+		forma.fillFromObject(o);
+		req.setAttribute("zapis", forma);
 		req.getRequestDispatcher("/WEB-INF/pages/PrikaziOglas.jsp").forward(req, resp);
 
 	}

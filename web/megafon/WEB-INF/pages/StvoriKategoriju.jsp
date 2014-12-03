@@ -61,22 +61,43 @@
 
 							<td class=firstCol><label for="nadkategorije">Nadkategorija:</label></td>
 							<td><select name="kategorija" size="1">
-									<c:forEach var="tip" items="${kategorija}">
+									<c:forEach var="tip" items="${kategorije}">
 										<option value='${tip.id}'>${tip.naziv}
 									</c:forEach>
 							</select> <c:if test="${zapis.hasError('nadkategorija')}">
 									<div class="greska">${zapis.getError('nadkategorija')}</div>
 								</c:if></td>
 						</tr>
+						
+						
+		
 						<tr>
-							<td class=firstCol><label for="nadkategorije">Besplatna:</label></td>
+							<td class=firstCol><label for="jeBesplatna">Besplatna:</label></td>
 							<td><input type="checkbox" name="jeBesplatna" value="true">
 								<c:if test="${zapis.hasError('jeBesplatna')}">
 									<div class="greska">${zapis.getError('jeBesplatna')}</div>
 								</c:if></td>
 						</tr>
-						
-						
+
+						<tr>
+
+							<td class=firstCol><label for="dodatno">Dodatne
+									stavke:</label></td>
+							<td></td>
+						</tr>
+
+						<c:forEach var="tip" items="${zapis.dodatneStavke}">
+							<tr>
+								<td><input type="text" name="naziv" value='' size=40>
+								</td>
+								<td><input type="text" name="tip" value='' size=40>
+									<c:if test="${zapis.hasError('dodatneStavke')}">
+										<div class="greska">${zapis.getError('dodatneStavke')}</div>
+									</c:if></td>
+							</tr>
+
+						</c:forEach>
+
 						<tr>
 							<td></td>
 							<td><input type="submit" name="metoda" value="Pohrani">

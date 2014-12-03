@@ -1,5 +1,6 @@
 package opp.parica.megafon.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,9 +29,9 @@ public class Oglas {
 	private Float cijena;
 	private String videoURL;
 	private Boolean jeSkrivern;
-	private List<Slika> slike;
+	private List<Slika> slike = new ArrayList<>();;
 	private Date datumObjave;
-	private List<DodatnaStavka> stavke;
+	private List<DodatnaStavka> stavke =  new ArrayList<>();;
 
 
 	@Id
@@ -156,6 +157,11 @@ public class Oglas {
 		}
 		return true;
 	}
+
+
+
+
+
 
 
 

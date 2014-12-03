@@ -65,6 +65,7 @@ public class RegistracijaServlet extends HttpServlet {
 	private void registracijaAdminGet(final HttpServletRequest req, final HttpServletResponse resp)
 		throws IOException, ServletException {
 		boolean postojiAdmin = DAOProvider.getDAO().postojiAdmin();
+
 		if (postojiAdmin && req.getSession().getAttribute("admin") == null) {
 			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 		} else {
@@ -95,7 +96,7 @@ public class RegistracijaServlet extends HttpServlet {
 			String msg = "Administrator " + admin.getUsername() + " ubacen u bazu podataka";
 
 			req.setAttribute("msg", msg);
-			req.setAttribute("title", "Registracija uspješna");
+			req.setAttribute("title", "Uspješno");
 			if (req.getSession().getAttribute("admin") == null) {
 				System.out.println("Inicijalizacija baze.");
 				napuniBazu(req);

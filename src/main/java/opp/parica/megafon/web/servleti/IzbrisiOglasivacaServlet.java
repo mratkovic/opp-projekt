@@ -49,6 +49,7 @@ public class IzbrisiOglasivacaServlet extends HttpServlet {
 		}
 
 		if (!canDelete) {
+			req.setAttribute("title", "Greška");
 			req.setAttribute("msg", "Nedovoljna razina prava za izmjenu sadrzaja.");
 			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;

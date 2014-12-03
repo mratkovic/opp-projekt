@@ -12,7 +12,7 @@ import opp.parica.megafon.dao.DAOProvider;
 import opp.parica.megafon.model.Oglas;
 import opp.parica.megafon.model.Oglasivac;
 
-@WebServlet("/servlet/izbrisiOglas")
+@WebServlet("/servleti/izbrisiOglas")
 public class IzbrisiOglasServlet extends HttpServlet {
 	/** Defaultni serial version UID. */
 	private static final long serialVersionUID = 1L;
@@ -46,19 +46,19 @@ public class IzbrisiOglasServlet extends HttpServlet {
 			Oglasivac o = (Oglasivac) req.getSession().getAttribute("user");
 			Oglas oglas = DAOProvider.getDAO().dohvatiOglas(id);
 			if (oglas != null && o.equals(oglas.getAutor())) {
-				req.getSession().invalidate();
 				canDelete = true;
 			}
 		}
 
 		if (!canDelete) {
+			req.setAttribute("title", "Greška");
 			req.setAttribute("msg", "Nedovoljna razina prava za izmjenu sadrzaja.");
 			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 		}
 		Oglas o = DAOProvider.getDAO().dohvatiOglas(id);
 		DAOProvider.getDAO().izbrisiOglas(id);
-		req.setAttribute("title", "Brisanje uspjesno");
+		req.setAttribute("title", "Uspješno");
 		req.setAttribute("msg", "Oglas '" + o.getNaslov() + "' izbrisan iz baze podataka");
 		req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 

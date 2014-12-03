@@ -120,13 +120,6 @@ public class Kategorija {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Kategorija [id=" + id + ", naziv=" + naziv + ", dodatneStavke=" + dodatneStavke
-			+ ", podkategorije=" + podkategorije + ", nadkategorija=" + nadkategorija + ", oglasi=" + oglasi
-			+ ", jeBesplatna=" + jeBesplatna + "]";
-	}
-
 
 
 

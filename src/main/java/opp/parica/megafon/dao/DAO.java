@@ -3,12 +3,14 @@ package opp.parica.megafon.dao;
 import java.util.List;
 
 import opp.parica.megafon.model.Admin;
+import opp.parica.megafon.model.DodatnaStavka;
 import opp.parica.megafon.model.FizickaOsoba;
 import opp.parica.megafon.model.Kategorija;
 import opp.parica.megafon.model.Korisnik;
 import opp.parica.megafon.model.Oglas;
 import opp.parica.megafon.model.Oglasivac;
 import opp.parica.megafon.model.PravnaOsoba;
+import opp.parica.megafon.model.Slika;
 import opp.parica.megafon.model.TipClanstva;
 
 public interface DAO{
@@ -56,5 +58,13 @@ public interface DAO{
 	TipClanstva dohvatiTipClanstva(long idTip);
 
 	Kategorija dohvatiKategoriju(long id);
+
+	void dodajOglas(Oglas oglas);
+
+	void dodajStavku(DodatnaStavka stavka);
+
+	void dodajSliku(Slika slika);
+
+	Slika dohvatiSliku(Long slikaID);
 
 }

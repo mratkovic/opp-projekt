@@ -67,14 +67,17 @@
 					</c:when>
 					<c:otherwise>
 						<c:choose>
-							<c:when test='${sessionScope["admin"] == null}'>
+							<c:when test='${sessionScope["admin"] != null}'>
 								<li class="last"><a href="/megafon/servleti/admin">Postavke</a></li>
 							</c:when>
 							<c:otherwise>
+
+								<li><a href="/megafon/servleti/user">Postavke</a></li>
 								<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
-								<li><a
-									href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
-								<li class="last"><a href="/megafon/servleti/user">Postavke</a></li>
+								<li><a href="/megafon/servleti/prikaziOglaseOglasivaca">Moji
+										oglasi</a></li>
+
+							
 							</c:otherwise>
 						</c:choose>
 					</c:otherwise>
@@ -170,7 +173,7 @@
 				Nemate korisnicki racun na portalu? Registrirajte se <a
 					href="/megafon/servleti/registracija/oglasivac">ovdje</a>
 			</p>
-			
+
 			<p>
 				Nemate korisnicki racun na portalu? Registrirajte admina <a
 					href="/megafon/servleti/registracija/admin">ovdje</a>
@@ -179,9 +182,9 @@
 			<p>
 				Promini pass <a href="/megafon/servleti/uredi/lozinka">ovdje</a>
 			</p>
-			
+
 			<p>
-				Uredi <a href="/megafon/servleti/uredi/korisnik?id=${id}" >ovdje</a>
+				Uredi <a href="/megafon/servleti/uredi/korisnik?id=${id}">ovdje</a>
 			</p>
 		</div>
 		<!-- end of main -->

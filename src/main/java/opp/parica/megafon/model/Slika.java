@@ -1,6 +1,7 @@
 package opp.parica.megafon.model;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,16 @@ public class Slika {
 	private Long id;
 	private byte[] slika;
 	private Oglas pripadaOglasu;
+	private String ekstenzija;
+
+	@Column(length = 200)
+	public String getEkstenzija() {
+		return ekstenzija;
+	}
+
+	public void setEkstenzija(final String ekstenzija) {
+		this.ekstenzija = ekstenzija;
+	}
 
 	@Id
 	@GeneratedValue
@@ -76,6 +87,10 @@ public class Slika {
 		}
 		return true;
 	}
+
+
+
+
 
 
 

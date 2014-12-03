@@ -6,12 +6,14 @@ import javax.persistence.EntityManager;
 
 import opp.parica.megafon.dao.DAO;
 import opp.parica.megafon.model.Admin;
+import opp.parica.megafon.model.DodatnaStavka;
 import opp.parica.megafon.model.FizickaOsoba;
 import opp.parica.megafon.model.Kategorija;
 import opp.parica.megafon.model.Korisnik;
 import opp.parica.megafon.model.Oglas;
 import opp.parica.megafon.model.Oglasivac;
 import opp.parica.megafon.model.PravnaOsoba;
+import opp.parica.megafon.model.Slika;
 import opp.parica.megafon.model.TipClanstva;
 
 /**
@@ -269,5 +271,42 @@ public class JPADAOImpl implements DAO {
 				.getResultList();
 		return oglasi;
 
+	}
+
+	@Override
+	public void dodajOglas(final Oglas oglas) {
+		EntityManager em = JPAEMProvider.getEntityManager();
+		if (oglas.getId() == null) {
+			em.persist(oglas);
+		} else {
+			em.merge(oglas);
+		}
+
+	}
+
+	@Override
+	public void dodajSliku(final Slika slika) {
+		EntityManager em = JPAEMProvider.getEntityManager();
+		if (slika.getId() == null) {
+			em.persist(slika);
+		} else {
+			em.merge(slika);
+		}
+	}
+
+	@Override
+	public void dodajStavku(final DodatnaStavka stavka) {
+		EntityManager em = JPAEMProvider.getEntityManager();
+		if (stavka.getId() == null) {
+			em.persist(stavka);
+		} else {
+			em.merge(stavka);
+		}
+	}
+
+	@Override
+	public Slika dohvatiSliku(final Long slikaID) {
+		Slika s = JPAEMProvider.getEntityManager().find(Slika.class, slikaID);
+		return s;
 	}
 }
