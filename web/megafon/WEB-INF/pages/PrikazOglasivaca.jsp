@@ -1,13 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%
-	pageContext.setAttribute("razmak", " - ");
-%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
-<title>Promjena tipa članstva</title>
+<title>Oglašivač</title>
 </head>
 
 
@@ -25,7 +22,7 @@
 					<c:choose>
 
 						<c:when test='${sessionScope["admin"] == null}'>
-							<li class="last"><a href="/megafon/servleti/postavkeRacuna"
+							<li class="last"><a href="/megafon/servleti/admin"
 								class="current">Postavke</a></li>
 						</c:when>
 						<c:otherwise>
@@ -51,29 +48,64 @@
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Promjena tipa članstva</h2>
-				<p>
-					Promjena tipa članstva oglašivača <br> Informirajte se o
-					pogodnostima različitih tipova članstva te odaberite željeni
-				</p>
+				<h2>Prikaz podataka korisnika ${korisnik.username}</h2>
+				<p>Prikaz detalja korisnika........</p>
 			</div>
 
 			<div id="site_main">
-
-				<h4>${msg}</h4>
-				<p>
-					<br>
-				</p>
-				<p>Trenutni tip članstva: ${trenutniTip}</p>
+				<c:choose>
+					<c:when test='${pravna != null}'>
+						<p>Pravna osoba</p>
+						<p>Naziv firme: ${pravna.naziv}</p>
+					</c:when>
+					<c:otherwise>
+						<p>Fizička osoba</p>
+						<p>Ime: ${fizicka.ime}</p>
+						<p>Prezime: ${fizicka.prezime}</p>
+					</c:otherwise>
+				</c:choose>
+				<p>Korisničko ime: ${korisnik.username}</p>
+				<p>Trenutni tip članstva: ${korisnik.tipClanstva.naziv}</p>
 				<p>Datum isteka članstva: ${datumIsteka}</p>
-				<p>
-					<br>
-				</p>
-				<ul>
-					<li><a href=/megafon/servleti/uredi/tip> Povratak na
-							stranicu za promjenu tipa članstva</a></li>
-				</ul>
+				<p>Datum registracije: ${datumRegistracije}</p>
+				<p>Adresa: ${korisnik.adresa}</p>
+				<p>EMail: ${korisnik.email}</p>
+				<p>Telefon: ${korisnik.telefon}</p>
+
+				<c:choose>
+					<c:when test='${pravna != null}'>
+						<p>Fax: ${pravna.fax}</p>
+					</c:when>
+				</c:choose>
+
+				<br>
+				<table>
+					<tr>
+						<td><a
+							href="/megafon/servleti/prikaziOglaseOglasivaca?id=${korisnik.id}">[Prikazi
+								sve oglase]</a></td>
+						<td><c:choose>
+								<c:when test='${korisnik.id == sessionScope["id"] }'>
+									<td><a
+										href="/megafon/servleti/uredi/korisnik?id=${korisnik.id}">[Uredi
+											moje podatke]</a>
+								</c:when>
+								<c:otherwise>
+									<c:choose>
+										<c:when test='${sessionScope["admin"] != null}'>
+											<a href="/megafon/servleti/uredi/korisnik?id=${korisnik.id}">[Uredi
+												podatke o korisniku]</a>
+										</c:when>
+									</c:choose>
+								</c:otherwise>
+							</c:choose></td>
+					</tr>
+
+
+				</table>
+
 			</div>
+
 			<!-- end of main -->
 		</div>
 		<!-- end of wrapper -->

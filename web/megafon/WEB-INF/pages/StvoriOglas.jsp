@@ -1,5 +1,3 @@
-<%@page import="opp.parica.megafon.pomocno.Pair"%>
-<%@page import="opp.parica.megafon.web.servlets.forme.DodajOglasForma"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -25,7 +23,7 @@
 							oglas</a></li>
 					<li class="last"><a
 						href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
-					<li class="last"><a href="/megafon/servleti/user">Postavke</a></li>
+					<li class="last"><a href="/megafon/servleti/postavkeRacuna">Postavke</a></li>
 
 
 				</ul>
@@ -94,7 +92,7 @@
 
 						<tr>
 							<td class=firstCol><label for="cijena">Cijena (HRK):</label></td>
-							<td><input type="number" step="any" name="cijena"
+							<td><input type="text" step="any" name="cijena"
 								value='${zapis.cijena}' size=40> <c:if
 									test="${zapis.hasError('cijena')}">
 									<div class="greska">${zapis.getError('cijena')}</div>
@@ -146,10 +144,3 @@
 	<jsp:include page="Footer.jsp" />
 
 </body>
-
-
-<%-- <%
- 	Pair<String, String> stavka = (Pair<String, String>) pageContext.getAttribute("stavka");
- 		String greska = ((DodajOglasForma) request.getAttribute("zapis")).getError(stavka.first);
- 		Boolean b = ((DodajOglasForma) request.getAttribute("zapis")).hasError(stavka.first);
- %> --%>

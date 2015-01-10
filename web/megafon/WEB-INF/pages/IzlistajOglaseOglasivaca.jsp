@@ -28,7 +28,7 @@
 						<c:otherwise>
 							<c:choose>
 								<c:when test='${sessionScope["admin"] == null}'>
-									<li class="last"><a href="/megafon/servleti/admin"
+									<li class="last"><a href="/megafon/servleti/postavkeRacuna"
 										class="current">Postavke</a></li>
 								</c:when>
 								<c:otherwise>
@@ -36,7 +36,7 @@
 									<li class="last"><a
 										href="/megafon/servleti/prikaziOglaseOglasivaca">Moji
 											oglasi</a></li>
-									<li class="last"><a href="/megafon/servleti/user">Postavke</a></li>
+									<li class="last"><a href="/megafon/servleti/postavkeRacuna">Postavke</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:otherwise>

@@ -23,14 +23,14 @@
 					<c:choose>
 
 						<c:when test='${sessionScope["admin"] == null}'>
-							<li class="last"><a href="/megafon/servleti/admin"
+							<li class="last"><a href="/megafon/servleti/postavkeRacuna"
 								class="current">Postavke</a></li>
 						</c:when>
 						<c:otherwise>
 							<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
 								<li class="last"><a
 									href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
-								<li class="last"><a href="/megafon/servleti/user">Postavke</a></li>
+								<li class="last"><a href="/megafon/servleti/postavkeRacuna" class="current">Postavke</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -70,7 +70,7 @@
 						</tr>
 						<tr>
 							<td class=firstCol><label for="password1">Nova
-									ozinka:</label></td>
+									lozinka:</label></td>
 							<td><input type="password" name="password1"
 								value='${zapis.password1}' size=40> <c:if
 									test="${zapis.hasError('password1')}">

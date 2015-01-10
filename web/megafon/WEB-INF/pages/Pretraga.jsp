@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
-<title>Stvaranje Kategorije</title>
+<title>Pretraga</title>
 </head>
 
 
@@ -19,15 +19,9 @@
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
 					<li><a href="/megafon/servleti/">Pretraga</a></li>
 					<li><a href="/megafon/servleti/">O nama</a></li>
-					<li><a href="/megafon/servleti/dodajOglas" class="current">Dodaj
-							oglas</a></li>
-					<li><a href="/megafon/servleti/prikaziOglaseOglasivaca">Moji
-							oglasi</a></li>
-					<li class="last"><a href="/megafon/servleti/postavkeRacuna">Postavke</a></li>
-
-
+					<li><a href="/megafon/servleti/login" class="current">Prijava</a></li>
+					<li class="last"><a href="/megafon/servleti/register">Registracija</a></li>
 				</ul>
-
 
 				<div id="search_box">
 					<form action="#" method="get">
@@ -43,31 +37,45 @@
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Dodavanje novog oglasa</h2>
-				<p>
-					Odaberite kategoriju u kojoj zelite stvoriti oglas. <br>
-				</p>
+				<h2>Pretraga oglasa</h2>
+				<p>Pretražite bazu oglasa po željenim kriterijima. xD</p>
 			</div>
 
 			<div id="site_main">
-
-				<form action="/megafon/servleti/dodajOglas" method="get">
+				<form action="/megafon/servleti/pretraga" method="post">
 					<table>
 						<tr>
+							<td><input type="text" value="Naziv oglasa" name="naziv"
+								size="80" id="searchfield_large" title="searchfield"
+								onfocus="clearText(this)" onblur="clearText(this)" /></td>
+							<td><input type="submit" name="Search" value=""
+								id="searchbutton_large" title="Search" /></td>
+						</tr>
+					</table>
+					<br>
+					<table>
+						<tr>
+							<td class=firstCol><label for="cijena">Raspon
+									cijena:</label></td>
+							<td>od <input type="text" name="donjaCijena"
+								value='${zapis.donjaCijena}' size=10> do <input
+								type="text" name="gornjaCijena" value='${zapis.gornjaCijena}'
+								size=10> (HRK)
+							</td>
+						</tr>
 
+						<tr>
 							<td class=firstCol><label for="kategorija">Kategorija:</label></td>
 							<td><select name="kategorija" size="1">
+									<option value=''>Sve kategorije</option>
 									<c:forEach var="tip" items="${kategorije}">
 										<option value='${tip.id}'>${tip.naziv}</option>
 									</c:forEach>
 							</select></td>
 						</tr>
-						<tr>
-							<td></td>
-							<td><input type="submit" name="metoda" value="Nastavak">
-							</td>
-						</tr>
 					</table>
+					<div class="greska">${zapis.getError('greska')}</div>
+					
 				</form>
 			</div>
 			<!-- end of main -->

@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
+<title>Postavke računa</title>
 </head>
 
 
@@ -18,45 +19,35 @@
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
 					<li><a href="/megafon/servleti/">Pretraga</a></li>
 					<li><a href="/megafon/servleti/">O nama</a></li>
+
 					<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
-					<li class="last"><a
+					<li><a
 						href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
 					<li class="last"><a href="/megafon/servleti/postavkeRacuna">Postavke</a></li>
 
 				</ul>
-
-				<div id="search_box">
-					<form action="#" method="get">
-						<input type="text" value="Search" name="q" size="10"
-							id="searchfield" title="searchfield" onfocus="clearText(this)"
-							onblur="clearText(this)" /> <input type="submit" name="Search"
-							value="" id="searchbutton" title="Search" />
-					</form>
-				</div>
 
 				<div class="cleaner"></div>
 			</div>
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Uspješna registracija</h2>
-				<p>
-					Čestitamo, uspješno ste otvorili račun na našem portalu. <br>
-					Tim 'Megafon' želi Vam puno uspjeha u prodaji.
-				</p>
-
+				<h2>Postavke računa</h2>
+				<p>nest nesto nesto nesto</p>
 			</div>
+			<p>
+				Promjena lozine <a href="/megafon/servleti/uredi/lozinka">ovdje</a>
+			</p>
 
-			<div id="site_main">
-				<p>Uspjesno dodan racun ${oglasivac}.</p>
-
-				<p>
-					Ukoliko zelite se informirati o naprednijim tipovima racuna, te
-					promjeniti vas tip kliknite <a
-						href="/megafon/servleti/uredi/tip"> ovdje</a>
-				</p>
-
-			</div>
+			<p>
+				Promjena podataka <a
+					href="/megafon/servleti/uredi/korisnik?id=${id}">ovdje</a>
+			</p>
+			
+			<p>
+				Moji oglasi <a
+					href="/megafon/servleti/prikaziOglaseOglasivaca">ovdje</a>
+			</p>
 			<!-- end of main -->
 		</div>
 		<!-- end of wrapper -->

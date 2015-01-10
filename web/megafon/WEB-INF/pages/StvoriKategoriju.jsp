@@ -19,7 +19,7 @@
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
 					<li><a href="/megafon/servleti/">Pretraga</a></li>
 					<li><a href="/megafon/servleti/">O nama</a></li>
-					<li class="last"><a href="/megafon/servleti/admin"
+					<li class="last"><a href="/megafon/servleti/postavkeRacuna"
 						class="current">Postavke</a></li>
 				</ul>
 

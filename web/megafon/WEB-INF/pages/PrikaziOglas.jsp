@@ -6,8 +6,23 @@
 <title>Prikaz oglasa</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
-</head>
+<link href="/megafon/css/jquery.lightbox.css" rel="stylesheet" />
+<script type="text/javascript" src="/megafon/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/megafon/js/jquery.lightbox.js"></script>
 
+</head>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('.rightbar .littlepic:first-child a').clone().appendTo('.bigpic');
+		$('.littlepic a').on('click', function() {
+			$('.bigpic').html('');
+			$(this).clone().appendTo('.bigpic');
+			return false;
+		});//end click
+
+	});//end ready
+</script>
 
 <body>
 	<div class="subpage">
@@ -62,40 +77,116 @@
 					${zapis.opis} <br>
 				</p>
 			</div>
-			<table>
-				<tr>
-					<td class=title>Kategorija</td>
-					<td>${zapis.kategorijaID}</td>
-				</tr>
-
-				<tr>
-					<td class=title>cijena</td>
-					<td>${zapis.cijena}</td>
-				</tr>
-
-				<c:forEach var="stavka" items="${zapis.dodatneStavke}">
+			<div class='detaljiOglas'>
+				<table>
 					<tr>
-						<td class=title>${stavka.first}</td>
-						<td>${stavka.second}</td>
+						<td>Kategorija:</td>
+						<td>${zapis.kategorija.naziv}</td>
 					</tr>
-				</c:forEach>
-				
-				<c:forEach var="slika" items="${zapis.slikeID}">
+
 					<tr>
-						<td class=title>${slika}</td>
-						<td><a href="/megafon/servleti/prikaziSliku?id=${slika}">[]link]</a></td>
+						<td>Cijena (HRK):</td>
+						<td>${zapis.cijena}</td>
 					</tr>
-				</c:forEach>
-			</table>
+
+					<tr>
+						<td>Video:</td>
+						<td><a href='${zapis.videoURL}'> link</a></td>
+					</tr>
+
+
+					<c:forEach var="stavka" items="${zapis.dodatneStavke}">
+						<tr>
+							<td>${stavka.first}</td>
+							<td>${stavka.second}</td>
+						</tr>
+					</c:forEach>
+					<c:choose>
+						<c:when test='${autorPO != null}'>
+							<tr>
+								<td>Oglašivač</td>
+								<td>${autorPO.username}</td>
+							</tr>
+
+							<tr>
+								<td>Kontakt broj:</td>
+								<td>${autorPO.telefon}</td>
+							</tr>
+							<tr>
+								<td>Kontakt mail:</td>
+								<td>${autorPO.email}</td>
+							</tr>
+							<tr>
+								<td>Fax:</td>
+								<td>${autorPO.fax}</td>
+							</tr>
+						</c:when>
+					</c:choose>
+					<c:choose>
+						<c:when test='${autorFO != null}'>
+							<tr>
+								<td>Oglašivač</td>
+								<td>${autorFO.username}</td>
+
+							</tr>
+							<tr>
+								<td>Kontakt broj:</td>
+								<td>${autorFO.telefon}</td>
+							</tr>
+							<tr>
+								<td>Kontakt mail:</td>
+								<td>${autorFO.email}</td>
+							</tr>
+						</c:when>
+					</c:choose>
+					<tr>
+						<td>Datum objave:</td>
+						<td>${zapis.datum}</td>
+					</tr>
+				</table>
+
+				<c:choose>
+					<c:when test='${autorPO != null}'>
+						<p>
+							<a
+								href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorPO.id}"
+								target="_blank">[Prikazi sve oglase ovog oglašivača]</a>
+						</p>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test='${autorFO != null}'>
+
+						<p>
+							<a
+								href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorFO.id}"
+								target="_blank">[Prikazi sve oglase ovog oglašivača]</a>
+						</p>
+					</c:when>
+				</c:choose>
+			</div>
+			<div class="galerija">
+				<div class='bigpic'></div>
+				<div class='rightbar'>
+					<c:forEach var="slika" items="${zapis.slikeID}">
+						<div class='littlepic'>
+							<a href="/megafon/servleti/prikaziSliku?id=${slika}"
+								data-lightbox="image-1" data-title="${zapis.naslov}-id:${slika}">
+								<img
+								src="/megafon/servleti/prikaziSliku?id=${slika}&x=400&y=300">
+							</a>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+
+
+			<div id="site_main"></div>
+			<!-- end of main -->
 		</div>
-
-		<div id="site_main"></div>
-		<!-- end of main -->
-	</div>
-	<!-- end of wrapper -->
+		<!-- end of wrapper -->
 	</div>
 	<!-- end of subpage -->
 	<jsp:include page="Footer.jsp" />
-
 </body>
 

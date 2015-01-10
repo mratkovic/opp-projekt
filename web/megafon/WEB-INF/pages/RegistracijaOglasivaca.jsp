@@ -5,14 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
+<script type="text/javascript" src="/megafon/js/jquery-2.1.1.min.js"></script>
 <title>Registracija</title>
 <style type="text/css">
 .box {
 	display: none;
 }
 </style>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('input[type="radio"]').change(function() {

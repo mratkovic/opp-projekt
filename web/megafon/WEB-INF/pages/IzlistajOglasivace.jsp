@@ -20,7 +20,7 @@
 					<li><a href="/megafon/servleti/">Pretraga</a></li>
 					<li><a href="/megafon/servleti/">O nama</a></li>
 
-					<li class="last"><a href="/megafon/servleti/admin"
+					<li class="last"><a href="/megafon/servleti/postavkeRacuna"
 						class="current">Postavke</a></li>
 
 
@@ -42,8 +42,8 @@
 			<div id="site_middle_subpage">
 				<h2>Prikaz svih oglasivaca</h2>
 				<p>
-					Prikaz svih korisnickih racuna ovog portala. <br> Uredivanje i
-					brisaje omoguceno
+					Prikaz svih korisničkih računa ovog portala. <br> Uređivanje i
+					brisanje omogućeno!
 				</p>
 
 			</div>
@@ -59,7 +59,7 @@
 							<table>
 								<tr>
 									<td class=title>Username</td>
-									<td class=title>Tip računa</td>
+									<td class=title>Tip članstva</td>
 									<td></td>
 									<td></td>
 									<td></td>
@@ -68,15 +68,15 @@
 								<c:forEach var="zapis" items="${oglasivaci}">
 									<tr>
 										<td>${zapis.username}</td>
-										<td>${zapis.tipRacuna.naziv}</td>
+										<td>${zapis.tipClanstva.naziv}</td>
 										<td></td>
 										<td><a
-											href="/megafon/servleti/prikaziOglasivaca?id=${zapis.id}"
+											href="/megafon/servleti/prikazOglasivaca?id=${zapis.id}"
 											target="_blank">[Prikaži]</a></td>
 										<td><a
 											href="/megafon/servleti/izbrisiOglasivac?id=${zapis.id}">[Izbriši]</a></td>
 										<td><a
-											href="/megafon/servleti/prikaziOglaseOglasivaca?admin=true;id=${zapis.id}"
+											href="/megafon/servleti/prikaziOglaseOglasivaca?id=${zapis.id}"
 											target="_blank">[Prikazi sve oglase]</a></td>
 									</tr>
 								</c:forEach>
