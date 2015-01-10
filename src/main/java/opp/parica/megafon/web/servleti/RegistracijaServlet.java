@@ -95,7 +95,7 @@ public class RegistracijaServlet extends HttpServlet {
 			String msg = "Administrator " + admin.getUsername() + " ubacen u bazu podataka";
 
 			req.setAttribute("msg", msg);
-			req.setAttribute("title", "Registracija uspješna");
+			req.setAttribute("title", "Uspješno");
 			if (req.getSession().getAttribute("admin") == null) {
 				System.out.println("Inicijalizacija baze.");
 				napuniBazu(req);

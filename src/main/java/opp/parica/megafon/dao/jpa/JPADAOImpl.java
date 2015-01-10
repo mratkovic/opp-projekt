@@ -213,12 +213,13 @@ public class JPADAOImpl implements DAO {
 	@Override
 	public boolean izbrisiOglasivaca(final long id) {
 		EntityManager em = JPAEMProvider.getEntityManager();
-		Oglasivac o = dohvatiOglasivaca(id);
-		if (o != null) {
-			em.remove(o);
+		Oglasivac oglasivac = dohvatiOglasivaca(id);
+		if (oglasivac != null) {
+			em.remove(oglasivac);
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	@Override
@@ -438,7 +439,7 @@ public class JPADAOImpl implements DAO {
 		} else {
 			return oglasi;
 		}
-		//return null;
+		// return null;
 	}
 
 	@Override
@@ -454,7 +455,8 @@ public class JPADAOImpl implements DAO {
 	}
 
 	@Override
-	public List<Oglas> dohvatiOglase(final String naslovOglasa, final long katID, final float donjaCijena, final float gornjaCijena) {
+	public List<Oglas> dohvatiOglase(final String naslovOglasa, final long katID, final float donjaCijena,
+		final float gornjaCijena) {
 		// TODO Auto-generated method stub
 		return null;
 	}
