@@ -12,28 +12,24 @@
 	<div class="subpage">
 		<div id="site_wrapper">
 			<jsp:include page="Header.jsp" />
-
 			<div id="site_menu">
 				<ul>
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
-					<li><a href="/megafon/servleti/">Pretraga</a></li>
-					<li><a href="/megafon/servleti/">O nama</a></li>
+
+					<li><a href="/megafon/servleti/pretraga" class="current">Pretraživanje</a></li>
 					<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
-					<li class="last"><a
-						href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
-					<li class="last"><a href="/megafon/servleti/postavkeRacuna">Postavke</a></li>
+					<li class="last"><a href="/megafon/servleti/postavkeRacuna"
+						class="current">Moji podaci</a></li>
 
 				</ul>
-
 				<div id="search_box">
-					<form action="#" method="get">
-						<input type="text" value="Search" name="q" size="10"
+					<form action="/megafon/servleti/pretraga" method="post">
+						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
 							id="searchfield" title="searchfield" onfocus="clearText(this)"
 							onblur="clearText(this)" /> <input type="submit" name="Search"
 							value="" id="searchbutton" title="Search" />
 					</form>
 				</div>
-
 				<div class="cleaner"></div>
 			</div>
 			<!-- end of site_menu -->
@@ -52,8 +48,8 @@
 
 				<p>
 					Ukoliko zelite se informirati o naprednijim tipovima racuna, te
-					promjeniti vas tip kliknite <a
-						href="/megafon/servleti/uredi/tip"> ovdje</a>
+					promjeniti vas tip kliknite <a href="/megafon/servleti/uredi/tip">
+						ovdje</a>
 				</p>
 
 			</div>

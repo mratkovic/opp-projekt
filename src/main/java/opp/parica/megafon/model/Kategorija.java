@@ -12,12 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "kategorija")
 public class Kategorija {
 	public static final String[] TIPOVI = { "NUM", "TXT" };
 	public static final String[] OSNOVNE_STAVKE = { "Naziv oglasa",
-		"Cijena", "Opis", "Video link", "Slike"};
+		"Cijena", "Opis", "Video link", "Slike" };
 
 	private Long id;
 	private String naziv;
@@ -73,6 +74,7 @@ public class Kategorija {
 	public void setPodkategorije(final List<Kategorija> podkategorije) {
 		this.podkategorije = podkategorije;
 	}
+
 	@OneToMany(mappedBy = "pripadaKategoriji", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
 	public List<Oglas> getOglasi() {
 		return oglasi;
@@ -81,6 +83,7 @@ public class Kategorija {
 	public void setOglasi(final List<Oglas> oglasi) {
 		this.oglasi = oglasi;
 	}
+
 	@Column
 	public Boolean getJeBesplatna() {
 		return jeBesplatna;
@@ -122,13 +125,7 @@ public class Kategorija {
 
 	@Override
 	public String toString() {
-		return "Kategorija [id=" + id + ", naziv=" + naziv + ", dodatneStavke=" + dodatneStavke
-			+ ", podkategorije=" + podkategorije + ", nadkategorija=" + nadkategorija + ", oglasi=" + oglasi
-			+ ", jeBesplatna=" + jeBesplatna + "]";
+		return "Kategorija [id=" + id + ", naziv=" + naziv + "]";
 	}
-
-
-
-
 
 }

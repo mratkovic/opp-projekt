@@ -32,35 +32,33 @@
 			<div id="site_menu">
 				<ul>
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
-					<li><a href="/megafon/servleti/">Pretraga</a></li>
-					<li><a href="/megafon/servleti/">O nama</a></li>
 
 					<c:choose>
-						<c:when test='${sessionScope["logged"] == null}'>
-							<li><a href="/megafon/servleti/login">Prijava</a></li>
-							<li class="last"><a
-								href="/megafon/servleti/registracija/oglasivac">Registracija</a></li>
+						<c:when test='${sessionScope["admin"] != null}'>
+							<li><a href="/megafon/servleti/pretraga"  class="current">Pretraživanje</a></li>
+							<li class="last"><a href="/megafon/servleti/postavkeRacuna">Upravljanje</a></li>
 						</c:when>
-						<c:otherwise>
-							<c:choose>
-								<c:when test='${sessionScope["admin"] == null}'>
-									<li class="last"><a href="/megafon/servleti/admin">Postavke</a></li>
-								</c:when>
-								<c:otherwise>
-									<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
-									<li class="last"><a
-										href="/megafon/servleti/prikaziOglaseOglasivaca">Moji
-											oglasi</a></li>
-									<li class="last"><a href="/megafon/servleti/user">Postavke</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:otherwise>
+						<c:when test='${sessionScope["user"] != null}'>
+							<li><a href="/megafon/servleti/pretraga"  class="current">Pretraživanje</a></li>
+							<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
+							<li class="last"><a href="/megafon/servleti/postavkeRacuna">Moji
+									podaci</a></li>
+						</c:when>
+
+						<c:when
+							test='${sessionScope["user"] == null && sessionScope["admin"] == null}'>
+							<li><a href="/megafon/servleti/info">O nama</a></li>
+							<li><a href="/megafon/servleti/pretraga"  class="current">Pretraživanje</a></li>
+							<li class="last"><a href="/megafon/servleti/login">Prijava</a></li>
+						</c:when>
+
 					</c:choose>
 				</ul>
 
+
 				<div id="search_box">
-					<form action="#" method="get">
-						<input type="text" value="Search" name="q" size="10"
+					<form action="/megafon/servleti/pretraga" method="post">
+						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
 							id="searchfield" title="searchfield" onfocus="clearText(this)"
 							onblur="clearText(this)" /> <input type="submit" name="Search"
 							value="" id="searchbutton" title="Search" />
@@ -68,6 +66,7 @@
 				</div>
 
 				<div class="cleaner"></div>
+
 			</div>
 			<!-- end of site_menu -->
 
@@ -147,21 +146,40 @@
 
 				<c:choose>
 					<c:when test='${autorPO != null}'>
-						<p>
-							<a
-								href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorPO.id}"
-								target="_blank">[Prikazi sve oglase ovog oglašivača]</a>
-						</p>
+						<c:choose>
+							<c:when test='${autorPO.id == sessionScope["id"] }'>
+								<a
+									href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorPO.id}"
+									target="_blank">[Prikazi sve moje oglase]</a>
+							</c:when>
+							<c:otherwise>
+
+								<p>
+									<a
+										href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorPO.id}"
+										target="_blank">[Prikazi sve oglase ovog oglašivača]</a>
+								</p>
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 				</c:choose>
 				<c:choose>
 					<c:when test='${autorFO != null}'>
+						<c:choose>
+							<c:when test='${autorPO.id == sessionScope["id"] }'>
+								<a
+									href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorFO.id}"
+									target="_blank">[Prikazi sve moje oglase]</a>
+							</c:when>
+							<c:otherwise>
 
-						<p>
-							<a
-								href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorFO.id}"
-								target="_blank">[Prikazi sve oglase ovog oglašivača]</a>
-						</p>
+								<p>
+									<a
+										href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorFO.id}"
+										target="_blank">[Prikazi sve oglase ovog oglašivača]</a>
+								</p>
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 				</c:choose>
 			</div>

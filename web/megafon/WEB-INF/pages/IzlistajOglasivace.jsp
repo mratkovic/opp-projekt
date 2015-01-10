@@ -17,18 +17,34 @@
 			<div id="site_menu">
 				<ul>
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
-					<li><a href="/megafon/servleti/">Pretraga</a></li>
-					<li><a href="/megafon/servleti/">O nama</a></li>
 
-					<li class="last"><a href="/megafon/servleti/postavkeRacuna"
-						class="current">Postavke</a></li>
+					<c:choose>
+						<c:when test='${sessionScope["admin"] != null}'>
+							<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
+							<li class="last"><a href="/megafon/servleti/postavkeRacuna"
+								class="current">Upravljanje</a></li>
+						</c:when>
+						<c:when test='${sessionScope["user"] != null}'>
+							<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
+							<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
+							<li class="last"><a href="/megafon/servleti/postavkeRacuna"
+								class="current">Moji podaci</a></li>
+						</c:when>
 
+						<c:when
+							test='${sessionScope["user"] == null && sessionScope["admin"] == null}'>
+							<li><a href="/megafon/servleti/info">O nama</a></li>
+							<li><a href="/megafon/servleti/pretraga" class="current">Pretraživanje</a></li>
+							<li class="last"><a href="/megafon/servleti/login">Prijava</a></li>
+						</c:when>
 
+					</c:choose>
 				</ul>
 
+
 				<div id="search_box">
-					<form action="#" method="get">
-						<input type="text" value="Search" name="q" size="10"
+					<form action="/megafon/servleti/pretraga" method="post">
+						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
 							id="searchfield" title="searchfield" onfocus="clearText(this)"
 							onblur="clearText(this)" /> <input type="submit" name="Search"
 							value="" id="searchbutton" title="Search" />
@@ -64,6 +80,7 @@
 									<td></td>
 									<td></td>
 									<td></td>
+									<td></td>
 								</tr>
 								<c:forEach var="zapis" items="${oglasivaci}">
 									<tr>
@@ -74,10 +91,16 @@
 											href="/megafon/servleti/prikazOglasivaca?id=${zapis.id}"
 											target="_blank">[Prikaži]</a></td>
 										<td><a
+											href="/megafon/servleti/uredi/korisnik?id=${zapis.id}"
+											target="_blank">[Uredi podatke]</a></td>
+										<td><a
 											href="/megafon/servleti/izbrisiOglasivac?id=${zapis.id}">[Izbriši]</a></td>
 										<td><a
 											href="/megafon/servleti/prikaziOglaseOglasivaca?id=${zapis.id}"
-											target="_blank">[Prikazi sve oglase]</a></td>
+											target="_blank">[Prikaži sve oglase]</a></td>
+											
+										<td>
+										</td>
 									</tr>
 								</c:forEach>
 							</table>

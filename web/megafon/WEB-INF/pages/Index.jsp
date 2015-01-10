@@ -46,39 +46,33 @@
 			<div id="site_menu">
 				<ul>
 					<li><a href="/megafon/servleti/pocetna" class="current">Početna</a></li>
-					<li><a href="/megafon/servleti/">Pretraga</a></li>
-					<li><a href="/megafon/servleti/">O nama</a></li>
 
 					<c:choose>
-						<c:when test='${sessionScope["logged"] == null}'>
-							<li><a href="/megafon/servleti/login">Prijava</a></li>
-							<li class="last"><a
-								href="/megafon/servleti/registracija/oglasivac">Registracija</a></li>
+						<c:when test='${sessionScope["admin"] != null}'>
+							<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
+							<li class="last"><a href="/megafon/servleti/postavkeRacuna">Upravljanje</a></li>
 						</c:when>
-						<c:otherwise>
-							<c:choose>
-								<c:when test='${sessionScope["admin"] != null}'>
-									<li class="last"><a
-										href="/megafon/servleti/postavkeRacuna">Postavke</a></li>
-								</c:when>
-								<c:otherwise>
+						<c:when test='${sessionScope["user"] != null}'>
+							<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
+							<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
+							<li class="last"><a href="/megafon/servleti/postavkeRacuna">Moji
+									podaci</a></li>
+						</c:when>
 
-									<li><a href="/megafon/servleti/postavkeRacuna">Postavke</a></li>
-									<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
-									<li class="last"><a
-										href="/megafon/servleti/prikaziOglaseOglasivaca">Moji
-											oglasi</a></li>
+						<c:when
+							test='${sessionScope["user"] == null && sessionScope["admin"] == null}'>
+							<li><a href="/megafon/servleti/info">O nama</a></li>
+							<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
+							<li class="last"><a href="/megafon/servleti/login">Prijava</a></li>
+						</c:when>
 
-
-								</c:otherwise>
-							</c:choose>
-						</c:otherwise>
 					</c:choose>
 				</ul>
 
+
 				<div id="search_box">
-					<form action="#" method="get">
-						<input type="text" value="Search" name="q" size="10"
+					<form action="/megafon/servleti/pretraga" method="post">
+						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
 							id="searchfield" title="searchfield" onfocus="clearText(this)"
 							onblur="clearText(this)" /> <input type="submit" name="Search"
 							value="" id="searchbutton" title="Search" />
@@ -90,81 +84,67 @@
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Dobrodosli na najbolji portal za oglasavanje ikad</h2>
-				<p>Ovdje mozete pronaci sve, od igle do lokomotive</p>
+				<h2>Dobrodošli na najbolji portal za oglašavanje ikad :D</h2>
+				<p>Ovdje možete pronaći sve, od igle do lokomotive!</p>
 			</div>
 
 			<div id="site_main">
+				<c:choose>
+					<c:when test='${premium != null}'>
+						<h3>Izdvojeni oglasi, super ponuda!!</h3>
+						<div id="lista1" class="als-container">
 
-				<div id="lista1" class="als-container">
+							<div class="als-viewport">
+								<div class="als-wrapper">
 
-					<div class="als-viewport">
-						<div class="als-wrapper">
+									<c:forEach var="oglas" items="${premium}">
+										<div class="als-item">
+											<div class="lp_box lp_box_last">
 
-							<div class="als-item">
-								<div class="lp_box lp_box_last">
-									<h6>1N1ullam ut neque neque</h6>
+												<h6>
+													<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}">${oglas.naslov}</a>
+												</h6>
+												<a
+													href="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=400&y=300"
+													data-lightbox="image-1"
+													data-title="${zapis.naslov}-id:${slika}"> <img
+													src="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=290&y=140">
+												</a>
 
-									<a href="/megafon/servleti/prikaziSliku?id=5"
-										data-lightbox="image-1" data-title="slka-id:5"> <img
-										src="/megafon/servleti/prikaziSliku?id=5&x=290&y=140">
 
+												<p>${oglas.opis}</p>
+												<p>
+													<span class="oglasLabela">Cijena: </span>${oglas.cijena}
+												</p>
+												<p>
+													<span class="oglasLabela">Datum objave: </span>
+													${oglas.datum}
+												</p>
+												<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}"
+													class="more float_r">Više</a>
 
-									</a>
+												<div class="cleaner"></div>
+											</div>
+										</div>
+									</c:forEach>
 
-
-									<p>Etiam ut nibh et urna cursus ultricies nec vel nunc. In
-										hac habitasse platea dictumst.</p>
-									<a href="#" class="more float_r">More</a>
-									<div class="cleaner"></div>
 								</div>
 							</div>
-
-							<div class="als-item">
-								<div class="lp_box lp_box_last">
-									<h6>2N1ullam ut neque neque</h6>
-									<a href="#"><img src="/megafon/images/site_image_01.jpg"
-										alt="Image 01" /></a>
-									<p>Etiam ut nibh et urna cursus ultricies nec vel nunc. In
-										hac habitasse platea dictumst.</p>
-									<a href="#" class="more float_r">More</a>
-									<div class="cleaner"></div>
-								</div>
-							</div>
-
-							<div class="als-item">
-								<div class="lp_box lp_box_last">
-									<h6>3N1ullam ut neque neque</h6>
-									<a href="#"><img src="/megafon/images/site_image_01.jpg"
-										alt="Image 01" /></a>
-									<p>Etiam ut nibh et urna cursus ultricies nec vel nunc. In
-										hac habitasse platea dictumst.</p>
-									<a href="#" class="more float_r">More</a>
-									<div class="cleaner"></div>
-								</div>
-							</div>
-
-							<div class="als-item">
-								<div class="lp_box lp_box_last">
-									<h6>4N1ullam ut neque neque</h6>
-									<a href="#"><img src="/megafon/images/site_image_01.jpg"
-										alt="Image 01" /></a>
-									<p>Etiam ut nibh et urna cursus ultricies nec vel nunc. In
-										hac habitasse platea dictumst.</p>
-									<a href="#" class="more float_r">More</a>
-									<div class="cleaner"></div>
-								</div>
-							</div>
+							<span class="als-next"><img
+								src="/megafon/images/thin_right_arrow_333.png" alt="next"
+								title="next" /></span> <span class="als-prev"><img
+								src="/megafon/images/thin_left_arrow_333.png" alt="prev"
+								title="previous" /></span>
 						</div>
-					</div>
-					<span class="als-next"><img
-						src="/megafon/images/thin_right_arrow_333.png" alt="next"
-						title="next" /></span> <span class="als-prev"><img
-						src="/megafon/images/thin_left_arrow_333.png" alt="prev"
-						title="previous" /></span>
-				</div>
-				<div class="cleaner"></div>
+						<div class="cleaner"></div>
+					</c:when>
+				</c:choose>
 
+				<p>Vodeći portal za oglašavanje na ovim prostorima!!
+				<p>
+					Ukoliko nemate korisnički račun na portalu registrirajte se <a
+						href="/megafon/servleti/registracija/oglasivac">ovdje</a>
+				</p>
 			</div>
 			<!-- end of main -->
 		</div>

@@ -16,27 +16,33 @@
 			<div id="site_menu">
 				<ul>
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
-					<li><a href="/megafon/servleti/">Pretraga</a></li>
-					<li><a href="/megafon/servleti/">O nama</a></li>
 
 					<c:choose>
-
-						<c:when test='${sessionScope["admin"] == null}'>
-							<li class="last"><a href="/megafon/servleti/admin"
-								class="current">Postavke</a></li>
+						<c:when test='${sessionScope["admin"] != null}'>
+							<li><a href="/megafon/servleti/pretraga" class="current">Pretraživanje</a></li>
+							<li class="last"><a href="/megafon/servleti/postavkeRacuna">Upravljanje</a></li>
 						</c:when>
-						<c:otherwise>
+						<c:when test='${sessionScope["user"] != null}'>
+							<li><a href="/megafon/servleti/pretraga" class="current">Pretraživanje</a></li>
 							<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
-							<li class="last"><a
-								href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
-							<li class="last"><a href="/megafon/servleti/postavkeRacuna">Postavke</a></li>
-						</c:otherwise>
+							<li class="last"><a href="/megafon/servleti/postavkeRacuna">Moji
+									podaci</a></li>
+						</c:when>
+
+						<c:when
+							test='${sessionScope["user"] == null && sessionScope["admin"] == null}'>
+							<li><a href="/megafon/servleti/info">O nama</a></li>
+							<li><a href="/megafon/servleti/pretraga" class="current">Pretraživanje</a></li>
+							<li class="last"><a href="/megafon/servleti/login">Prijava</a></li>
+						</c:when>
+
 					</c:choose>
 				</ul>
 
+
 				<div id="search_box">
-					<form action="#" method="get">
-						<input type="text" value="Search" name="q" size="10"
+					<form action="/megafon/servleti/pretraga" method="post">
+						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
 							id="searchfield" title="searchfield" onfocus="clearText(this)"
 							onblur="clearText(this)" /> <input type="submit" name="Search"
 							value="" id="searchbutton" title="Search" />
@@ -48,57 +54,97 @@
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Prikaz podataka korisnika ${korisnik.username}</h2>
-				<p>Prikaz detalja korisnika........</p>
+				<h2>Prikaz podataka korisnika '${korisnik.username}'</h2>
+
 			</div>
 
 			<div id="site_main">
-				<c:choose>
-					<c:when test='${pravna != null}'>
-						<p>Pravna osoba</p>
-						<p>Naziv firme: ${pravna.naziv}</p>
-					</c:when>
-					<c:otherwise>
-						<p>Fizička osoba</p>
-						<p>Ime: ${fizicka.ime}</p>
-						<p>Prezime: ${fizicka.prezime}</p>
-					</c:otherwise>
-				</c:choose>
-				<p>Korisničko ime: ${korisnik.username}</p>
-				<p>Trenutni tip članstva: ${korisnik.tipClanstva.naziv}</p>
-				<p>Datum isteka članstva: ${datumIsteka}</p>
-				<p>Datum registracije: ${datumRegistracije}</p>
-				<p>Adresa: ${korisnik.adresa}</p>
-				<p>EMail: ${korisnik.email}</p>
-				<p>Telefon: ${korisnik.telefon}</p>
+				<table>
 
-				<c:choose>
-					<c:when test='${pravna != null}'>
-						<p>Fax: ${pravna.fax}</p>
-					</c:when>
-				</c:choose>
+					<c:choose>
+						<c:when test='${pravna != null}'>
+							<tr>
+								<td><label>Naziv tvrtke: </label></td>
+								<td>${pravna.naziv}</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td><label>Ime: </label></td>
+								<td>${fizicka.ime}</td>
+							</tr>
+							<tr>
+								<td><label>Prezime: </label></td>
+								<td>${fizicka.prezime}</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
+					<tr>
+						<td><label>Korisničko ime: </label></td>
+						<td>${korisnik.username}</td>
+					</tr>
+					<tr>
+						<td><label>Trenutni tip članstva: </label></td>
+						<td>${korisnik.tipClanstva.naziv}</td>
+					</tr>
+					<tr>
+						<td><label>Datum isteka članstva: </label></td>
+						<td>${datumIsteka}</td>
+					</tr>
+					<tr>
+						<td><label>Datum registracije: </label></td>
+						<td>${datumRegistracije}</td>
+					</tr>
+					<tr>
+						<td><label>Adresa: </label></td>
+						<td>${korisnik.adresa}</td>
+					</tr>
+					<tr>
+						<td><label>Email: </label></td>
+						<td>${korisnik.email}</td>
+					</tr>
+					<tr>
+						<td><label>Telefon: </label></td>
+						<td>${korisnik.telefon}</td>
+					</tr>
 
+
+					<c:choose>
+						<c:when test='${pravna != null}'>
+							<tr>
+								<td><label>Fax: </label></td>
+								<td>${korisnik.fax}</td>
+							</tr>
+
+						</c:when>
+					</c:choose>
+				</table>
 				<br>
 				<table>
 					<tr>
-						<td><a
-							href="/megafon/servleti/prikaziOglaseOglasivaca?id=${korisnik.id}">[Prikazi
-								sve oglase]</a></td>
-						<td><c:choose>
-								<c:when test='${korisnik.id == sessionScope["id"] }'>
-									<td><a
-										href="/megafon/servleti/uredi/korisnik?id=${korisnik.id}">[Uredi
-											moje podatke]</a>
-								</c:when>
-								<c:otherwise>
-									<c:choose>
-										<c:when test='${sessionScope["admin"] != null}'>
-											<a href="/megafon/servleti/uredi/korisnik?id=${korisnik.id}">[Uredi
-												podatke o korisniku]</a>
-										</c:when>
-									</c:choose>
-								</c:otherwise>
-							</c:choose></td>
+
+						<c:choose>
+							<c:when test='${korisnik.id == sessionScope["id"] }'>
+								<td><a
+									href="/megafon/servleti/prikaziOglaseOglasivaca?id=${korisnik.id}">[Prikaži
+										sve moje oglase]</a></td>
+								<td><a
+									href="/megafon/servleti/uredi/korisnik?id=${korisnik.id}">[Uredi
+										moje podatke]</a>
+							</c:when>
+							<c:otherwise>
+								<td><a
+									href="/megafon/servleti/prikaziOglaseOglasivaca?id=${korisnik.id}">[Prikaži
+										sve oglase]</a></td>
+								<c:choose>
+									<c:when test='${sessionScope["admin"] != null}'>
+										<td><a
+											href="/megafon/servleti/uredi/korisnik?id=${korisnik.id}">[Uredi
+												podatke o korisniku]</a></td>
+									</c:when>
+								</c:choose>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 
 

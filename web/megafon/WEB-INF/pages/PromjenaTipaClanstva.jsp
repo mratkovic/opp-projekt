@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%pageContext.setAttribute("razmak", " - ");%>
+<%
+	pageContext.setAttribute("razmak", " - ");
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
@@ -17,27 +19,19 @@
 			<div id="site_menu">
 				<ul>
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
-					<li><a href="/megafon/servleti/">Pretraga</a></li>
-					<li><a href="/megafon/servleti/">O nama</a></li>
 
-					<c:choose>
 
-						<c:when test='${sessionScope["admin"] == null}'>
-							<li class="last"><a href="/megafon/servleti/postavkeRacuna"
-								class="current">Postavke</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
-							<li class="last"><a
-								href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
-							<li class="last"><a href="/megafon/servleti/postavkeRacuna" class="current">Postavke</a></li>
-						</c:otherwise>
-					</c:choose>
+					<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
+					<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
+					<li class="last"><a href="/megafon/servleti/postavkeRacuna"
+						class="current">Moji podaci</a></li>
+
 				</ul>
 
+
 				<div id="search_box">
-					<form action="#" method="get">
-						<input type="text" value="Search" name="q" size="10"
+					<form action="/megafon/servleti/pretraga" method="post">
+						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
 							id="searchfield" title="searchfield" onfocus="clearText(this)"
 							onblur="clearText(this)" /> <input type="submit" name="Search"
 							value="" id="searchbutton" title="Search" />
@@ -72,7 +66,8 @@
 
 					<select name="odabraniTip" size="1">
 						<c:forEach var="tip" items="${tipoviRacuna}">
-							<option value='${tip.naziv}'>${tip.naziv}${razmak}${tip.clanarina} kn/mjesec
+							<option value='${tip.naziv}'>${tip.naziv}${razmak}${tip.clanarina}
+								kn/mjesec
 						</c:forEach>
 
 					</select> <input type="submit" name="metoda" value="Promjeni tip">

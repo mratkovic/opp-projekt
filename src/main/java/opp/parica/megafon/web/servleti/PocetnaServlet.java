@@ -14,6 +14,7 @@ import opp.parica.megafon.dao.DAOProvider;
 import opp.parica.megafon.model.Oglas;
 import opp.parica.megafon.model.TipClanstva;
 import opp.parica.megafon.pomocno.Potpora;
+import opp.parica.megafon.web.servleti.forme.OglasKratkaForma;
 
 /**
  * Klasa koja nasljeduje {@link HttpServlet} i predstavlja pocetnu stranicu
@@ -35,7 +36,7 @@ public class PocetnaServlet extends HttpServlet {
 		List<Oglas> premium = DAOProvider.getDAO().dohvatiSveOglase(tip);
 		if (premium != null && !premium.isEmpty()) {
 			Collections.sort(premium, Potpora.OGLASI_KOMPARATOR);
-			req.setAttribute("premium", premium);
+			req.setAttribute("premium", OglasKratkaForma.prilagodiZaPrikaz(premium));
 		}
 		req.getRequestDispatcher("/WEB-INF/pages/Index.jsp").forward(req,
 			resp);

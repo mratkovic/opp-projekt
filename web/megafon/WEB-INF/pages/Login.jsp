@@ -17,15 +17,15 @@
 			<div id="site_menu">
 				<ul>
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
-					<li><a href="/megafon/servleti/">Pretraga</a></li>
-					<li><a href="/megafon/servleti/">O nama</a></li>
-					<li><a href="/megafon/servleti/login" class="current">Prijava</a></li>
-					<li class="last"><a href="/megafon/servleti/register">Registracija</a></li>
+					<li><a href="/megafon/servleti/info">O nama</a></li>
+					<li><a href="/megafon/servleti/pretraga" >Pretraživanje</a></li>
+					<li class="last"><a href="/megafon/servleti/login" class="current">Prijava</a></li>
 				</ul>
 
+
 				<div id="search_box">
-					<form action="#" method="get">
-						<input type="text" value="Search" name="q" size="10"
+					<form action="/megafon/servleti/pretraga" method="post">
+						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
 							id="searchfield" title="searchfield" onfocus="clearText(this)"
 							onblur="clearText(this)" /> <input type="submit" name="Search"
 							value="" id="searchbutton" title="Search" />

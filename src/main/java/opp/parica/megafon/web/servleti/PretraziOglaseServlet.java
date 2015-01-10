@@ -1,7 +1,6 @@
 package opp.parica.megafon.web.servleti;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import opp.parica.megafon.dao.DAOProvider;
 import opp.parica.megafon.model.Kategorija;
 import opp.parica.megafon.model.Oglas;
-import opp.parica.megafon.model.TipClanstva;
 import opp.parica.megafon.pomocno.Potpora;
+import opp.parica.megafon.web.servleti.forme.OglasKratkaForma;
 import opp.parica.megafon.web.servleti.forme.PretragaForma;
 
 @WebServlet("/servleti/pretraga")
@@ -56,29 +55,18 @@ public class PretraziOglaseServlet extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 		}
-		List<Oglas> premium = new ArrayList<Oglas>();
-		List<Oglas> regular = new ArrayList<Oglas>();
+		Collections.sort(oglasi, Potpora.OGLASI_KOMPARATOR);
+		req.setAttribute("rezultati", OglasKratkaForma.prilagodiZaPrikaz(oglasi));
 
-		TipClanstva besplatni = DAOProvider.getDAO().dohvatiTipClanstva("Besplatni");
-		for (Oglas o : oglasi) {
-			if (o.getJeSkriven()) {
-				continue;
-			}
-			if (!o.getAutor().getTipClanstva().equals(besplatni)) {
-				premium.add(o);
-			} else {
-				regular.add(o);
-			}
-		}
+		if (!forma.getKategorija().isEmpty()) {
 
-		if (!premium.isEmpty()) {
+			List<Oglas> premium = DAOProvider.getDAO().
+				dohvatiPremiumOglase(Long.parseLong(forma.getKategorija()));
+
 			Collections.sort(premium, Potpora.OGLASI_KOMPARATOR);
-			req.setAttribute("premium", oglasi);
+			req.setAttribute("premium", OglasKratkaForma.prilagodiZaPrikaz(premium));
 		}
-		if (!regular.isEmpty()) {
-			Collections.sort(regular, Potpora.OGLASI_KOMPARATOR);
-			req.setAttribute("rezultati", oglasi);
-		}
+
 		req.setAttribute("kriteriji", forma.getKriterijiString());
 		req.getRequestDispatcher("/WEB-INF/pages/PrikazRezultata.jsp").forward(req, resp);
 	}

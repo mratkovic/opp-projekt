@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
-<title>Postavke računa</title>
+<title>Moji podaci</title>
 </head>
 
 
@@ -17,37 +17,138 @@
 			<div id="site_menu">
 				<ul>
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
-					<li><a href="/megafon/servleti/">Pretraga</a></li>
-					<li><a href="/megafon/servleti/">O nama</a></li>
-
+					<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
 					<li><a href="/megafon/servleti/dodajOglas">Dodaj oglas</a></li>
-					<li><a
-						href="/megafon/servleti/prikaziOglaseOglasivaca">Moji oglasi</a></li>
-					<li class="last"><a href="/megafon/servleti/postavkeRacuna">Postavke</a></li>
-
+					<li class="last"><a href="/megafon/servleti/postavkeRacuna"
+						class="current">Moji podaci</a></li>
 				</ul>
+
+
+				<div id="search_box">
+					<form action="/megafon/servleti/pretraga" method="post">
+						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
+							id="searchfield" title="searchfield" onfocus="clearText(this)"
+							onblur="clearText(this)" /> <input type="submit" name="Search"
+							value="" id="searchbutton" title="Search" />
+					</form>
+				</div>
 
 				<div class="cleaner"></div>
 			</div>
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Postavke računa</h2>
-				<p>nest nesto nesto nesto</p>
+				<h2>Korisničke opcije</h2>
+				<p>Prikaz podataka korisnika '${korisnik.username}'</p>
 			</div>
-			<p>
-				Promjena lozine <a href="/megafon/servleti/uredi/lozinka">ovdje</a>
-			</p>
 
-			<p>
-				Promjena podataka <a
-					href="/megafon/servleti/uredi/korisnik?id=${id}">ovdje</a>
-			</p>
-			
-			<p>
-				Moji oglasi <a
-					href="/megafon/servleti/prikaziOglaseOglasivaca">ovdje</a>
-			</p>
+			<table>
+				<c:choose>
+					<c:when test='${pravna != null}'>
+						<tr>
+							<td><label>Naziv tvrtke: </label></td>
+							<td>${pravna.naziv}</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<tr>
+							<td><label>Ime: </label></td>
+							<td>${fizicka.ime}</td>
+						</tr>
+						<tr>
+							<td><label>Prezime: </label></td>
+							<td>${fizicka.prezime}</td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
+				<tr>
+					<td><label>Korisničko ime: </label></td>
+					<td>${korisnik.username}</td>
+				</tr>
+				<tr>
+					<td><label>Trenutni tip članstva: </label></td>
+					<td>${korisnik.tipClanstva.naziv}</td>
+				</tr>
+				<tr>
+					<td><label>Datum isteka članstva: </label></td>
+					<td>${datumIsteka}</td>
+				</tr>
+				<tr>
+					<td><label>Datum registracije: </label></td>
+					<td>${datumRegistracije}</td>
+				</tr>
+				<tr>
+					<td><label>Adresa: </label></td>
+					<td>${korisnik.adresa}</td>
+				</tr>
+				<tr>
+					<td><label>Email: </label></td>
+					<td>${korisnik.email}</td>
+				</tr>
+				<tr>
+					<td><label>Telefon: </label></td>
+					<td>${korisnik.telefon}</td>
+				</tr>
+
+
+				<c:choose>
+					<c:when test='${pravna != null}'>
+						<tr>
+							<td><label>Fax: </label></td>
+							<td>${korisnik.fax}</td>
+						</tr>
+
+					</c:when>
+				</c:choose>
+			</table>
+			<br>
+			<table>
+				<tr>
+					<td><a
+						href="/megafon/servleti/uredi/korisnik?id=${korisnik.id}">[Uredi
+							podatke]</a></td>
+					<td><a href="/megafon/servleti/uredi/lozinka">[Promjeni
+							lozinku]</a></td>
+				</tr>
+
+
+			</table>
+			<br>
+			<h3>Moji oglasi</h3>
+			<div class=listaj>
+				<table>
+					<c:choose>
+						<c:when test="${oglasi.isEmpty()}">
+							<tr>
+								<td>Nema objavljenih oglasa</td>
+							</tr>
+						</c:when>
+
+						<c:otherwise>
+							<tr>
+								<td class=title>Naziv oglasa</td>
+								<td class=title>Kategorija</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<c:forEach var="zapis" items="${oglasi}">
+								<tr>
+									<td>${zapis.naslov}</td>
+									<td>${zapis.pripadaKategoriji.naziv}</td>
+									<td></td>
+									<td><a
+										href="/megafon/servleti/prikaziOglas?id=${zapis.id}">[Prikaži]</a></td>
+									<td><a
+										href="/megafon/servleti/izbrisiOglas?id=${zapis.id}">[Izbriši]</a></td>
+								</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</table>
+				<div class="cleaner"></div>
+				<br> <br>
+			</div>
 			<!-- end of main -->
 		</div>
 		<!-- end of wrapper -->

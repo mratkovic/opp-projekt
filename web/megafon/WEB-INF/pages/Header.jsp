@@ -18,7 +18,7 @@
 				<li class=separator>|</li>
 			</c:when>
 			<c:otherwise>
-				<li><a class = 'userbarA' href="/megafon/logout">Logout</a></li>
+				<li><a class = 'userbarA' href="/megafon/logout">Odjava</a></li>
 				<li class=separator>|</li>
 				<li>${sessionScope["logged"]}</li>
 				<li class=separator>|</li>

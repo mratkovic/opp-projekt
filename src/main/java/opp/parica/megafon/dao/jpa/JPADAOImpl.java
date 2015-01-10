@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import opp.parica.megafon.dao.DAO;
+import opp.parica.megafon.dao.DAOProvider;
 import opp.parica.megafon.model.Admin;
 import opp.parica.megafon.model.DodatnaStavka;
 import opp.parica.megafon.model.FizickaOsoba;
@@ -75,27 +76,35 @@ public class JPADAOImpl implements DAO {
 	@Override
 	public final Admin dohvatiAdmin(final String username, final String passwordHash) {
 		EntityManager em = JPAEMProvider.getEntityManager();
-		Admin user =
-			(Admin) em.createQuery("select usr from Admin as usr "
+		List<Admin> users =
+			em.createQuery("select usr from Admin as usr "
 				+ "where usr.username=:username and usr.passwordHash=:passwordHash")
 				.setParameter("username", username)
 				.setParameter("passwordHash", passwordHash)
-				.getSingleResult();
-		return user;
+				.getResultList();
+		if (users == null || users.isEmpty()) {
+			return null;
+		} else {
+			return users.get(0);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public PravnaOsoba dohvatiPravnaOsoba(final String username, final String passwordHash) {
 		EntityManager em = JPAEMProvider.getEntityManager();
-		PravnaOsoba user =
-			(PravnaOsoba) em.createQuery("select usr from PravnaOsoba as usr "
+		List<PravnaOsoba> users =
+			em.createQuery("select usr from PravnaOsoba as usr "
 				+ "where usr.username=:username and usr.passwordHash=:passwordHash")
 				.setParameter("username", username)
 				.setParameter("passwordHash", passwordHash)
-				.getSingleResult();
+				.getResultList();
 
-		return user;
+		if (users == null || users.isEmpty()) {
+			return null;
+		} else {
+			return users.get(0);
+		}
 	}
 
 	@Override
@@ -120,17 +129,21 @@ public class JPADAOImpl implements DAO {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public TipClanstva dohvatiTipClanstva(final String naziv) {
 		EntityManager em = JPAEMProvider.getEntityManager();
-		TipClanstva t =
-			(TipClanstva) em.createQuery("select tip from TipClanstva as tip "
+		@SuppressWarnings("unchecked")
+		List<TipClanstva> tipovi =
+			em.createQuery("select tip from TipClanstva as tip "
 				+ "where tip.naziv=:naziv")
 				.setParameter("naziv", naziv)
-				.getSingleResult();
+				.getResultList();
 
-		return t;
+		if (tipovi == null || tipovi.isEmpty()) {
+			return null;
+		} else {
+			return tipovi.get(0);
+		}
 
 	}
 
@@ -138,12 +151,16 @@ public class JPADAOImpl implements DAO {
 	@Override
 	public boolean postojiKorisnik(final String username) {
 		EntityManager em = JPAEMProvider.getEntityManager();
-		Oglasivac user =
-			(Oglasivac) em.createQuery("select b from Korisnik as b where b.username=:username")
+		List<Oglasivac> users =
+			em.createQuery("select b from Korisnik as b where b.username=:username")
 				.setParameter("username", username)
-				.getSingleResult();
+				.getResultList();
 
-		return user != null;
+		if (users == null || users.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	@Override
@@ -357,5 +374,30 @@ public class JPADAOImpl implements DAO {
 		final float gornjaCijena) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Oglas> dohvatiPremiumOglase(final long katID) {
+		EntityManager em = JPAEMProvider.getEntityManager();
+		System.out.println("Premimum oglasi kazegorije " + katID);
+		Long premiumId = DAOProvider.getDAO().dohvatiTipClanstva("Premium").getId();
+		Long optimumId = DAOProvider.getDAO().dohvatiTipClanstva("Optimum").getId();
+
+		List<Oglas> oglasi =
+			em.createQuery("select oglas from Oglas as oglas "
+				+ "where oglas.pripadaKategoriji.id=:katID and oglas.jeSkriven=:skriven "
+				+ "and (oglas.autor.tipClanstva.id=:idPremium or oglas.autor.tipClanstva.id=:idOptimum)")
+				.setParameter("katID", katID)
+				.setParameter("skriven", false)
+				.setParameter("idPremium", premiumId)
+				.setParameter("idOptimum", optimumId)
+				.getResultList();
+
+		if (oglasi == null || oglasi.isEmpty()) {
+			return null;
+		} else {
+			return oglasi;
+		}
 	}
 }

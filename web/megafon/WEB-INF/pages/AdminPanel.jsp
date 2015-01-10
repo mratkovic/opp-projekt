@@ -13,46 +13,46 @@
 	<div class="subpage">
 		<div id="site_wrapper">
 			<jsp:include page="Header.jsp" />
-
 			<div id="site_menu">
 				<ul>
 					<li><a href="/megafon/servleti/pocetna" class="current">Početna</a></li>
-					<li><a href="/megafon/servleti/">Pretraga</a></li>
-					<li><a href="/megafon/servleti/">O nama</a></li>
-					<li class="last"><a class='current' href="/megafon/servleti/postavkeRacuna">Postavke</a></li>
+					<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
+					<li class="last"><a href="/megafon/servleti/postavkeRacuna"
+						class="current">Upravljanje</a></li>
 				</ul>
-
-
+				<div id="search_box">
+					<form action="/megafon/servleti/pretraga" method="post">
+						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
+							id="searchfield" title="searchfield" onfocus="clearText(this)"
+							onblur="clearText(this)" /> <input type="submit" name="Search"
+							value="" id="searchbutton" title="Search" />
+					</form>
+				</div>
 				<div class="cleaner"></div>
 			</div>
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Postavke računa</h2>
-				<p>
-					nest nesto nesto nesto
-				</p>
+				<h2>Administratorske postavke</h2>
+				<p>Prijavljen administrator ${admin.ime} ${admin.prezime}
+					'${admin.username}'</p>
 			</div>
-			
+
 			<div id="site_main">
-
-				<p>
-					Dodavanje novog administratora<a
-						href="/megafon/servleti/registracija/admin">ovdje</a>
-				</p>
-
-				<p>
-					Promjena lozine <a href="/megafon/servleti/uredi/lozinka">ovdje</a>
-				</p>
-
-				<p>
-					Promjena podataka <a href="/megafon/servleti/uredi/korisnik?id=${id}">ovdje</a>
-				</p>
-				
-				<p>
-					Izlistaj sve oglasivace
-					<a href="/megafon/servleti/prikazOglasivaca">ovdje</a>
-				</p>
+				<ul>
+					<li>Promjena pristupne lozinke <a
+						href="/megafon/servleti/uredi/lozinka">[link]</a>
+					<li>
+					<li>Promjena osobnih podataka <a
+						href="/megafon/servleti/uredi/korisnik?id=${id}">[link]</a>
+					</li>
+					<li>Dodavanje novog administratora <a
+						href="/megafon/servleti/registracija/admin">[link]</a>
+					</li>
+					<li>Prikaz svih registiranih oglašivača <a
+						href="/megafon/servleti/prikazOglasivaca">[link]</a>
+					</li>
+				</ul>
 			</div>
 			<!-- end of main -->
 		</div>

@@ -16,19 +16,18 @@
 
 			<div id="site_menu">
 				<ul>
-					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
-					<li><a href="/megafon/servleti/">Pretraga</a></li>
-					<li><a href="/megafon/servleti/">O nama</a></li>
-					<li class="last"><a href="/megafon/servleti/postavkeRacuna"
-						class="current">Postavke</a></li>
+					<li><a href="/megafon/servleti/pocetna" class="current">Početna</a></li>
 
+					<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
+					<li class="last"><a href="/megafon/servleti/postavkeRacuna"
+						class="current">Upravljanje</a></li>
 
 				</ul>
 
 
 				<div id="search_box">
-					<form action="#" method="get">
-						<input type="text" value="Search" name="q" size="10"
+					<form action="/megafon/servleti/pretraga" method="post">
+						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
 							id="searchfield" title="searchfield" onfocus="clearText(this)"
 							onblur="clearText(this)" /> <input type="submit" name="Search"
 							value="" id="searchbutton" title="Search" />
@@ -48,8 +47,8 @@
 			</div>
 
 			<div id="site_main">
-				<form action="/megafon/servleti/uredi/korisnik?id=${id}" method="post"
-					style="padding-bottom: 30px;">
+				<form action="/megafon/servleti/uredi/korisnik?id=${id}"
+					method="post" style="padding-bottom: 30px;">
 
 
 					<table>
@@ -75,7 +74,7 @@
 									<div class="greska">${zapis.getError('prezime')}</div>
 								</c:if></td>
 						</tr>
-						
+
 						<tr>
 							<td></td>
 							<td><input type="submit" name="metoda" value="Pohrani">
