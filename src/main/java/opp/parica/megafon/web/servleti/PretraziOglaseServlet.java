@@ -41,12 +41,12 @@ public class PretraziOglaseServlet extends HttpServlet {
 		forma.validate();
 
 		if (forma.hasError()) {
-
 			req.setAttribute("kategorije", DAOProvider.getDAO().dohvatiSveKategorije());
 			req.setAttribute("zapis", forma);
 			req.getRequestDispatcher("/WEB-INF/pages/Pretraga.jsp").forward(req, resp);
 			return;
 		}
+
 		List<Oglas> oglasi = forma.obaviUpit();
 		if (oglasi == null || oglasi.isEmpty()) {
 			req.setAttribute("title", "Nema rezultata");
@@ -77,7 +77,7 @@ public class PretraziOglaseServlet extends HttpServlet {
 		}
 		if (!regular.isEmpty()) {
 			Collections.sort(regular, Potpora.OGLASI_KOMPARATOR);
-			req.setAttribute("retultati", oglasi);
+			req.setAttribute("rezultati", oglasi);
 		}
 		req.setAttribute("kriteriji", forma.getKriterijiString());
 		req.getRequestDispatcher("/WEB-INF/pages/PrikazRezultata.jsp").forward(req, resp);

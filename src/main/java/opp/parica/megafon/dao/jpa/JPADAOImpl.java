@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import opp.parica.megafon.dao.DAO;
-import opp.parica.megafon.dao.DAOProvider;
 import opp.parica.megafon.model.Admin;
 import opp.parica.megafon.model.DodatnaStavka;
 import opp.parica.megafon.model.FizickaOsoba;
@@ -76,35 +75,27 @@ public class JPADAOImpl implements DAO {
 	@Override
 	public final Admin dohvatiAdmin(final String username, final String passwordHash) {
 		EntityManager em = JPAEMProvider.getEntityManager();
-		List<Admin> users =
-			em.createQuery("select usr from Admin as usr "
+		Admin user =
+			(Admin) em.createQuery("select usr from Admin as usr "
 				+ "where usr.username=:username and usr.passwordHash=:passwordHash")
 				.setParameter("username", username)
 				.setParameter("passwordHash", passwordHash)
-				.getResultList();
-		if (users == null || users.isEmpty()) {
-			return null;
-		} else {
-			return users.get(0);
-		}
+				.getSingleResult();
+		return user;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public PravnaOsoba dohvatiPravnaOsoba(final String username, final String passwordHash) {
 		EntityManager em = JPAEMProvider.getEntityManager();
-		List<PravnaOsoba> users =
-			em.createQuery("select usr from PravnaOsoba as usr "
+		PravnaOsoba user =
+			(PravnaOsoba) em.createQuery("select usr from PravnaOsoba as usr "
 				+ "where usr.username=:username and usr.passwordHash=:passwordHash")
 				.setParameter("username", username)
 				.setParameter("passwordHash", passwordHash)
-				.getResultList();
+				.getSingleResult();
 
-		if (users == null || users.isEmpty()) {
-			return null;
-		} else {
-			return users.get(0);
-		}
+		return user;
 	}
 
 	@Override
@@ -133,33 +124,26 @@ public class JPADAOImpl implements DAO {
 	@Override
 	public TipClanstva dohvatiTipClanstva(final String naziv) {
 		EntityManager em = JPAEMProvider.getEntityManager();
-		List<TipClanstva> t =
-			em.createQuery("select tip from TipClanstva as tip "
+		TipClanstva t =
+			(TipClanstva) em.createQuery("select tip from TipClanstva as tip "
 				+ "where tip.naziv=:naziv")
 				.setParameter("naziv", naziv)
-				.getResultList();
-		if (t == null || t.isEmpty()) {
-			return null;
-		} else {
-			return t.get(0);
-		}
+				.getSingleResult();
+
+		return t;
+
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean postojiKorisnik(final String username) {
 		EntityManager em = JPAEMProvider.getEntityManager();
-		List<Oglasivac> users =
-			em.createQuery("select b from Korisnik as b where b.username=:username")
+		Oglasivac user =
+			(Oglasivac) em.createQuery("select b from Korisnik as b where b.username=:username")
 				.setParameter("username", username)
-				.getResultList();
+				.getSingleResult();
 
-		if (users == null || users.isEmpty()) {
-			return false;
-		} else {
-			System.out.println("Korisnicko ime zauzeto");
-			return true;
-		}
+		return user != null;
 	}
 
 	@Override
@@ -341,77 +325,6 @@ public class JPADAOImpl implements DAO {
 		}
 	}
 
-	//
-	// @SuppressWarnings("unchecked")
-	// @Override
-	// public List<Oglas> dohvatiOglase(final String naslovOglasa, final long
-	// katID, final float donjaCijena,
-	// final float gornjaCijena) {
-	// EntityManager em = JPAEMProvider.getEntityManager();
-	//
-	// // List<Oglas> oglasi;
-	// // oglasi = em
-	// // .createQuery(
-	// // "select oglas from Oglas as oglas "
-	// // + "where (:katID=:sveKat or oglas.pripadaKategoriji=::kat) "
-	// // //+ "and UPPER(oglas.naslov) LIKE :naslovOglasa "
-	// // + " oglas.cijena>=:donja "
-	// // + "and oglas.cijena<=:gornja")
-	// // .setParameter("sveKat", -1)
-	// // .setParameter("katID", katID)
-	// // .setParameter("kat", DAP)
-	// // // .setParameter("naslovOglasa", "'%" + naslovOglasa.toUpperCase() +
-	// // // "%'")
-	// // .setParameter("donja", donjaCijena)
-	// // .setParameter("gornja", gornjaCijena)
-	// // .getResultList();
-	// //
-	// //
-	// // if (oglasi == null || oglasi.isEmpty()) {
-	// // return null;
-	// // } else {
-	// // return oglasi;
-	// // }
-	// return null;
-	// }
-	//
-	// @SuppressWarnings("unchecked")
-	// @Override
-	// public List<Oglas> dohvatiOglase(final String naslov) {
-	// EntityManager em = JPAEMProvider.getEntityManager();
-	// List<Oglas> oglasi =
-	// em.createQuery("select oglas from Oglas as oglas "
-	// + "where UPPER(oglas.naslov) LIKE ':naslov'")
-	// .setParameter("naslov", "%" + naslov.toUpperCase() + "%")
-	// .getResultList();
-	//
-	// if (oglasi == null || oglasi.isEmpty()) {
-	// return null;
-	// } else {
-	// return oglasi;
-	// }
-	// }
-	//
-	// @SuppressWarnings("unchecked")
-	// @Override
-	// public List<Oglas> dohvatiOglaseKategorije(final String naslovOglasa,
-	// final long katID) {
-	// EntityManager em = JPAEMProvider.getEntityManager();
-	// List<Oglas> oglasi =
-	// em.createQuery("select oglas from Oglas as oglas "
-	// +
-	// "where oglas.pripadaKategoriji.id=:katID and UPPER(oglas.naslov) LIKE ':naslov'")
-	// .setParameter("katID", katID)
-	// .setParameter("naslov", "%" + naslovOglasa.toUpperCase() + "%")
-	// .getResultList();
-	//
-	// if (oglasi == null || oglasi.isEmpty()) {
-	// return null;
-	// } else {
-	// return oglasi;
-	// }
-	// }
-
 	@Override
 	public List<Oglas> dohvatiSveOglase() {
 		EntityManager em = JPAEMProvider.getEntityManager();
@@ -420,38 +333,23 @@ public class JPADAOImpl implements DAO {
 		return oglasi;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Oglas> dohvatiSvePremiumOglase() {
-		TipClanstva prem = DAOProvider.getDAO().dohvatiTipClanstva("Premium");
+	public List<Oglas> dohvatiSveOglase(final TipClanstva tip) {
 		EntityManager em = JPAEMProvider.getEntityManager();
-
-		List<Oglas> oglasi;
-		oglasi = em
+		List<Oglas> oglasi = em
 			.createQuery(
 				"select oglas from Oglas as oglas "
 					+ "where oglas.jeSkriven=:skriven "
 					+ "and oglas.autor.tipClanstva=:tip")
 			.setParameter("skriven", false)
-			.setParameter("tip", prem).getResultList();
+			.setParameter("tip", tip).getResultList();
 
 		if (oglasi == null || oglasi.isEmpty()) {
 			return null;
 		} else {
 			return oglasi;
 		}
-		// return null;
-	}
-
-	@Override
-	public List<Oglas> dohvatiOglase(final String naslov) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Oglas> dohvatiOglaseKategorije(final String naslovOglasa, final long katID) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -460,5 +358,4 @@ public class JPADAOImpl implements DAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

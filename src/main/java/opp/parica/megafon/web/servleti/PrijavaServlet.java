@@ -69,6 +69,9 @@ public class PrijavaServlet extends HttpServlet {
 				return;
 			}
 
+		} else {
+			// isprazni polje pass
+			loginForm.setPassword("");
 		}
 
 		req.setAttribute("zapis", loginForm);

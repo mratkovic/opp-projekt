@@ -1,8 +1,8 @@
 package opp.parica.megafon.pomocno;
+
 import java.io.Serializable;
 
-
-public class Pair<T1, T2> implements Serializable{
+public class Pair<T1, T2> implements Serializable {
 
 	private static final long serialVersionUID = 4687091501848856677L;
 
@@ -11,6 +11,7 @@ public class Pair<T1, T2> implements Serializable{
 		this.first = first;
 		this.second = second;
 	}
+
 	public T1 first;
 	public T2 second;
 
@@ -39,7 +40,7 @@ public class Pair<T1, T2> implements Serializable{
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Pair<?, ?>other = (Pair<?, ?>) obj;
+		Pair<?, ?> other = (Pair<?, ?>) obj;
 		if (first == null) {
 			if (other.first != null) {
 				return false;
@@ -57,7 +58,20 @@ public class Pair<T1, T2> implements Serializable{
 		return true;
 	}
 
+	public T1 getFirst() {
+		return first;
+	}
 
+	public T2 getSecond() {
+		return second;
+	}
 
+	public void setFirst(final T1 first) {
+		this.first = first;
+	}
+
+	public void setSecond(final T2 second) {
+		this.second = second;
+	}
 
 }

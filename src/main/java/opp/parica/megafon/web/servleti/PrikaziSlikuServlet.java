@@ -20,7 +20,7 @@ import opp.parica.megafon.model.Slika;
 @WebServlet({ "/servleti/prikaziSliku" })
 public class PrikaziSlikuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final int SIZE = 400;
+
 
 	@Override
 	protected final void doGet(final HttpServletRequest req, final HttpServletResponse resp)

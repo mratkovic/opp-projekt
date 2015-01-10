@@ -53,8 +53,6 @@ public interface DAO{
 
 	List<Oglas> dohvatiOglaseOglasivaca(Oglasivac oglasivac);
 	List<Oglas> dohvatiOglaseKategorije(long katID);
-	List<Oglas> dohvatiOglase(String naslov);
-	List<Oglas> dohvatiOglaseKategorije(String naslovOglasa, long katID);
 	List<Oglas> dohvatiOglase(String naslovOglasa, long katID, float donjaCijena, float gornjaCijena);
 	List<Oglas> dohvatiSveOglase();
 
@@ -74,7 +72,7 @@ public interface DAO{
 
 	List<Oglas> dohvatiJavneOglaseOglasivaca(Oglasivac oglasivac);
 
-	List<Oglas> dohvatiSvePremiumOglase();
+	List<Oglas> dohvatiSveOglase(TipClanstva tip);
 
 
 

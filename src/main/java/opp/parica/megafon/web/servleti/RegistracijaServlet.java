@@ -39,7 +39,7 @@ public class RegistracijaServlet extends HttpServlet {
 		String param = provjeriZahtjev(req, resp);
 
 		if (param == null) {
-			return;
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 		} else if (param.equals("admin")) {
 			registracijaAdminGet(req, resp);
 		} else if (param.equals("oglasivac")) {
@@ -54,7 +54,7 @@ public class RegistracijaServlet extends HttpServlet {
 		String param = provjeriZahtjev(req, resp);
 
 		if (param == null) {
-			return;
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 		} else if (param.equals("admin")) {
 			registracijaAdminPost(req, resp);
 		} else if (param.equals("oglasivac")) {
@@ -194,7 +194,7 @@ public class RegistracijaServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String[] params;
 		try {
-			 params = req.getPathInfo().substring(1).split("/");
+			params = req.getPathInfo().substring(1).split("/");
 		} catch (NullPointerException e) {
 			params = new String[2];
 		}

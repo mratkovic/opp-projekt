@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import opp.parica.megafon.dao.DAOProvider;
 import opp.parica.megafon.model.Oglas;
+import opp.parica.megafon.model.TipClanstva;
 import opp.parica.megafon.pomocno.Potpora;
 
 /**
@@ -30,9 +31,9 @@ public class PocetnaServlet extends HttpServlet {
 	protected final void doGet(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
 
-		List<Oglas> premium = DAOProvider.getDAO().dohvatiSvePremiumOglase();
-
-		if (!premium.isEmpty()) {
+		TipClanstva tip = DAOProvider.getDAO().dohvatiTipClanstva("Premium");
+		List<Oglas> premium = DAOProvider.getDAO().dohvatiSveOglase(tip);
+		if (premium != null && !premium.isEmpty()) {
 			Collections.sort(premium, Potpora.OGLASI_KOMPARATOR);
 			req.setAttribute("premium", premium);
 		}
