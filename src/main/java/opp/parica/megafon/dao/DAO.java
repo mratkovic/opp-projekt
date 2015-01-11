@@ -77,6 +77,10 @@ public interface DAO{
 
 	List<Oglas> dohvatiSveOglase(TipClanstva tip);
 
+	void izbrisiSliku(Long id);
+
+	Kategorija dohvatiKategoriju(String naziv);
+
 
 
 }

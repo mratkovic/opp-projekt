@@ -27,25 +27,57 @@
 
 			<div id="site_middle_subpage">
 				<h2>Administratorske postavke</h2>
-				<p>Prijavljen administrator ${admin.ime} ${admin.prezime}
-					'${admin.username}'</p>
+				<h3 class='podnaslov'>Prijavljen administrator ${admin.ime}
+					${admin.prezime} '${admin.username}'</h3>
 			</div>
 
 			<div id="site_main">
-				<ul>
-					<li>Promjena pristupne lozinke <a
-						href="/megafon/servleti/uredi/lozinka">[link]</a>
-					<li>
-					<li>Promjena osobnih podataka <a
-						href="/megafon/servleti/uredi/korisnik?id=${id}">[link]</a>
-					</li>
+
+				<h3>Moji podaci</h3>
+
+				<table class='info'>
+
+					<tr>
+						<td><label>Ime: </label></td>
+						<td>${admin.ime}</td>
+					</tr>
+					<tr>
+						<td><label>Prezime: </label></td>
+						<td>${admin.prezime}</td>
+					</tr>
+
+					<tr>
+						<td><label>Korisničko ime: </label></td>
+						<td>${admin.username}</td>
+					</tr>
+
+				</table>
+				<br> <br>
+				<table>
+					<tr>
+						<td><a href="/megafon/servleti/uredi/lozinka">[Promjena
+								osobnih podataka]</a></td>
+
+					</tr>
+					<tr>
+						<td><a href="/megafon/servleti/uredi/lozinka">[Promjeni
+								lozinku]</a></td>
+					</tr>
+				</table>
+				<br>
+				<br>
+				<h3>Administratorske opcije</h3>
+				<ul class='opcije'>
 					<li>Dodavanje novog administratora <a
 						href="/megafon/servleti/registracija/admin">[link]</a>
 					</li>
+
+
 					<li>Prikaz svih registiranih oglašivača <a
 						href="/megafon/servleti/prikazOglasivaca">[link]</a>
 					</li>
 				</ul>
+
 			</div>
 			<!-- end of main -->
 		</div>

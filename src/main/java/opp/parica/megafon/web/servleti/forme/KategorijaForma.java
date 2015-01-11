@@ -1,6 +1,7 @@
 package opp.parica.megafon.web.servleti.forme;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,29 +13,61 @@ import opp.parica.megafon.model.Kategorija;
 import opp.parica.megafon.pomocno.Pair;
 
 public class KategorijaForma extends ApstraktnaWebForma {
-
+	private static final int MAX_STAVKI = 10;
+	private static Set<String> defaultneStavke;
+	static {
+		defaultneStavke = new HashSet<>();
+		defaultneStavke.add("Cijena");
+		defaultneStavke.add("Opis");
+		defaultneStavke.add("Video link");
+		defaultneStavke.add("Slike");
+	}
 	private String naziv;
 	private String nadkategorija;
-	private String jeBesplatna;
+	private boolean jeBesplatna;
 	private List<Pair<String, String>> dodatneStavke;
+	private HashMap<String, String> stavkeMap;
+	private int brojStavki;
+
+	public KategorijaForma() {
+		dodatneStavke = new ArrayList<>();
+		stavkeMap = new HashMap<>();
+		for (int i = 0; i <= MAX_STAVKI; ++i) {
+			dodatneStavke.add(new Pair<String, String>("", ""));
+		}
+	}
 
 	@Override
 	public void fillFromHttpRequest(final HttpServletRequest req) {
 		dodatneStavke = new ArrayList<>();
 		naziv = trimParameter(req.getParameter("naziv"));
-		nadkategorija = req.getParameter("nadkategorija");
-		jeBesplatna = trimParameter(req.getParameter("jeBesplatna"));
+		nadkategorija = trimParameter(req.getParameter("kategorija"));
+		brojStavki = Integer.parseInt(trimParameter(req.getParameter("brStavki")));
+		if (nadkategorija != null && nadkategorija.startsWith("kat")) {
+			nadkategorija = nadkategorija.substring(3, nadkategorija.length());
+		}
+		jeBesplatna = !trimParameter(req.getParameter("jeBesplatna")).isEmpty();
+		stavkeMap.clear();
 
-		int cntr = 0;
-		while (true) {
-
-			String nazivStavke = req.getParameter("stavka" + cntr);
-			if (nazivStavke == null) {
-				break;
+		for (int i = 0; i < brojStavki; ++i) {
+			if (i >= dodatneStavke.size()) {
+				dodatneStavke.add(new Pair<String, String>("", ""));
 			}
-			String tipStavke = req.getParameter("tip" + cntr);
-			dodatneStavke.add(new Pair<String, String>(nazivStavke, tipStavke));
-			cntr++;
+			String nazivStavke = trimParameter(req.getParameter("stavka" + (i + 1)));
+			String tipStavke = req.getParameter("tipStavke" + (i + 1));
+			if(nazivStavke.isEmpty()) {
+				getErrors().put("stavke",
+					"Nazivi stavki ne smiju biti prazni.");
+			}
+			dodatneStavke.get(i).first = nazivStavke;
+			dodatneStavke.get(i).second = tipStavke;
+			if (!nazivStavke.isEmpty() && stavkeMap.get(nazivStavke) != null) {
+				getErrors().put("stavke", "Nazivi stavki moraju biti jedinstveni");
+			}
+			if(defaultneStavke.contains(nazivStavke) ) {
+				getErrors().put("stavke", "Nazivi stavki moraju biti jedinstveni");
+			}
+			stavkeMap.put(nazivStavke, tipStavke);
 		}
 	}
 
@@ -43,24 +76,22 @@ public class KategorijaForma extends ApstraktnaWebForma {
 		if (obj instanceof Kategorija) {
 			Kategorija kat = (Kategorija) obj;
 			kat.setNaziv(naziv);
+
 			kat.setNadkategorija(
 				DAOProvider.getDAO().dohvatiKategoriju(
 					Long.parseLong(nadkategorija)));
-			kat.setJeBesplatna(Boolean.parseBoolean(jeBesplatna));
+
+			kat.setJeBesplatna(jeBesplatna);
 
 			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < dodatneStavke.size(); ++i) {
+			for (int i = 0; i < brojStavki; ++i) {
 				sb.append(dodatneStavke.get(i).first);
 				sb.append("|");
-				if (dodatneStavke.get(i).second.equals("tekst")) {
-					sb.append("txt");
-				} else {
-					sb.append("NUM");
-				}
+				sb.append(dodatneStavke.get(i).second);
 				sb.append(";");
 			}
 			kat.setDodatneStavke(sb.toString());
-
+			System.out.println("FORMAT - --- " + sb.toString());
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -76,17 +107,23 @@ public class KategorijaForma extends ApstraktnaWebForma {
 	@Override
 	public void validate() {
 		if (naziv.isEmpty()) {
-			getErrors().put("ime", "Polje 'Ime' je obavezno");
+			getErrors().put("naziv", "Polje 'Naziv' je obavezno");
 		}
-		Set<String> nazivi = new HashSet<>();
-		for (int i = 0; i < dodatneStavke.size(); ++i) {
-			nazivi.add(dodatneStavke.get(i).first);
+		Kategorija k = DAOProvider.getDAO().dohvatiKategoriju(naziv);
+		if (k != null) {
+			getErrors().put("naziv", "Postoji vec kategorija imena '" + naziv + "'");
 		}
-
-		if (dodatneStavke.size() > nazivi.size()) {
-			getErrors().put("stavke", "Svaka dodatna stavka mora imati jedinstven naziv");
+		Kategorija nadKat = DAOProvider.getDAO().dohvatiKategoriju(Long.parseLong(nadkategorija));
+		// Snaga|NUM;
+		List<Pair<String, String>> nasljedene = parsirajDodatneStavke(nadKat);
+		for (Pair<String, String> p : nasljedene) {
+			System.out.println("NASLJEDENO" + p.first);
+			if (stavkeMap.get(p.first) != null) {
+				getErrors().put("stavke",
+					"Nazivi stavki moraju biti jedinstveni. " + p.first +
+						" nasljeđena stavka od nadkategorije.");
+			}
 		}
-
 	}
 
 	public String getNaziv() {
@@ -105,11 +142,11 @@ public class KategorijaForma extends ApstraktnaWebForma {
 		this.nadkategorija = nadkategorija;
 	}
 
-	public String getJeBesplatna() {
+	public boolean isJeBesplatna() {
 		return jeBesplatna;
 	}
 
-	public void setJeBesplatna(final String jeBesplatna) {
+	public void setJeBesplatna(final boolean jeBesplatna) {
 		this.jeBesplatna = jeBesplatna;
 	}
 
@@ -121,4 +158,28 @@ public class KategorijaForma extends ApstraktnaWebForma {
 		this.dodatneStavke = dodatneStavke;
 	}
 
+	public static List<Pair<String, String>> parsirajDodatneStavke(final Kategorija k) {
+		String[] stavke = k.getDodatneStavke().split(";");
+		List<Pair<String, String>> dodatneStavke = new ArrayList<>();
+
+		for (String stavka : stavke) {
+			if (!stavka.isEmpty()) {
+				dodatneStavke.add(new Pair<String, String>(stavka.split("\\|")[0], ""));
+			}
+		}
+		return dodatneStavke;
+	}
+
+	@Override
+	public String toString() {
+		return "KategorijaForma [naziv=" + naziv + ", nadkategorija=" + nadkategorija + ", jeBesplatna="
+			+ jeBesplatna + ", dodatneStavke=" + dodatneStavke + "]";
+	}
+
+	public void initDodatneStavke() {
+		for(int i = dodatneStavke.size(); i < MAX_STAVKI; ++i) {
+			dodatneStavke.add(new Pair<String, String>("", ""));
+		}
+
+	}
 }

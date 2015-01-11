@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
-<title>Stvaranje Kategorije</title>
+<title>Novi</title>
 </head>
 
 

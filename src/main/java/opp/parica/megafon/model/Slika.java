@@ -88,4 +88,11 @@ public class Slika {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Slika [id=" + id + ", ekstenzija=" + ekstenzija + "]";
+	}
+
+
+
 }

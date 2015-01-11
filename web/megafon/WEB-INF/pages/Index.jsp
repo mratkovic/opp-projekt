@@ -95,7 +95,7 @@
 													<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}">${oglas.naslov}</a>
 												</h6>
 												<a
-													href="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=400&y=300"
+													href="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}"
 													data-lightbox="image-1"
 													data-title="${zapis.naslov}-id:${slika}"> <img
 													src="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=290&y=140">

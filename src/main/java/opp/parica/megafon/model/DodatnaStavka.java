@@ -76,6 +76,12 @@ public class DodatnaStavka {
 		}
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "DodatnaStavka [naziv=" + naziv + ", vrijednost=" + vrijednost + "]";
+	}
+
+
 
 
 }

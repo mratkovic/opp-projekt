@@ -40,7 +40,7 @@
 
 					</c:choose>
 				</ul>
-<jsp:include page="MaliSearchbar.jsp" />
+				<jsp:include page="MaliSearchbar.jsp" />
 				<div class="cleaner"></div>
 			</div>
 			<!-- end of site_menu -->
@@ -69,6 +69,7 @@
 									<td></td>
 									<td></td>
 									<td></td>
+									<td></td>
 								</tr>
 								<c:forEach var="zapis" items="${oglasi}">
 									<tr>
@@ -77,8 +78,10 @@
 										<td></td>
 										<td><a
 											href="/megafon/servleti/prikaziOglas?id=${zapis.id}">[Prikaži]</a></td>
+										<td><a href="/megafon/servleti/uredi/oglas?id=${zapis.id}">[Uredi]</a></td>
 										<td><a
 											href="/megafon/servleti/izbrisiOglas?id=${zapis.id}">[Izbriši]</a></td>
+
 									</tr>
 								</c:forEach>
 							</table>

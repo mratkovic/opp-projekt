@@ -32,7 +32,7 @@
 				<p>Prikaz podataka korisnika '${korisnik.username}'</p>
 			</div>
 
-			<table>
+			<table class='info'>
 				<c:choose>
 					<c:when test='${pravna != null}'>
 						<tr>
@@ -57,7 +57,9 @@
 				</tr>
 				<tr>
 					<td><label>Trenutni tip članstva: </label></td>
-					<td>${korisnik.tipClanstva.naziv}</td>
+					<td>${korisnik.tipClanstva.naziv}
+					<a href="/megafon/servleti/uredi/tip" style='padding-left: 5px'>[Promjeni tip]</a>
+					</td>
 				</tr>
 				<tr>
 					<td><label>Datum isteka članstva: </label></td>
@@ -101,8 +103,9 @@
 							lozinku]</a></td>
 				</tr>
 
-
 			</table>
+
+
 			<br>
 			<h3>Moji oglasi</h3>
 			<div class=listaj>
@@ -121,6 +124,7 @@
 								<td></td>
 								<td></td>
 								<td></td>
+								<td></td>
 							</tr>
 							<c:forEach var="zapis" items="${oglasi}">
 								<tr>
@@ -129,6 +133,7 @@
 									<td></td>
 									<td><a
 										href="/megafon/servleti/prikaziOglas?id=${zapis.id}">[Prikaži]</a></td>
+									<td><a href="/megafon/servleti/uredi/oglas?id=${zapis.id}">[Uredi]</a></td>
 									<td><a
 										href="/megafon/servleti/izbrisiOglas?id=${zapis.id}">[Izbriši]</a></td>
 								</tr>

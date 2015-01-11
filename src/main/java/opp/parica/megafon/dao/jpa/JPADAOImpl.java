@@ -281,7 +281,7 @@ public class JPADAOImpl implements DAO {
 	public List<Oglas> dohvatiJavneOglaseOglasivaca(final Oglasivac oglasivac) {
 		EntityManager em = JPAEMProvider.getEntityManager();
 		List<Oglas> oglasi =
-			em.createQuery("select b from Oglas as b where b.autor=:autor and b.jeSkrivern=:skriven")
+			em.createQuery("select b from Oglas as b where b.autor=:autor and b.jeSkriven=:skriven")
 				.setParameter("autor", oglasivac)
 				.setParameter("skriven", false)
 				.getResultList();
@@ -398,6 +398,33 @@ public class JPADAOImpl implements DAO {
 			return null;
 		} else {
 			return oglasi;
+		}
+	}
+
+	@Override
+	public void izbrisiSliku(final Long id) {
+		EntityManager em = JPAEMProvider.getEntityManager();
+		Slika slika = JPAEMProvider.getEntityManager().find(Slika.class, id);
+		if (slika != null) {
+			em.remove(slika);
+		}
+
+	}
+
+	@Override
+	public Kategorija dohvatiKategoriju(final String naziv) {
+		EntityManager em = JPAEMProvider.getEntityManager();
+		@SuppressWarnings("unchecked")
+		List<Kategorija> kategorije =
+			em.createQuery("select kat from Kategorija as kat "
+				+ "where kat.naziv=:naziv")
+				.setParameter("naziv", naziv)
+				.getResultList();
+
+		if (kategorije == null || kategorije.isEmpty()) {
+			return null;
+		} else {
+			return kategorije.get(0);
 		}
 	}
 }

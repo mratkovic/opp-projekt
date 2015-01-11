@@ -2,6 +2,9 @@ package opp.parica.megafon.web.servleti;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,16 +15,22 @@ import javax.servlet.http.HttpServletResponse;
 import opp.parica.megafon.dao.DAOProvider;
 import opp.parica.megafon.hash.SHA1;
 import opp.parica.megafon.model.Admin;
+import opp.parica.megafon.model.Kategorija;
 import opp.parica.megafon.model.Korisnik;
+import opp.parica.megafon.model.Oglas;
 import opp.parica.megafon.model.Oglasivac;
 import opp.parica.megafon.model.PravnaOsoba;
+import opp.parica.megafon.model.Slika;
 import opp.parica.megafon.model.TipClanstva;
 import opp.parica.megafon.pomocno.Potpora;
 import opp.parica.megafon.web.servleti.forme.FizickaOsobaRegistracijaForma;
+import opp.parica.megafon.web.servleti.forme.OglasForma;
 import opp.parica.megafon.web.servleti.forme.OglasivacRegistracijaForma;
 import opp.parica.megafon.web.servleti.forme.PravnaOsobaRegistracijaForma;
 import opp.parica.megafon.web.servleti.forme.PromjenaLozinkeForma;
 import opp.parica.megafon.web.servleti.forme.RegistracijaAdminaForma;
+
+import org.apache.commons.fileupload.FileItem;
 
 @WebServlet("/servleti/uredi/*")
 public class UrediPodatkeServlet extends HttpServlet {
@@ -40,6 +49,8 @@ public class UrediPodatkeServlet extends HttpServlet {
 			promjeniTipClanstvaDoGet(req, resp);
 		} else if (param.equals("korisnik")) {
 			urediPodatkeDoGet(req, resp);
+		} else if (param.equals("oglas")) {
+			urediOglasDoGet(req, resp);
 		}
 
 	}
@@ -56,6 +67,8 @@ public class UrediPodatkeServlet extends HttpServlet {
 			promjeniTipClanstvaDoPost(req, resp);
 		} else if (param.equals("korisnik")) {
 			urediPodatkeDoPost(req, resp);
+		} else if (param.equals("oglas")) {
+			urediOglasDoPost(req, resp);
 		}
 	}
 
@@ -69,7 +82,7 @@ public class UrediPodatkeServlet extends HttpServlet {
 		} catch (NullPointerException e) {
 			params = new String[2];
 		}
-		if (params.length != 1 || !params[0].matches("lozinka|korisnik|tip")) {
+		if (params.length != 1 || !params[0].matches("lozinka|korisnik|tip|oglas")) {
 			req.setAttribute("msg", "Neispravan URL");
 			req.setAttribute("title", "Greška");
 			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
@@ -150,6 +163,158 @@ public class UrediPodatkeServlet extends HttpServlet {
 		}
 		req.getRequestDispatcher("/WEB-INF/pages/UrediKorisnika.jsp").forward(req,
 			resp);
+
+	}
+
+	private final void urediOglasDoGet(final HttpServletRequest req, final HttpServletResponse resp)
+		throws ServletException, IOException {
+		if (req.getSession().getAttribute("logged") == null) {
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
+			return;
+		}
+
+		String idParam = req.getParameter("id");
+		if (idParam == null) {
+			req.setAttribute("title", "Greška");
+			req.setAttribute("msg",
+				"Neispravan poziv. Nedostaje parametar 'id' koji oznacava oglas koji se ureduje");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
+			return;
+		}
+		long id;
+		try {
+			id = Long.parseLong(idParam);
+		} catch (NumberFormatException e) {
+			req.setAttribute("title", "Greška");
+			req.setAttribute(
+				"msg",
+				"Neispravan poziv. Parametar 'id' koji oznacava oglas"
+					+ " je neispravnog formata. Ocekivana cijelobrojna vrijednost.");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
+			return;
+		}
+		Oglas oglas = DAOProvider.getDAO().dohvatiOglas(id);
+		if (oglas == null) {
+			req.setAttribute("title", "Greška");
+			req.setAttribute(
+				"msg",
+				"Neispravan poziv. Parametar 'id' koji oznacava oglas"
+					+ " ne postoji.");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
+			return;
+		}
+
+		Oglasivac o = (Oglasivac) req.getSession().getAttribute("user");
+		if (o != null && !o.getId().equals(oglas.getAutor().getId())) {
+			// korisnik nema prava editirati file
+			req.setAttribute("title", "Greška");
+			req.setAttribute(
+				"msg",
+				"Neispravan poziv.");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
+			return;
+		}
+		// admin ili vlasnik oglasa
+		List<Kategorija> kategorije = new ArrayList<Kategorija>();
+		if (oglas.getAutor().getTipClanstva().getNaziv().equals("Besplatni")) {
+			for (Kategorija k : DAOProvider.getDAO().dohvatiSveKategorije()) {
+				if (k.getJeBesplatna().booleanValue()) {
+					kategorije.add(k);
+				}
+			}
+		}
+		else {
+			kategorije = DAOProvider.getDAO().dohvatiSveKategorije();
+		}
+		OglasForma zapis = new OglasForma();
+		zapis.fillFromObject(oglas);
+		req.setAttribute("zapis", zapis);
+
+		req.setAttribute("kategorije", kategorije);
+		req.getRequestDispatcher("/WEB-INF/pages/UrediOglas.jsp").forward(req, resp);
+		return;
+	}
+
+	private final void urediOglasDoPost(final HttpServletRequest req, final HttpServletResponse resp)
+		throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		List<FileItem> fileItems = DodajOglasServlet.getFileItems(req, this);
+		if (fileItems == null) {
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
+			return;
+		}
+		Map<String, String> fields = DodajOglasServlet.getFields(fileItems);
+		String metoda = fields.get("metoda");
+
+
+		if ("Ukloni".equals(metoda)) {
+			String id = fields.get("id");
+			Oglas o = DAOProvider.getDAO().dohvatiOglas(Long.parseLong(id));
+			DAOProvider.getDAO().izbrisiOglas(o.getId());
+			req.setAttribute("title", "Uspješno");
+			req.setAttribute("msg", "Oglas '" + o.getNaslov() + "' izbrisan iz baze podataka");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
+			return;
+		}
+		if (!"Pohrani".equals(metoda)) {
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
+			return;
+		}
+
+		OglasForma forma = new OglasForma();
+		forma.fillFromFields(fields);
+		forma.validate();
+
+		Oglas oglas = DAOProvider.getDAO().dohvatiOglas(Long.parseLong(forma.getId()));
+		req.setAttribute("zapis", forma);
+		List<Kategorija> kategorije = new ArrayList<Kategorija>();
+		if (oglas.getAutor().getTipClanstva().getNaziv().equals("Besplatni")) {
+			for (Kategorija k : DAOProvider.getDAO().dohvatiSveKategorije()) {
+				if (k.getJeBesplatna().booleanValue()) {
+					kategorije.add(k);
+				}
+			}
+		}
+		else {
+			kategorije = DAOProvider.getDAO().dohvatiSveKategorije();
+		}
+
+		if (forma.hasError()) {
+
+			forma.popuniSlike(oglas);
+			req.setAttribute("zapis", forma);
+			req.setAttribute("kategorije", kategorije);
+			req.getRequestDispatcher("/WEB-INF/pages/UrediOglas.jsp").forward(req, resp);
+			return;
+		}
+		List<Slika> slike = forma.dohvatiSlike(oglas.getSlike(), fields);
+		for (Slika s : slike) {
+			System.out.println("Brisi sliku" + s.getId());
+			oglas.getSlike().remove(s);
+			DAOProvider.getDAO().izbrisiSliku(s.getId());
+		}
+		forma.fillToObject(oglas);
+		System.out.println("UREDENI " + oglas);
+		DAOProvider.getDAO().dodajOglas(oglas);
+
+		DodajOglasServlet.uploadajSlikeKoristeciApache(req, fileItems, forma, oglas);
+
+		if (!forma.hasError()) {
+			System.out.println("Nema greske, spremi oglas");
+			forma.spremiStavke(oglas);
+			String msg = "Oglas " + oglas.getNaslov() + " dodan";
+
+			req.setAttribute("msg", msg);
+			req.setAttribute("title", "Uspješno");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
+		} else {
+			forma.popuniSlike(oglas);
+			req.setAttribute("zapis", forma);
+			req.setAttribute("kategorije", kategorije);
+			req.getRequestDispatcher("/WEB-INF/pages/UrediOglas.jsp").forward(req, resp);
+			return;
+
+		}
 
 	}
 

@@ -25,7 +25,7 @@
 							podaci</a></li>
 
 				</ul>
-<jsp:include page="MaliSearchbar.jsp" />
+				<jsp:include page="MaliSearchbar.jsp" />
 				<div class="cleaner"></div>
 			</div>
 			<!-- end of site_menu -->
@@ -46,7 +46,28 @@
 							</td>
 							<td><select name="kategorija" size="1">
 									<c:forEach var="tip" items="${kategorije}">
-										<option value='${tip.id}'>${tip.naziv}</option>
+
+										<c:choose>
+											<c:when
+												test="${tip.nadkategorija==null && empty tip.podkategorije}">
+												<option value='${tip.id}'>${tip.naziv}</option>
+											</c:when>
+											<c:otherwise>
+												<c:choose>
+													<c:when test="${not empty tip.podkategorije}">
+														<optgroup label="${tip.naziv}">
+															<c:forEach var="podtip" items="${tip.podkategorije}">
+																<c:choose>
+																	<c:when test="${podtip.jeBesplatna == true or prikaziSve}">
+																		<option value='${podtip.id}'>${podtip.naziv}</option>
+																	</c:when>
+																</c:choose>
+															</c:forEach>
+														</optgroup>
+													</c:when>
+												</c:choose>
+											</c:otherwise>
+										</c:choose>
 									</c:forEach>
 							</select></td>
 						</tr>

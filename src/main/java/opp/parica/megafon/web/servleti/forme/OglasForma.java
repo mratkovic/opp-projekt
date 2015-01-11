@@ -1,7 +1,10 @@
 package opp.parica.megafon.web.servleti.forme;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +25,7 @@ public class OglasForma extends ApstraktnaWebForma {
 	private String opis;
 	private String cijena;
 	private String videoURL;
-	private String jeSkriven;
+	private boolean jeSkriven;
 	private String datum;
 
 	private List<Pair<String, String>> dodatneStavke = new ArrayList<>();
@@ -30,11 +33,11 @@ public class OglasForma extends ApstraktnaWebForma {
 
 	@Override
 	public void fillFromHttpRequest(final HttpServletRequest req) {
-		id = req.getParameter("id");
 
+		id = req.getParameter("id");
 		dodatneStavke = new ArrayList<>();
 		naslov = trimParameter(req.getParameter("naslov"));
-		jeSkriven = trimParameter(req.getParameter("jeSkriven"));
+		jeSkriven = !trimParameter(req.getParameter("jeSkriven")).isEmpty();
 		opis = trimParameter(req.getParameter("opis"));
 		cijena = trimParameter(req.getParameter("cijena"));
 		videoURL = trimParameter(req.getParameter("videoURL"));
@@ -50,15 +53,45 @@ public class OglasForma extends ApstraktnaWebForma {
 		}
 	}
 
+	public void fillFromFields(final Map<String, String> fields) {
+
+		for(Entry<String, String> a : fields.entrySet()) {
+			System.out.println(a.getKey() + "--" + a.getValue());
+		}
+		id = fields.get("id");
+		dodatneStavke = new ArrayList<>();
+		naslov = trimParameter(fields.get("naslov"));
+		jeSkriven = !trimParameter(fields.get("jeSkriven")).isEmpty();
+		opis = trimParameter(fields.get("opis"));
+		cijena = trimParameter(fields.get("cijena"));
+		videoURL = trimParameter(fields.get("videoURL"));
+		kategorijaID = Long.parseLong(fields.get("kategorijaID"));
+
+		String[] stavke = DAOProvider.getDAO().dohvatiKategoriju(kategorijaID).getDodatneStavke().split(";");
+
+		for (int i = 0; i < stavke.length && !stavke[i].isEmpty(); ++i) {
+			String nazivStavke = stavke[i].split("\\|")[0];
+			String vrijednost = trimParameter(fields.get(nazivStavke));
+			dodatneStavke.add(new Pair<String, String>(nazivStavke, vrijednost));
+			System.out.println("Dodano  " + new Pair<String, String>(nazivStavke, vrijednost));
+		}
+
+	}
+
 	@Override
 	public void fillToObject(final Object obj) {
 		if (obj instanceof Oglas) {
+
 			Oglas oglas = (Oglas) obj;
 			oglas.setNaslov(naslov);
 			oglas.setCijena(Float.parseFloat(cijena));
 			oglas.setVideoURL(videoURL);
 			oglas.setOpis(opis);
 			oglas.setPripadaKategoriji(DAOProvider.getDAO().dohvatiKategoriju(kategorijaID));
+			oglas.setJeSkriven(jeSkriven);
+			oglas.setDatumObjave(new Date());
+			System.out.println(oglas);
+			System.out.println("POSLI");
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -86,7 +119,7 @@ public class OglasForma extends ApstraktnaWebForma {
 			opis = oglas.getOpis();
 			cijena = oglas.getCijena().toString();
 			videoURL = oglas.getVideoURL();
-			jeSkriven = oglas.getJeSkriven().toString();
+			jeSkriven = oglas.getJeSkriven();
 
 			datum = Potpora.formatirajDatum(oglas.getDatumObjave());
 
@@ -144,15 +177,14 @@ public class OglasForma extends ApstraktnaWebForma {
 		this.kategorijaID = kategorijaID;
 
 		Kategorija k = DAOProvider.getDAO().dohvatiKategoriju(kategorijaID);
-		String[] stavke = k.getDodatneStavke().split(";");
-		dodatneStavke = new ArrayList<>();
-		for (String stavka : stavke) {
-			if (!stavka.isEmpty()) {
-				dodatneStavke.add(new Pair<String, String>(stavka.split("\\|")[0], ""));
-			}
-		}
+		dodatneStavke = KategorijaForma.parsirajDodatneStavke(k);
 	}
 
+	public void popuniSlike(final Oglas oglas) {
+		for (Slika s : oglas.getSlike()) {
+			slikeID.add(s.getId().toString());
+		}
+	}
 	public String getId() {
 		return id;
 	}
@@ -193,11 +225,11 @@ public class OglasForma extends ApstraktnaWebForma {
 		this.videoURL = videoURL;
 	}
 
-	public String getJeSkriven() {
+	public boolean getJeSkriven() {
 		return jeSkriven;
 	}
 
-	public void setJeSkriven(final String jeSkriven) {
+	public void setJeSkriven(final boolean jeSkriven) {
 		this.jeSkriven = jeSkriven;
 	}
 
@@ -237,6 +269,34 @@ public class OglasForma extends ApstraktnaWebForma {
 		this.datum = datum;
 	}
 
+	/**
+	 * Vraca samo one slike koje su oznacene za brisanje.
+	 *
+	 * @param sveSlikeOglasa
+	 * @return
+	 */
+	public List<Slika> dohvatiSlike(final List<Slika> sveSlikeOglasa, final HttpServletRequest req) {
+		List<Slika> zaBrisati = new ArrayList<>();
+		for (Slika s : sveSlikeOglasa) {
+			boolean brisi = !trimParameter(req.getParameter("slika" + s.getId())).isEmpty();
+			if (brisi) {
 
+				zaBrisati.add(s);
+			}
+		}
+		return zaBrisati;
+	}
+
+	public List<Slika> dohvatiSlike(final List<Slika> slike, final Map<String, String> fields) {
+		List<Slika> zaBrisati = new ArrayList<>();
+		for (Slika s : slike) {
+			boolean brisi = !trimParameter(fields.get("slika" + s.getId())).isEmpty();
+			if (brisi) {
+
+				zaBrisati.add(s);
+			}
+		}
+		return zaBrisati;
+	}
 
 }

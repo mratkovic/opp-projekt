@@ -3,6 +3,7 @@
 
 
 <head>
+<script type="text/javascript" src="/megafon/js/jquery-2.1.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
 <title>Uredi</title>

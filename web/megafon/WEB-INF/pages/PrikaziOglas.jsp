@@ -70,44 +70,44 @@
 			<div class='detaljiOglas'>
 				<table>
 					<tr>
-						<td>Kategorija:</td>
+						<td><label>Kategorija:</label></td>
 						<td>${zapis.kategorija.naziv}</td>
 					</tr>
 
 					<tr>
-						<td>Cijena (HRK):</td>
+						<td><label>Cijena (HRK)</label>:</td>
 						<td>${zapis.cijena}</td>
 					</tr>
 
 					<tr>
-						<td>Video:</td>
+						<td><label>Video:</label></td>
 						<td><a href='${zapis.videoURL}'> link</a></td>
 					</tr>
 
 
 					<c:forEach var="stavka" items="${zapis.dodatneStavke}">
 						<tr>
-							<td>${stavka.first}</td>
+							<td><label>${stavka.first}</label></td>
 							<td>${stavka.second}</td>
 						</tr>
 					</c:forEach>
 					<c:choose>
 						<c:when test='${autorPO != null}'>
 							<tr>
-								<td>Oglašivač</td>
+								<td><label>Oglašivač</label></td>
 								<td>${autorPO.username}</td>
 							</tr>
 
 							<tr>
-								<td>Kontakt broj:</td>
+								<td><label>Kontakt broj:</label></td>
 								<td>${autorPO.telefon}</td>
 							</tr>
 							<tr>
-								<td>Kontakt mail:</td>
+								<td><label>Kontakt mail:</label></td>
 								<td>${autorPO.email}</td>
 							</tr>
 							<tr>
-								<td>Fax:</td>
+								<td><label>Fax:</label></td>
 								<td>${autorPO.fax}</td>
 							</tr>
 						</c:when>
@@ -115,26 +115,25 @@
 					<c:choose>
 						<c:when test='${autorFO != null}'>
 							<tr>
-								<td>Oglašivač</td>
+								<td><label>Oglašivač</label></td>
 								<td>${autorFO.username}</td>
 
 							</tr>
 							<tr>
-								<td>Kontakt broj:</td>
+								<td><label>Kontakt broj:</label></td>
 								<td>${autorFO.telefon}</td>
 							</tr>
 							<tr>
-								<td>Kontakt mail:</td>
+								<td><label>Kontakt mail:</label></td>
 								<td>${autorFO.email}</td>
 							</tr>
 						</c:when>
 					</c:choose>
 					<tr>
-						<td>Datum objave:</td>
+						<td><label>Datum objave:</label></td>
 						<td>${zapis.datum}</td>
 					</tr>
 				</table>
-
 				<c:choose>
 					<c:when test='${autorPO != null}'>
 						<c:choose>
@@ -144,7 +143,6 @@
 									target="_blank">[Prikazi sve moje oglase]</a>
 							</c:when>
 							<c:otherwise>
-
 								<p>
 									<a
 										href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorPO.id}"
@@ -163,7 +161,6 @@
 									target="_blank">[Prikazi sve moje oglase]</a>
 							</c:when>
 							<c:otherwise>
-
 								<p>
 									<a
 										href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorFO.id}"

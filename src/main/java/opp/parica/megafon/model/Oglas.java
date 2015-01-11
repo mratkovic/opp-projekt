@@ -174,4 +174,11 @@ public class Oglas {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "Oglas [id=" + id + ", autor=" + autor + ", pripadaKategoriji=" + pripadaKategoriji + ", naslov="
+			+ naslov + ", opis=" + opis + ", cijena=" + cijena + ", videoURL=" + videoURL + ", jeSkriven="
+			+ jeSkriven + ", slike=" + slike + ", datumObjave=" + datumObjave + ", stavke=" + stavke + "]";
+	}
+
 }

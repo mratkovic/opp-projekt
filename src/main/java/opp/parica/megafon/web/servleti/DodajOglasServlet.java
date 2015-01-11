@@ -3,10 +3,13 @@ package opp.parica.megafon.web.servleti;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -23,6 +26,11 @@ import opp.parica.megafon.model.Oglasivac;
 import opp.parica.megafon.model.Slika;
 import opp.parica.megafon.web.servleti.forme.OglasForma;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 @WebServlet({ "/servleti/dodajOglas" })
 @MultipartConfig
 public class DodajOglasServlet extends HttpServlet {
@@ -36,8 +44,8 @@ public class DodajOglasServlet extends HttpServlet {
 			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 			return;
 		}
-
 		if (req.getParameter("kategorija") == null) {
+			boolean prikaziSveKategorije = false;
 			Oglasivac oglasivac = (Oglasivac) req.getSession().getAttribute("user");
 			List<Kategorija> kategorije = new ArrayList<Kategorija>();
 
@@ -49,8 +57,11 @@ public class DodajOglasServlet extends HttpServlet {
 				}
 			}
 			else {
+				prikaziSveKategorije = true;
 				kategorije = DAOProvider.getDAO().dohvatiSveKategorije();
+
 			}
+			req.setAttribute("prikaziSve", prikaziSveKategorije);
 			req.setAttribute("kategorije", kategorije);
 			req.getRequestDispatcher("/WEB-INF/pages/OdabirKategorije.jsp").forward(req, resp);
 			return;
@@ -85,6 +96,7 @@ public class DodajOglasServlet extends HttpServlet {
 	protected void doPost(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+
 		String metoda = req.getParameter("metoda");
 		if (!"Pohrani".equals(metoda)) {
 			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
@@ -128,7 +140,18 @@ public class DodajOglasServlet extends HttpServlet {
 			resp);
 	}
 
-	private void uploadajSlike(final HttpServletRequest req, final Oglas o, final OglasForma forma)
+	public static Map<String, String> getFields(final List<FileItem> fileItems) {
+		HashMap<String, String> fields = new HashMap<>();
+		for (FileItem item : fileItems) {
+			if (item.isFormField()) {
+				fields.put(item.getFieldName(), item.getString());
+			}
+
+		}
+		return fields;
+	}
+
+	public static void uploadajSlike(final HttpServletRequest req, final Oglas o, final OglasForma forma)
 		throws IOException, ServletException {
 
 		String applicationPath = req.getServletContext().getRealPath("");
@@ -142,9 +165,9 @@ public class DodajOglasServlet extends HttpServlet {
 		String fileName = null;
 
 		for (Part part : req.getParts()) {
+			System.out.println("REQ -- " + part.getName());
 			fileName = getFileName(part, forma);
-			if (!fileName.isEmpty())
-			{
+			if (!fileName.isEmpty()) {
 				System.out.println("File OK");
 				part.write(uploadFilePath + File.separator + fileName);
 				String ekstenzija = fileName.substring(fileName.lastIndexOf('.') + 1);
@@ -157,7 +180,55 @@ public class DodajOglasServlet extends HttpServlet {
 		}
 	}
 
-	private String getFileName(final Part part, final OglasForma forma) {
+	public static void uploadajSlikeKoristeciApache(final HttpServletRequest req, final List<FileItem> fileItems,
+		final OglasForma forma, final Oglas o)
+	{
+
+		for (FileItem item : fileItems) {
+
+			if (!item.isFormField()) {
+				String fileName = new File(item.getName()).getName();
+				System.out.println("------" + fileName);
+				if (fileName.matches("(?i).*[.](png|jpg|bmp)")) {
+
+					String applicationPath = req.getServletContext().getRealPath("");
+					String uploadFilePath = applicationPath + File.separator + "tmp";
+
+					String filePath = uploadFilePath + File.separator + fileName;
+					File storeFile = new File(filePath);
+
+					try {
+						item.write(storeFile);
+					} catch (Exception e) {
+						System.out.println("Iden zapisat");
+						e.printStackTrace();
+					}
+
+					String ekstenzija = fileName.substring(fileName.lastIndexOf('.') + 1);
+					Slika s = new Slika();
+					try {
+						Path p = Paths.get(filePath);
+						System.out.println(p.toAbsolutePath());
+						File saved = p.toFile();
+						s.setSlika(Files.readAllBytes(p));
+					} catch (IOException e) {
+						System.out.println("Iden procitat");
+						e.printStackTrace();
+					}
+					s.setPripadaOglasu(o);
+					s.setEkstenzija(ekstenzija);
+					DAOProvider.getDAO().dodajSliku(s);
+
+				} else if (!fileName.isEmpty()) {
+					forma.getErrors().put("slike", "Podrzani formati slika su png, jpg i bmp");
+				}
+
+			}
+		}
+
+	}
+
+	private static String getFileName(final Part part, final OglasForma forma) {
 		String contentDisp = part.getHeader("content-disposition");
 		String[] tokens = contentDisp.split(";");
 
@@ -173,5 +244,26 @@ public class DodajOglasServlet extends HttpServlet {
 		}
 
 		return "";
+	}
+
+	public static List<FileItem> getFileItems(final HttpServletRequest req, final HttpServlet reference) {
+		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+		if (!isMultipart) {
+			return null;
+		}
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+
+		// String applicationPath = req.getServletContext().getRealPath("");
+
+		factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+		ServletFileUpload upload = new ServletFileUpload(factory);
+
+		try {
+			List<FileItem> items = upload.parseRequest(req);
+			return items;
+		} catch (FileUploadException e) {
+			return null;
+		}
+
 	}
 }

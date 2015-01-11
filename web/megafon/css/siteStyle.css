@@ -469,9 +469,13 @@ a.more:hover {
 }
 
 .lp_box h6 {
-	font-weight: bold
+	font-weight: bold;
+	font-size: 1.3em;
+	text-align: left;
+	padding-left: 45x;
 }
 
+}
 .lp_box_last {
 	margin: 0
 }
@@ -556,7 +560,7 @@ a.more:hover {
 
 .news_box img {
 	float: left;
-	width: 100px;
+	width: 140px;
 	height: 100px;
 	padding: 4px;
 	border: 1px solid #000;
@@ -883,7 +887,6 @@ a.more:hover {
 div span.oglasLabela {
 	color: #5FA008;
 	font-weight: bold;
-	font-size: 1.2em
 }
 
 div span.oglasIznos {
@@ -898,9 +901,12 @@ table labelRez {
 	padding-right: 18px;
 	padding-bottom: 4px;
 }
+
 table label {
-color: #5FA008;
-	font-weight: bold;}
+	color: #5FA008;
+	font-weight: bold;
+}
+
 .oglasCijena {
 	padding-bottom: 15px;
 	padding-top: 10px;
@@ -908,4 +914,33 @@ color: #5FA008;
 
 #naslovVeci {
 	
+}
+
+.prikaziSliku {
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.btns {
+	padding-top: 25px
+}
+
+.info td {
+	padding-bottom: 5px;
+}
+
+.podnaslov {
+	color: white;
+}
+
+.opcije {
+	font-size: 1.2em
+}
+
+.dodatneStavkeDiv {
+	padding-bottom: 30px;
+}
+
+.tipovi {
+	width: 120px;
 }

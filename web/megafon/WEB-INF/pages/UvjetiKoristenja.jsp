@@ -230,18 +230,57 @@
 				dostaviti u pisanom obliku na adresu sjedišta društva, Blabla 3 d,
 				Zagreb.</li>
 		</ol>
-		<br> Podaci o upravitelju sistema Megafon.hr:<br> <br>
-		<b>Megafon d.o.o.</b><br> Blabla 3D<br> 10 000 Zagreb<br>
-		Hrvatska<br> <br>
-		<p>
-			E-mail: <a href="mailto:info@megafon.hr">info@megafon.hr</a><br>
-			Tel: 01.0000.000
-		</p>
+		<h4>Osnovni podaci o tvrtci</h4>
 
+		<table>
+			<tr>
+				<td><label>Naziv tvrtke: </label></td>
+				<td>${pravna.naziv}</td>
+			</tr>
 
-		Podaci o društvu:<br> Društvo je upisano u sudski registar kod
-		Trgovačkog suda u Zagrebu, MBS: XXXXXXX, OIB: XXXXXXXXXXX<br>
-		Temeljni kapital 20.000,00 kn uplaćen u cjelosti.
+			<tr>
+				<td><label>Tvrtka: </label></td>
+				<td>Megafon d.o.o.</td>
+			</tr>
+			<tr>
+				<td><label>Sjedište: </label></td>
+				<td>Izmišljena Adresa 1024, 10000 Zagreb</td>
+			</tr>
+			<tr>
+				<td><label>Sud registracije: </label></td>
+				<td>Društvo nije registrirano</td>
+			</tr>
+
+			<tr>
+				<td><label>MBS: </label></td>
+				<td>31415926</td>
+			</tr>
+
+			<tr>
+				<td><label>OIB: </label></td>
+				<td>27182818284</td>
+			</tr>
+
+			<tr>
+				<td><label>Broj računa: </label></td>
+				<td>3141592-2718281828, račun otvoren kod Izmišljena Banka d.d.</td>
+			</tr>
+
+			<tr>
+				<td><label>IBAN: </label></td>
+				<td>HR1234567891011121314</td>
+			</tr>
+
+			<tr>
+				<td><label>Temeljni kapital: </label></td>
+				<td>6.384,00 kn, uplaćen u cijelosti</td>
+			</tr>
+
+			<tr>
+				<td><label>Vlasnik: </label></td>
+				<td>Random Ime</td>
+			</tr>
+		</table>
 
 
 		<!-- end of main -->

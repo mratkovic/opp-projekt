@@ -12,4 +12,7 @@
    OPP Projekt
    Megafon - portal za oglašavanje
   </description>
+  
+	<!-- <listener -class>opp.parica.megafon.web.init.AzuriranjeRacuna
+	</listener> -->
 </web-app>

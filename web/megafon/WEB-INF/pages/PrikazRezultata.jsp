@@ -199,9 +199,11 @@
 								<div class="col_w960 col_w960_last">
 									<div class="col_w600 float_l">
 										<div class="news_box">
-											<img
-												src="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=400&y=300"
-												alt="Work One" />
+											<a href="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}"
+												data-lightbox="image-1"
+												data-title="${zapis.naslov}-id:${slika}"> <img
+												src="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=140&y=100">
+											</a>
 
 											<h3>
 												<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}">${oglas.naslov}</a>

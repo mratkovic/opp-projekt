@@ -35,8 +35,9 @@ public class OglasKratkaForma {
 		opis = oglas.getOpis();
 		cijena = oglas.getCijena().toString() + " HRK";
 		datum = Potpora.kratkiFormatDatum(oglas.getDatumObjave());
-
-		slikaID = oglas.getSlike().get(0).getId().toString();
+		if(!oglas.getSlike().isEmpty()) {
+			slikaID = oglas.getSlike().get(0).getId().toString();
+		}
 		title_len = title;
 		description_len = description;
 		trimParameters();

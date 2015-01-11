@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import opp.parica.megafon.dao.DAOProvider;
 import opp.parica.megafon.model.Oglas;
 import opp.parica.megafon.model.Oglasivac;
+import opp.parica.megafon.web.servleti.forme.OglasKratkaForma;
 
 @WebServlet("/servleti/prikaziOglaseOglasivaca")
 public class PrikaziSveOglaseOglasivacaServlet extends HttpServlet {
@@ -53,7 +54,7 @@ public class PrikaziSveOglaseOglasivacaServlet extends HttpServlet {
 			Oglasivac oglasivac = DAOProvider.getDAO().dohvatiOglasivaca(id);
 			List<Oglas> oglasi = DAOProvider.getDAO().dohvatiJavneOglaseOglasivaca(oglasivac);
 
-			req.setAttribute("oglasi", oglasi);
+			req.setAttribute("oglasi", OglasKratkaForma.prilagodiZaPrikaz(oglasi, 30, 120));
 			req.setAttribute("autor", oglasivac.getUsername());
 			req.getRequestDispatcher("/WEB-INF/pages/PrikaziOglaseOglasivaca.jsp").forward(req, resp);
 		} else {

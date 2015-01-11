@@ -45,11 +45,12 @@ public class PrikaziOglasServlet extends HttpServlet {
 		}
 		Oglas o = DAOProvider.getDAO().dohvatiOglas(id);
 		boolean imaPravaPrikaza = false;
-		if (o.getJeSkriven()) {
+		if (o != null && o.getJeSkriven()) {
+
 			imaPravaPrikaza = req.getSession().getAttribute("admin") != null;
-			if (!imaPravaPrikaza && req.getSession().getAttribute("user") != null) {
+			if (req.getSession().getAttribute("user") != null) {
 				Oglasivac logiraniOglasivac = (Oglasivac) req.getSession().getAttribute("user");
-				imaPravaPrikaza = o.getAutor().getId() == logiraniOglasivac.getId();
+				imaPravaPrikaza = o.getAutor().getId().equals(logiraniOglasivac.getId());
 			}
 		}
 		if (o == null || (o.getJeSkriven() && !imaPravaPrikaza)) {
