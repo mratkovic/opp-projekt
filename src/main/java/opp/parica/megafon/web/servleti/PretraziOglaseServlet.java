@@ -47,6 +47,7 @@ public class PretraziOglaseServlet extends HttpServlet {
 		}
 
 		List<Oglas> oglasi = forma.obaviUpit();
+		Collections.sort(oglasi, Potpora.OGLASI_KOMPARATOR);
 		if (oglasi == null || oglasi.isEmpty()) {
 			req.setAttribute("title", "Nema rezultata");
 			req.setAttribute(
@@ -55,16 +56,16 @@ public class PretraziOglaseServlet extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 		}
-		Collections.sort(oglasi, Potpora.OGLASI_KOMPARATOR);
-		req.setAttribute("rezultati", OglasKratkaForma.prilagodiZaPrikaz(oglasi));
+
+		req.setAttribute("rezultati", OglasKratkaForma.prilagodiZaPrikaz(oglasi, 30, 120));
 
 		if (!forma.getKategorija().isEmpty()) {
-
+			System.out.println("-Odabrana kategorija: " + forma.getKategorija());
 			List<Oglas> premium = DAOProvider.getDAO().
 				dohvatiPremiumOglase(Long.parseLong(forma.getKategorija()));
-
 			Collections.sort(premium, Potpora.OGLASI_KOMPARATOR);
-			req.setAttribute("premium", OglasKratkaForma.prilagodiZaPrikaz(premium));
+			System.out.println("Premium velicina" + premium.size());
+			req.setAttribute("premium", OglasKratkaForma.prilagodiZaPrikaz(premium, 25, 45));
 		}
 
 		req.setAttribute("kriteriji", forma.getKriterijiString());

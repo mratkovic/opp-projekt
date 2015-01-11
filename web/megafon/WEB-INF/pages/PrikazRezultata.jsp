@@ -62,17 +62,7 @@
 
 					</c:choose>
 				</ul>
-
-
-				<div id="search_box">
-					<form action="/megafon/servleti/pretraga" method="post">
-						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
-							id="searchfield" title="searchfield" onfocus="clearText(this)"
-							onblur="clearText(this)" /> <input type="submit" name="Search"
-							value="" id="searchbutton" title="Search" />
-					</form>
-				</div>
-
+				<jsp:include page="MaliSearchbar.jsp" />
 				<div class="cleaner"></div>
 			</div>
 			<!-- end of site_menu -->
@@ -87,82 +77,155 @@
 			<div id="site_main">
 				<div class="col_w960">
 
-
 					<c:choose>
-						<c:when test="${!premium.isEmpty()}">
+						<c:when test="${not empty premium}">
 							<h3>Izdvojeni oglasi ove kategorije</h3>
-							<c:forEach var="oglas" items="${premium}">
-								<!-- nestooooo -->
-							</c:forEach>
-						</c:when>
+							<div id="lista1" class="als-container">
 
+								<div class="als-viewport">
+									<div class="als-wrapper">
+
+										<c:forEach var="oglas" items="${premium}">
+											<div class="als-item">
+												<div class="lp_box lp_box_last">
+
+													<h6>
+														<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}">${oglas.naslov}</a>
+													</h6>
+													<a
+														href="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=400&y=300"
+														data-lightbox="image-1"
+														data-title="${zapis.naslov}-id:${slika}"> <img
+														src="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=290&y=140">
+													</a>
+
+
+													<p>${oglas.opis}</p>
+													<p>
+														<span class="oglasLabela">Cijena: </span>${oglas.cijena}
+													</p>
+													<p>
+														<span class="oglasLabela">Datum objave: </span>
+														${oglas.datum}
+													</p>
+													<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}"
+														class="more float_r">Više</a>
+
+													<div class="cleaner"></div>
+												</div>
+											</div>
+
+											<div class="als-item">
+												<div class="lp_box lp_box_last">
+
+													<h6>
+														<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}">${oglas.naslov}</a>
+													</h6>
+													<a
+														href="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=400&y=300"
+														data-lightbox="image-1"
+														data-title="${zapis.naslov}-id:${slika}"> <img
+														src="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=290&y=140">
+													</a>
+
+
+													<p>${oglas.opis}</p>
+													<p>
+														<span class="oglasLabela">Cijena: </span>${oglas.cijena}
+													</p>
+													<p>
+														<span class="oglasLabela">Datum objave: </span>
+														${oglas.datum}
+													</p>
+													<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}"
+														class="more float_r">Više</a>
+
+													<div class="cleaner"></div>
+												</div>
+											</div>
+											<div class="als-item">
+												<div class="lp_box lp_box_last">
+
+													<h6>
+														<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}">${oglas.naslov}</a>
+													</h6>
+													<a
+														href="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=400&y=300"
+														data-lightbox="image-1"
+														data-title="${zapis.naslov}-id:${slika}"> <img
+														src="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=290&y=140">
+													</a>
+
+
+													<p>${oglas.opis}</p>
+													<p>
+														<span class="oglasLabela">Cijena: </span>${oglas.cijena}
+													</p>
+													<p>
+														<span class="oglasLabela">Datum objave: </span>
+														${oglas.datum}
+													</p>
+													<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}"
+														class="more float_r">Više</a>
+
+													<div class="cleaner"></div>
+												</div>
+											</div>
+										</c:forEach>
+
+									</div>
+								</div>
+								<span class="als-next"><img
+									src="/megafon/images/thin_right_arrow_333.png" alt="next"
+									title="next" /></span> <span class="als-prev"><img
+									src="/megafon/images/thin_left_arrow_333.png" alt="prev"
+									title="previous" /></span>
+							</div>
+							<div class="cleaner"></div>
+						</c:when>
 					</c:choose>
+
+
 
 					<div class="cleaner"></div>
 					<br>
 					<c:choose>
 						<c:when test="${!rezultati.isEmpty()}">
-							<h3>Rezultati pretrage</h3>
-							<c:set var="count" value="0" scope="page" />
+							<h3 id='naslovVeci'>Rezultati pretrage</h3>
+							<br>
 							<c:forEach var="oglas" items="${rezultati}">
-								<c:choose>
-									<c:when test="${count % 2 == 0}">
-										<div class="col_w450 float_l">
-											<div class="wwd_box">
 
-												<img
-													src="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=400&y=300"
-													alt="Work One" />
-												<h3>
-													<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}">${oglas.naslov}</a>
-												</h3>
-												<p>${oglas.opis}</p>
-												<p>
-													<span class="oglasLabela">Cijena: </span>${oglas.cijena}
-												</p>
-												<p>
-													<span class="oglasLabela">Datum objave: </span>
-													${oglas.datum}
-												</p>
-												<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}"
-													class="more float_r">Više</a>
-												<div class="cleaner"></div>
+
+								<div class="col_w960 col_w960_last">
+									<div class="col_w600 float_l">
+										<div class="news_box">
+											<img
+												src="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=400&y=300"
+												alt="Work One" />
+
+											<h3>
+												<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}">${oglas.naslov}</a>
+											</h3>
+											<div class='oglasCijena'>
+												<span class="oglasLabela">Cijena: </span> <span
+													class="oglasIznos">${oglas.cijena}</span> <br> <span
+													class="oglasLabela">Datum objave: </span> <span
+													class="oglasIznos">${oglas.datum}</span>
 											</div>
+											<p>${oglas.opis}</p>
+
+											<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}"
+												class="more">Više</a>
+
+											<div class="cleaner"></div>
 										</div>
-									</c:when>
-									<c:otherwise>
-										<div class="col_w450 float_r">
-											<div class="wwd_box">
-
-												<img
-													src="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=400&y=300"
-													alt="Work One" />
-												<h3>
-													<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}">${oglas.naslov}</a>
-												</h3>
-												<p>${oglas.opis}</p>
-
-												<p>
-													<span class="oglasLabela">Cijena: </span>${oglas.cijena}
-												</p>
-												<p>
-													<span class="oglasLabela">Datum objave: </span>
-													${oglas.datum}
-												</p>
-												<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}"
-													class="more float_r">Više</a>
-												<div class="cleaner"></div>
-
-											</div>
-										</div>
-									</c:otherwise>
-								</c:choose>
-								<c:set var="count" value="${count + 1}" scope="page" />
-
+									</div>
+								</div>
 							</c:forEach>
 						</c:when>
 					</c:choose>
 				</div>
+
 			</div>
 			<!-- end of main -->
 		</div>

@@ -36,7 +36,7 @@ public class PocetnaServlet extends HttpServlet {
 		List<Oglas> premium = DAOProvider.getDAO().dohvatiSveOglase(tip);
 		if (premium != null && !premium.isEmpty()) {
 			Collections.sort(premium, Potpora.OGLASI_KOMPARATOR);
-			req.setAttribute("premium", OglasKratkaForma.prilagodiZaPrikaz(premium));
+			req.setAttribute("premium", OglasKratkaForma.prilagodiZaPrikaz(premium, 25, 45));
 		}
 		req.getRequestDispatcher("/WEB-INF/pages/Index.jsp").forward(req,
 			resp);

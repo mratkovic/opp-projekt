@@ -21,17 +21,7 @@
 					<li><a href="/megafon/servleti/pretraga" >Pretraživanje</a></li>
 					<li class="last"><a href="/megafon/servleti/login" class="current">Prijava</a></li>
 				</ul>
-
-
-				<div id="search_box">
-					<form action="/megafon/servleti/pretraga" method="post">
-						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
-							id="searchfield" title="searchfield" onfocus="clearText(this)"
-							onblur="clearText(this)" /> <input type="submit" name="Search"
-							value="" id="searchbutton" title="Search" />
-					</form>
-				</div>
-
+				<jsp:include page="MaliSearchbar.jsp" />
 				<div class="cleaner"></div>
 			</div>
 			<!-- end of site_menu -->

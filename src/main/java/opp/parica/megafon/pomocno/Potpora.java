@@ -12,8 +12,12 @@ public class Potpora {
 	}
 
 	public static String formatirajDatum(final Date datum) {
-	
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm'h', dd.MM.yyyy");;
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm'h', dd.MM.yyyy");
+		return sdf.format(datum);
+	}
+
+	public static String kratkiFormatDatum(final Date datum) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
 		return sdf.format(datum);
 	}
 

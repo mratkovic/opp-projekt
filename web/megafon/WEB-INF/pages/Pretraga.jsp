@@ -39,34 +39,25 @@
 
 					</c:choose>
 				</ul>
-
-
-				<div id="search_box">
-					<form action="/megafon/servleti/pretraga" method="post">
-						<input type="text" value="Pretraga oglasa" name="naziv" size="16"
-							id="searchfield" title="searchfield" onfocus="clearText(this)"
-							onblur="clearText(this)" /> <input type="submit" name="Search"
-							value="" id="searchbutton" title="Search" />
-					</form>
-				</div>
-
+				<jsp:include page="MaliSearchbar.jsp" />
 				<div class="cleaner"></div>
 			</div>
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Pretraga oglasa</h2>
-				<p>Pretražite bazu oglasa po željenim kriterijima. xD</p>
+				<h2>Pretraživanje oglasa</h2>
+				<p>Pretražite bazu oglasa po željenim kriterijima. Potrebno je
+					navesti minimalno jedan kriterij pretrage</p>
 			</div>
 
 			<div id="site_main">
 				<form action="/megafon/servleti/pretraga" method="post">
 					<table>
 						<tr>
-							<td><input type="text" value="Naziv oglasa" name="naziv"
+							<td><input id='main_search' type="text" value="Naziv oglasa" name="naziv"
 								size="80" id="searchfield_large" title="searchfield"
 								onfocus="clearText(this)" onblur="clearText(this)" /></td>
-							<td><input type="submit" name="Search" value=""
+							<td><input id='main_search_btn' type="submit" name="Search" value=""
 								id="searchbutton_large" title="Search" /></td>
 						</tr>
 					</table>

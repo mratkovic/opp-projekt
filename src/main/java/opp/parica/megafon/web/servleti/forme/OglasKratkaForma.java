@@ -13,9 +13,8 @@ import opp.parica.megafon.pomocno.Potpora;
  * @version 1.0
  */
 public class OglasKratkaForma {
-	private static final int TITLE_LEN = 25;
-
-	private static final int DESCRIPTION_LEN = 45;
+	private int title_len;
+	private int description_len;
 
 	private String id;
 	private String kategorija;
@@ -28,17 +27,18 @@ public class OglasKratkaForma {
 
 	private String slikaID;
 
-	public OglasKratkaForma(final Oglas oglas) {
+	public OglasKratkaForma(final Oglas oglas, final int title, final int description) {
 		id = oglas.getId().toString();
 		kategorija = oglas.getPripadaKategoriji().getNaziv();
 
 		naslov = oglas.getNaslov();
 		opis = oglas.getOpis();
 		cijena = oglas.getCijena().toString() + " HRK";
-		datum = Potpora.formatirajDatum(oglas.getDatumObjave());
+		datum = Potpora.kratkiFormatDatum(oglas.getDatumObjave());
 
 		slikaID = oglas.getSlike().get(0).getId().toString();
-
+		title_len = title;
+		description_len = description;
 		trimParameters();
 	}
 
@@ -47,15 +47,15 @@ public class OglasKratkaForma {
 	 * prikaz primjerice u rezultatima pretrage.
 	 */
 	private void trimParameters() {
-		if (naslov.length() > TITLE_LEN) {
-			naslov = naslov.subSequence(0, TITLE_LEN - 3) + "...";
+		if (naslov.length() > title_len) {
+			naslov = naslov.subSequence(0, title_len - 3) + "...";
+			naslov = naslov.replace('\n', ' ');
 		}
-		naslov = naslov.replace('\n', ' ');
 
-		if (opis.length() > DESCRIPTION_LEN) {
-			opis = opis.subSequence(0, DESCRIPTION_LEN - 3) + "...";
+		if (opis.length() > description_len) {
+			opis = opis.subSequence(0, description_len - 3) + "...";
+			opis = opis.replace('\n', ' ');
 		}
-		opis = opis.replace('\n', ' ');
 	}
 
 	public String getId() {
@@ -114,13 +114,14 @@ public class OglasKratkaForma {
 		this.slikaID = slikaID;
 	}
 
-	static public List<OglasKratkaForma> prilagodiZaPrikaz(final List<Oglas> oglasi) {
+	static public List<OglasKratkaForma> prilagodiZaPrikaz(final List<Oglas> oglasi, final int title,
+		final int description) {
 		if (oglasi == null || oglasi.isEmpty()) {
 			return null;
 		}
 		List<OglasKratkaForma> forme = new ArrayList<OglasKratkaForma>();
 		for (Oglas o : oglasi) {
-			forme.add(new OglasKratkaForma(o));
+			forme.add(new OglasKratkaForma(o, title, description));
 		}
 		return forme;
 	}

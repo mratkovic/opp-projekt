@@ -40,19 +40,10 @@
 					<li><a href="/megafon/servleti/">Pretraga</a></li>
 					<li><a href="/megafon/servleti/">O nama</a></li>
 					<li><a href="/megafon/servleti/">Prijava</a></li>
-					<li class="last"><a href="/megafon/servleti/registracija/oglasivac" class="current">Registracija</a></li>
+					<li class="last"><a
+						href="/megafon/servleti/registracija/oglasivac" class="current">Registracija</a></li>
 				</ul>
-
-
-				<div id="search_box">
-					<form action="#" method="get">
-						<input type="text" value="Search" name="q" size="10"
-							id="searchfield" title="searchfield" onfocus="clearText(this)"
-							onblur="clearText(this)" /> <input type="submit" name="Search"
-							value="" id="searchbutton" title="Search" />
-					</form>
-				</div>
-
+				<jsp:include page="MaliSearchbar.jsp" />
 				<div class="cleaner"></div>
 			</div>
 			<!-- end of site_menu -->
@@ -66,8 +57,8 @@
 			</div>
 
 			<div id="site_main">
-				<form action="/megafon/servleti/registracija/oglasivac" method="post"
-					style="padding-bottom: 30px;">
+				<form action="/megafon/servleti/registracija/oglasivac"
+					method="post" style="padding-bottom: 30px;">
 					<div class="tipOglasivacaRadio">
 						<label> <input id="odabraniTip" type="radio"
 							name="odabraniTip" value="fo" ${jeFizicka ? 'checked':''} />Fizička
@@ -76,7 +67,8 @@
 							name="odabraniTip" value="po" ${jePravna ? 'checked':''} />Pravna
 							osoba</label>
 					</div>
-					<table class="fo box" ${jeFizicka ? 'style="display: table;"':'style="display: none;"'}>
+					<table class="fo box"
+						${jeFizicka ? 'style="display: table;"':'style="display: none;"'}>
 						<tr>
 							<td class=firstCol><label for="ID_fo"></label></td>
 							<td><input type="hidden" name="id_fo" value='${zapisFO.id}'
@@ -151,8 +143,8 @@
 						<tr>
 							<td></td>
 							<td><input type="checkbox" name="prihvacam_fo" value="true">
-								U potpunosti se slažem s <a href="/megafon/uvjeti" target="_blank">
-									Uvjetima korištenja *</a> <c:if
+								U potpunosti se slažem s <a href="/megafon/uvjeti"
+								target="_blank"> Uvjetima korištenja *</a> <c:if
 									test="${zapisFO.hasError('prihvacam_fo')}">
 									<div class="greska">${zapisFO.getError('prihvacam_fo')}</div>
 								</c:if></td>
@@ -168,7 +160,8 @@
 
 					</table>
 
-					<table class="po box" ${jePravna ? 'style="display: table;"':'style="display: none;"'}>
+					<table class="po box"
+						${jePravna ? 'style="display: table;"':'style="display: none;"'}>
 						<tr>
 							<td class=firstCol><label for="id_po"></label></td>
 							<td><input type="hidden" name="id_po" value='${zapisPO.id}'
@@ -244,8 +237,8 @@
 						<tr>
 							<td></td>
 							<td><input type="checkbox" name="prihvacam_po" value="true">
-								U potpunosti se slažem s <a href="/megafon/uvjeti" target="_blank">
-									Uvjetima korištenja *</a> <c:if
+								U potpunosti se slažem s <a href="/megafon/uvjeti"
+								target="_blank"> Uvjetima korištenja *</a> <c:if
 									test="${zapisPO.hasError('prihvacam_po')}">
 									<div class="greska">${zapisPO.getError('prihvacam_po')}</div>
 								</c:if></td>

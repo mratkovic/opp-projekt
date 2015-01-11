@@ -19,7 +19,7 @@
 
 		<div id="site_menu">
 			<ul>
-				<li><a href="/megafon/servleti/pocetna" >Početna</a></li>
+				<li><a href="/megafon/servleti/pocetna">Početna</a></li>
 
 				<c:choose>
 					<c:when test='${sessionScope["admin"] != null}'>
@@ -35,23 +35,15 @@
 
 					<c:when
 						test='${sessionScope["user"] == null && sessionScope["admin"] == null}'>
-						<li><a href="/megafon/servleti/info" class="current">O nama</a></li>
+						<li><a href="/megafon/servleti/info" class="current">O
+								nama</a></li>
 						<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
 						<li class="last"><a href="/megafon/servleti/login">Prijava</a></li>
 					</c:when>
 
 				</c:choose>
 			</ul>
-
-
-			<div id="search_box">
-				<form action="/megafon/servleti/pretraga" method="post">
-					<input type="text" value="Pretraga oglasa" name="naziv" size="16"
-						id="searchfield" title="searchfield" onfocus="clearText(this)"
-						onblur="clearText(this)" /> <input type="submit" name="Search"
-						value="" id="searchbutton" title="Search" />
-				</form>
-			</div>
+			<jsp:include page="MaliSearchbar.jsp" />
 
 			<div class="cleaner"></div>
 		</div>
