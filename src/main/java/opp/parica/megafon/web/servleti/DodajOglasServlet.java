@@ -254,8 +254,15 @@ public class DodajOglasServlet extends HttpServlet {
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 
 		// String applicationPath = req.getServletContext().getRealPath("");
+		String applicationPath = req.getServletContext().getRealPath("");
+		String uploadFilePath = applicationPath + File.separator + "tmp";
 
-		factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+		File fileSaveDir = new File(uploadFilePath);
+		if (!fileSaveDir.exists()) {
+			fileSaveDir.mkdirs();
+		}
+
+		factory.setRepository(fileSaveDir);
 		ServletFileUpload upload = new ServletFileUpload(factory);
 
 		try {

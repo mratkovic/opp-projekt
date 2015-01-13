@@ -69,7 +69,6 @@ public class RegistracijaServlet extends HttpServlet {
 			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
 		} else {
 			System.out.println("Nepostoji admin ili se stvara novi!");
-			// registrirajAdmina i ostala sranja koja vec imas za napravit
 			req.getRequestDispatcher("/WEB-INF/pages/RegistracijaAdminaForma.jsp").forward(req, resp);
 		}
 	}

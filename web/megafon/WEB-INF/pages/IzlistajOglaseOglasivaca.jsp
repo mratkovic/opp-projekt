@@ -77,7 +77,7 @@
 										<td>${zapis.pripadaKategoriji.naziv}</td>
 										<td></td>
 										<td><a
-											href="/megafon/servleti/prikaziOglas?id=${zapis.id}">[Prikaži]</a></td>
+											href="/megafon/servleti/prikaz/oglas?id=${zapis.id}">[Prikaži]</a></td>
 										<td><a href="/megafon/servleti/uredi/oglas?id=${zapis.id}">[Uredi]</a></td>
 										<td><a
 											href="/megafon/servleti/izbrisi/oglas?id=${zapis.id}">[Izbriši]</a></td>

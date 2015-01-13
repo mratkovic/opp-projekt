@@ -42,7 +42,7 @@
 				<form action="/megafon/servleti/dodajOglas" method="get">
 					<table>
 						<tr>
-							<td class=firstCol><label for="kategorija">Kategorija:</label>
+							<td class=firstCol><label class= 'labelFirstCol' for="kategorija">Kategorija:</label>
 							</td>
 							<td><select name="kategorija" size="1">
 									<c:forEach var="tip" items="${kategorije}">
