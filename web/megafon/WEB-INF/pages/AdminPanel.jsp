@@ -64,14 +64,15 @@
 								lozinku]</a></td>
 					</tr>
 				</table>
-				<br>
-				<br>
+				<br> <br>
 				<h3>Administratorske opcije</h3>
 				<ul class='opcije'>
 					<li>Dodavanje novog administratora <a
 						href="/megafon/servleti/registracija/admin">[link]</a>
 					</li>
-
+					<li>Dodavanje nove kategorije oglasa <a
+						href="/megafon/servleti/kategorija">[link]</a>
+					</li>
 
 					<li>Prikaz svih registiranih oglašivača <a
 						href="/megafon/servleti/prikazOglasivaca">[link]</a>

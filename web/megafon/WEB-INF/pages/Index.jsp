@@ -12,12 +12,7 @@
 <script type="text/javascript" src="/megafon/js/jquery.lightbox.js"></script>
 
 <script type="text/javascript">
-	function clearText(field) {
-		if (field.defaultValue == field.value)
-			field.value = '';
-		else if (field.value == '')
-			field.value = field.defaultValue;
-	}
+
 
 	$(document).ready(function() {
 		$("#lista1").als({
@@ -74,7 +69,7 @@
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Dobrodošli na najbolji portal za oglašavanje ikad :D</h2>
+				<h2>Dobrodošli na najbolji portal za oglašavanje ikad xD</h2>
 				<p>Ovdje možete pronaći sve, od igle do lokomotive!</p>
 			</div>
 

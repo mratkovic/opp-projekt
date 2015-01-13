@@ -52,36 +52,50 @@
 
 			<div id="site_main">
 				<form action="/megafon/servleti/pretraga" method="post">
-					<table>
+					<!-- <table>
 						<tr>
-							<td><input id='main_search' type="text" value="Naziv oglasa" name="naziv"
-								size="80" id="searchfield_large" title="searchfield"
-								onfocus="clearText(this)" onblur="clearText(this)" /></td>
-							<td><input id='main_search_btn' type="submit" name="Search" value=""
-								id="searchbutton_large" title="Search" /></td>
+							<td><input id='main_search' type="text" value="Naziv oglasa"
+								name="naziv" size="80" id="searchfield_large"
+								title="searchfield" onfocus="clearText(this)"
+								onblur="clearText(this)" /></td>
+							<td><input id='main_search_btn' type="submit" name="Search"
+								value="" id="searchbutton_large" title="Search" /></td>
 						</tr>
-					</table>
+					</table> -->
 					<br>
-					<table>
+					<table id='pretragaTable'>
 						<tr>
-							<td class=firstCol><label for="cijena">Raspon
+							<td class=firstCol><label class="labelFirstCol" for="naziv">Naziv oglasa:</label></td>
+							<td><input type="text" name="naziv" title="searchfield" value='${zapis.naziv}'
+								onfocus="clearText(this)" onblur="clearText(this)" size=40>
+							</td>
+						</tr>
+						<tr>
+							<td class=firstCol><label class="labelFirstCol" for="cijena">Raspon
 									cijena:</label></td>
 							<td>od <input type="text" name="donjaCijena"
-								value='${zapis.donjaCijena}' size=10> do <input
+								value='${zapis.donjaCijena}' size=15> do <input
 								type="text" name="gornjaCijena" value='${zapis.gornjaCijena}'
-								size=10> (HRK)
+								size=15> (HRK)
 							</td>
 						</tr>
 
 						<tr>
-							<td class=firstCol><label for="kategorija">Kategorija:</label></td>
-							<td><select name="kategorija" size="1">
+							<td class=firstCol><label class="labelFirstCol" for="kategorija">Kategorija:</label></td>
+							<td><select name="kategorija" size="1" style='width:331'>
 									<option value=''>Sve kategorije</option>
 									<c:forEach var="tip" items="${kategorije}">
 										<option value='${tip.id}'>${tip.naziv}</option>
 									</c:forEach>
 							</select></td>
 						</tr>
+						
+						<tr>
+							<td></td>
+							<td id = 'buttonRow'><input type="submit" name="Search"
+								value="Pretraži oglase" title="Search" /></td>
+						</tr>
+
 					</table>
 					<div class="greska">${zapis.getError('greska')}</div>
 

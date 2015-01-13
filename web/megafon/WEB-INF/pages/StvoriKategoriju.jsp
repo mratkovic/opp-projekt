@@ -127,7 +127,7 @@
 
 
 								<tr class="stavka${count} box">
-									<td><label>Stavka ${i}</label></td>
+									<td><label class="labelStavkaID">Stavka ${i}</label></td>
 									<td><input type="text" name="stavka${i}"
 										value='${stavka.first}' size=40></td>
 									<td><select name="tipStavke${i}" size="1">

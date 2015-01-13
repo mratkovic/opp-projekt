@@ -128,4 +128,20 @@ public class Kategorija {
 		return "Kategorija [id=" + id + ", naziv=" + naziv + "]";
 	}
 
+	public boolean jePodkategorijaOd(final Kategorija nadkategorija) {
+		if (this.equals(nadkategorija)) {
+			return true;
+		}
+		Kategorija nad = getNadkategorija();
+
+		while (nad != null) {
+			if (nad.equals(nadkategorija)) {
+				return true;
+			} else {
+				nad = nad.getNadkategorija();
+			}
+		}
+		return false;
+	}
+
 }

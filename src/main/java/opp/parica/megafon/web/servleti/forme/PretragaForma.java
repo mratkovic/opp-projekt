@@ -27,9 +27,13 @@ public class PretragaForma extends ApstraktnaWebForma {
 
 	@Override
 	public void fillFromHttpRequest(final HttpServletRequest req) {
-		naziv = req.getParameter("naziv");
+		naziv = trimParameter(req.getParameter("naziv"));
+		if (naziv.equals("Pretraga oglasa")) {
+			naziv = "";
+		}
 		gornjaCijena = trimParameter(req.getParameter("gornjaCijena"));
 		donjaCijena = trimParameter(req.getParameter("donjaCijena"));
+
 		kategorija = trimParameter(req.getParameter("kategorija"));
 		donja = -1;
 		gornja = 1e6f;
@@ -81,7 +85,8 @@ public class PretragaForma extends ApstraktnaWebForma {
 			if (!naziv.isEmpty() && !o.getNaslov().toUpperCase()
 				.matches(".*" + naziv.toUpperCase() + ".*")) {
 				oglasi.remove(it);
-			} else if (katID != -1 && o.getPripadaKategoriji().getId() != katID) {
+			} else if (katID != -1
+				&& !o.getPripadaKategoriji().jePodkategorijaOd(DAOProvider.getDAO().dohvatiKategoriju(katID))) {
 				oglasi.remove(it);
 			} else if (o.getCijena() < donja || o.getCijena() > gornja) {
 				oglasi.remove(it);
@@ -132,12 +137,13 @@ public class PretragaForma extends ApstraktnaWebForma {
 			sb.append("naziv sadrži '" + naziv + "', ");
 		}
 		if (katID != -1) {
-			sb.append("oglasi pripadaju kategoriji '" + DAOProvider.getDAO().dohvatiKategoriju(katID).getNaziv()
+			sb.append("oglas pripada kategoriji '" + DAOProvider.getDAO().dohvatiKategoriju(katID).getNaziv()
 				+ "', ");
 		}
-		if (!donjaCijena.isEmpty() || !gornjaCijena.isEmpty()) {
-			sb.append("raspon cijene od" + donja + " do " + gornja + ", ");
+		if (!donjaCijena.isEmpty() && !gornjaCijena.isEmpty()) {
+			sb.append("raspon cijene od " + donja + " HRK do " + gornja + "HRK, ");
 		} else if (!donjaCijena.isEmpty()) {
+
 			sb.append("cijena veća od " + donja + ", ");
 		} else if (!gornjaCijena.isEmpty()) {
 			sb.append("cijena manja od " + gornja + ", ");

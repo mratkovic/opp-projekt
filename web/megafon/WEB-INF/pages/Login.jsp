@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/megafon/css/siteStyle.css" />
+<script type="text/javascript" src="/megafon/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/megafon/js/jquery.als-1.7.min.js"></script>
 <title>Prijava</title>
 </head>
 
@@ -18,8 +20,9 @@
 				<ul>
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
 					<li><a href="/megafon/servleti/info">O nama</a></li>
-					<li><a href="/megafon/servleti/pretraga" >Pretraživanje</a></li>
-					<li class="last"><a href="/megafon/servleti/login" class="current">Prijava</a></li>
+					<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
+					<li class="last"><a href="/megafon/servleti/login"
+						class="current">Prijava</a></li>
 				</ul>
 				<jsp:include page="MaliSearchbar.jsp" />
 				<div class="cleaner"></div>

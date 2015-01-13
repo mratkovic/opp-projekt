@@ -800,7 +800,7 @@ a.more:hover {
 	padding-top: 5px;
 	font-family: fantasy;
 	font-weight: bold;
-	font-size: 0.7em;
+	font-size: 0.8em;
 	color: #FF0000;
 }
 
@@ -943,4 +943,22 @@ table label {
 
 .tipovi {
 	width: 120px;
+}
+
+.labelStavkaID {
+	color: #5FA008;
+	font-weight: bold;
+	padding-right: 25px;
+}
+
+.labelFirstCol {
+	color: #5FA008;
+	font-weight: bold;
+	padding-right: 25px;
+}
+#buttonRow {
+	padding-top:25px;
+}
+#pretragaTable td {
+	padding-top: 10px;
 }
