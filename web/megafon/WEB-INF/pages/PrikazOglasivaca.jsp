@@ -31,7 +31,7 @@
 
 						<c:when
 							test='${sessionScope["user"] == null && sessionScope["admin"] == null}'>
-							<li><a href="/megafon/servleti/info">O nama</a></li>
+							<li><a href="/megafon/servleti/info/onama">O nama</a></li>
 							<li><a href="/megafon/servleti/pretraga" class="current">Pretraživanje</a></li>
 							<li class="last"><a href="/megafon/servleti/login">Prijava</a></li>
 						</c:when>
@@ -116,7 +116,7 @@
 						<c:choose>
 							<c:when test='${korisnik.id == sessionScope["id"] }'>
 								<td><a
-									href="/megafon/servleti/prikaziOglaseOglasivaca?id=${korisnik.id}">[Prikaži
+									href="/megafon/servleti/prikaz/oglasi_oglasivaca?id=${korisnik.id}">[Prikaži
 										sve moje oglase]</a></td>
 								<td><a
 									href="/megafon/servleti/uredi/korisnik?id=${korisnik.id}">[Uredi
@@ -124,7 +124,7 @@
 							</c:when>
 							<c:otherwise>
 								<td><a
-									href="/megafon/servleti/prikaziOglaseOglasivaca?id=${korisnik.id}">[Prikaži
+									href="/megafon/servleti/prikaz/oglasi_oglasivaca?id=${korisnik.id}">[Prikaži
 										sve oglase]</a></td>
 								<c:choose>
 									<c:when test='${sessionScope["admin"] != null}'>

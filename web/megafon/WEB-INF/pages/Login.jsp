@@ -19,7 +19,7 @@
 			<div id="site_menu">
 				<ul>
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
-					<li><a href="/megafon/servleti/info">O nama</a></li>
+					<li><a href="/megafon/servleti/info/onama">O nama</a></li>
 					<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
 					<li class="last"><a href="/megafon/servleti/login"
 						class="current">Prijava</a></li>

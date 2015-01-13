@@ -164,7 +164,7 @@
 								<td class=firstCol>Slika${stavka}</td>
 
 								<td class='prikaziSliku'><a
-									href="/megafon/servleti/prikaziSliku?id=${stavka}"
+									href="/megafon/servleti/prikaz/slika?id=${stavka}"
 									data-lightbox="image-1"
 									data-title="${zapis.naslov}-id:${slika}"> [Prikaži] </a></td>
 								<td><input type="checkbox" name="slika${stavka}"

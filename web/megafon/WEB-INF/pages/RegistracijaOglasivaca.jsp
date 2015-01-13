@@ -37,7 +37,7 @@
 			<div id="site_menu">
 				<ul>
 					<li><a href="/megafon/servleti/pocetna">Početna</a></li>
-					<li><a href="/megafon/servleti/info">O nama</a></li>
+					<li><a href="/megafon/servleti/info/onama">O nama</a></li>
 					<li><a href="/megafon/servleti/pretraga">Pretraživanje</a></li>
 					<li><a href="/megafon/servleti/login">Prijava</a></li>
 					<li class="last"><a
@@ -143,7 +143,7 @@
 						<tr>
 							<td></td>
 							<td><input type="checkbox" name="prihvacam_fo" value="true">
-								U potpunosti se slažem s <a href="/megafon/uvjeti"
+								U potpunosti se slažem s <a href="/megafon/servleti/info/uvjeti"
 								target="_blank"> Uvjetima korištenja *</a> <c:if
 									test="${zapisFO.hasError('prihvacam_fo')}">
 									<div class="greska">${zapisFO.getError('prihvacam_fo')}</div>
@@ -237,7 +237,7 @@
 						<tr>
 							<td></td>
 							<td><input type="checkbox" name="prihvacam_po" value="true">
-								U potpunosti se slažem s <a href="/megafon/uvjeti"
+								U potpunosti se slažem s <a href="/megafon/servleti/info/uvjeti"
 								target="_blank"> Uvjetima korištenja *</a> <c:if
 									test="${zapisPO.hasError('prihvacam_po')}">
 									<div class="greska">${zapisPO.getError('prihvacam_po')}</div>

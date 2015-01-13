@@ -38,7 +38,7 @@
 
 						<c:when
 							test='${sessionScope["user"] == null && sessionScope["admin"] == null}'>
-							<li><a href="/megafon/servleti/info">O nama</a></li>
+							<li><a href="/megafon/servleti/info/onama">O nama</a></li>
 							<li><a href="/megafon/servleti/pretraga" class="current">Pretraživanje</a></li>
 							<li class="last"><a href="/megafon/servleti/login">Prijava</a></li>
 						</c:when>
@@ -67,14 +67,14 @@
 								<div class="col_w960 col_w960_last">
 									<div class="col_w600 float_l">
 										<div class="news_box">
-											<a href="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}"
+											<a href="/megafon/servleti/prikaz/slika?id=${oglas.slikaID}"
 												data-lightbox="image-1"
 												data-title="${zapis.naslov}-id:${slika}"> <img
-												src="/megafon/servleti/prikaziSliku?id=${oglas.slikaID}&x=140&y=100">
+												src="/megafon/servleti/prikaz/slika?id=${oglas.slikaID}&x=140&y=100">
 											</a>
 
 											<h3>
-												<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}">${oglas.naslov}</a>
+												<a href="/megafon/servleti/prikaz/oglas?id=${oglas.id}">${oglas.naslov}</a>
 											</h3>
 											<div class='oglasCijena'>
 												<span class="oglasLabela">Cijena: </span> <span
@@ -84,7 +84,7 @@
 											</div>
 											<p>${oglas.opis}</p>
 
-											<a href="/megafon/servleti/prikaziOglas?id=${oglas.id}"
+											<a href="/megafon/servleti/prikaz/oglas?id=${oglas.id}"
 												class="more">Više</a>
 
 											<div class="cleaner"></div>

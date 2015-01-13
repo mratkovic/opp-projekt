@@ -135,7 +135,7 @@
 										href="/megafon/servleti/prikaziOglas?id=${zapis.id}">[Prikaži]</a></td>
 									<td><a href="/megafon/servleti/uredi/oglas?id=${zapis.id}">[Uredi]</a></td>
 									<td><a
-										href="/megafon/servleti/izbrisiOglas?id=${zapis.id}">[Izbriši]</a></td>
+										href="/megafon/servleti/izbrisi/oglas?id=${zapis.id}">[Izbriši]</a></td>
 								</tr>
 							</c:forEach>
 						</c:otherwise>

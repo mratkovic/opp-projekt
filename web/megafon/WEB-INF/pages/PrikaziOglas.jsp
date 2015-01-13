@@ -47,7 +47,7 @@
 
 						<c:when
 							test='${sessionScope["user"] == null && sessionScope["admin"] == null}'>
-							<li><a href="/megafon/servleti/info">O nama</a></li>
+							<li><a href="/megafon/servleti/info/onama">O nama</a></li>
 							<li><a href="/megafon/servleti/pretraga" class="current">Pretraživanje</a></li>
 							<li class="last"><a href="/megafon/servleti/login">Prijava</a></li>
 						</c:when>
@@ -139,13 +139,13 @@
 						<c:choose>
 							<c:when test='${autorPO.id == sessionScope["id"] }'>
 								<a
-									href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorPO.id}"
+									href="/megafon/servleti/prikaz/oglasi_oglasivaca?id=${autorPO.id}"
 									target="_blank">[Prikazi sve moje oglase]</a>
 							</c:when>
 							<c:otherwise>
 								<p>
 									<a
-										href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorPO.id}"
+										href="/megafon/servleti/prikaz/oglasi_oglasivaca?id=${autorPO.id}"
 										target="_blank">[Prikazi sve oglase ovog oglašivača]</a>
 								</p>
 							</c:otherwise>
@@ -157,13 +157,13 @@
 						<c:choose>
 							<c:when test='${autorPO.id == sessionScope["id"] }'>
 								<a
-									href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorFO.id}"
+									href="/megafon/servleti/prikaz/oglasi_oglasivaca?id=${autorFO.id}"
 									target="_blank">[Prikazi sve moje oglase]</a>
 							</c:when>
 							<c:otherwise>
 								<p>
 									<a
-										href="/megafon/servleti/prikaziOglaseOglasivaca?id=${autorFO.id}"
+										href="/megafon/servleti/prikaz/oglasi_oglasivaca?id=${autorFO.id}"
 										target="_blank">[Prikazi sve oglase ovog oglašivača]</a>
 								</p>
 							</c:otherwise>
@@ -176,10 +176,10 @@
 				<div class='rightbar'>
 					<c:forEach var="slika" items="${zapis.slikeID}">
 						<div class='littlepic'>
-							<a href="/megafon/servleti/prikaziSliku?id=${slika}"
+							<a href="/megafon/servleti/prikaz/slika?id=${slika}"
 								data-lightbox="image-1" data-title="${zapis.naslov}-id:${slika}">
 								<img
-								src="/megafon/servleti/prikaziSliku?id=${slika}&x=400&y=300">
+								src="/megafon/servleti/prikaz/slika?id=${slika}&x=400&y=300">
 							</a>
 						</div>
 					</c:forEach>

@@ -61,7 +61,7 @@
 				<form action="/megafon/servleti/kategorija" method="post">
 					<table>
 						<tr>
-							<td class=firstCol><label for="naziv">Naziv
+							<td class=firstCol><label class= 'labelFirstCol' for="naziv">Naziv
 									kategorije:</label></td>
 							<td><input type="text" name="naziv" value='${zapis.naziv}'
 								size=32> <c:if test="${zapis.hasError('naziv')}">
@@ -71,8 +71,8 @@
 						</tr>
 						<tr>
 
-							<td class=firstCol><label for="nadkategorije">Nadkategorija:</label></td>
-							<td><select name="kategorija" size="1">
+							<td class=firstCol><label class= 'labelFirstCol' for="nadkategorije">Nadkategorija:</label></td>
+							<td><select name="kategorija" size="1" style='width:271px'>
 									<c:forEach var="tip" items="${kategorije}">
 										<option value='kat${tip.id}'>${tip.naziv}
 									</c:forEach>
@@ -84,7 +84,7 @@
 
 
 						<tr>
-							<td class=firstCol><label for="jeBesplatna">Besplatna:</label></td>
+							<td class=firstCol><label class= 'labelFirstCol' for="jeBesplatna">Besplatna:</label></td>
 							<td><input type="checkbox" name="jeBesplatna"
 								${zapis.jeBesplatna ?  'checked' : ''} value="true"> <c:if
 									test="${zapis.hasError('jeBesplatna')}">
@@ -94,9 +94,9 @@
 						</tr>
 
 						<tr>
-							<td class=firstCol><label for="brStavki">Broj
+							<td class=firstCol><label class= 'labelFirstCol' for="brStavki">Broj
 									dodatnih stavki:</label></td>
-							<td><select name="brStavki" size="1">
+							<td><select name="brStavki" size="1" style='width:271px'>
 									<option value='0' selected>0</option>
 									<option value='2'>1</option>
 									<option value='3'>2</option>

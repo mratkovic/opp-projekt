@@ -42,7 +42,9 @@ public class UrediPodatkeServlet extends HttpServlet {
 		throws ServletException, IOException {
 		String param = provjeriZahtjev(req, resp);
 		if (param == null) {
-			return;
+			req.setAttribute("msg", "Neispravan URL");
+			req.setAttribute("title", "Greška");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 		} else if (param.equals("lozinka")) {
 			promjenaLozinkeoGet(req, resp);
 		} else if (param.equals("tip")) {
@@ -60,7 +62,9 @@ public class UrediPodatkeServlet extends HttpServlet {
 		IOException {
 		String param = provjeriZahtjev(req, resp);
 		if (param == null) {
-			return;
+			req.setAttribute("msg", "Neispravan URL");
+			req.setAttribute("title", "Greška");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 		} else if (param.equals("lozinka")) {
 			promjenaLozinkeDoPost(req, resp);
 		} else if (param.equals("tip")) {
@@ -83,9 +87,6 @@ public class UrediPodatkeServlet extends HttpServlet {
 			params = new String[2];
 		}
 		if (params.length != 1 || !params[0].matches("lozinka|korisnik|tip|oglas")) {
-			req.setAttribute("msg", "Neispravan URL");
-			req.setAttribute("title", "Greška");
-			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return null;
 		}
 		return params[0];
@@ -344,7 +345,8 @@ public class UrediPodatkeServlet extends HttpServlet {
 				Admin a = (Admin) DAOProvider.getDAO().dohvatiKorisnika(id);
 				regForm.fillToObject(a);
 				DAOProvider.getDAO().dodajAdmina(a);
-
+				req.getSession().invalidate();
+				PrijavaServlet.loginMethod(req, a);
 				req.setAttribute("msg", "Uspješno izmjenjeni podaci");
 				req.setAttribute("title", "Uspješno");
 				req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);

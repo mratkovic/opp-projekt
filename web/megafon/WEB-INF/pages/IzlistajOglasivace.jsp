@@ -33,7 +33,7 @@
 
 						<c:when
 							test='${sessionScope["user"] == null && sessionScope["admin"] == null}'>
-							<li><a href="/megafon/servleti/info">O nama</a></li>
+							<li><a href="/megafon/servleti/info/onama">O nama</a></li>
 							<li><a href="/megafon/servleti/pretraga" class="current">Pretraživanje</a></li>
 							<li class="last"><a href="/megafon/servleti/login">Prijava</a></li>
 						</c:when>
@@ -78,15 +78,15 @@
 										<td>${zapis.tipClanstva.naziv}</td>
 										<td></td>
 										<td><a
-											href="/megafon/servleti/prikazOglasivaca?id=${zapis.id}"
+											href="/megafon/servleti/prikaz/oglasivac?id=${zapis.id}"
 											target="_blank">[Prikaži]</a></td>
 										<td><a
 											href="/megafon/servleti/uredi/korisnik?id=${zapis.id}"
 											target="_blank">[Uredi podatke]</a></td>
 										<td><a
-											href="/megafon/servleti/izbrisiOglasivac?id=${zapis.id}">[Izbriši]</a></td>
+											href="/megafon/servleti/izbrisi/oglasivac?id=${zapis.id}">[Izbriši]</a></td>
 										<td><a
-											href="/megafon/servleti/prikaziOglaseOglasivaca?id=${zapis.id}"
+											href="/megafon/servleti/prikaz/oglasi_oglasivaca?id=${zapis.id}"
 											target="_blank">[Prikaži sve oglase]</a></td>
 
 										<td></td>

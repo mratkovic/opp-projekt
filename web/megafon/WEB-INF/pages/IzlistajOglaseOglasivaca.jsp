@@ -33,7 +33,7 @@
 
 						<c:when
 							test='${sessionScope["user"] == null && sessionScope["admin"] == null}'>
-							<li><a href="/megafon/servleti/info">O nama</a></li>
+							<li><a href="/megafon/servleti/info/onama">O nama</a></li>
 							<li><a href="/megafon/servleti/pretraga" class="current">Pretraživanje</a></li>
 							<li class="last"><a href="/megafon/servleti/login">Prijava</a></li>
 						</c:when>
@@ -80,7 +80,7 @@
 											href="/megafon/servleti/prikaziOglas?id=${zapis.id}">[Prikaži]</a></td>
 										<td><a href="/megafon/servleti/uredi/oglas?id=${zapis.id}">[Uredi]</a></td>
 										<td><a
-											href="/megafon/servleti/izbrisiOglas?id=${zapis.id}">[Izbriši]</a></td>
+											href="/megafon/servleti/izbrisi/oglas?id=${zapis.id}">[Izbriši]</a></td>
 
 									</tr>
 								</c:forEach>

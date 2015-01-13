@@ -55,7 +55,7 @@
 				<br> <br>
 				<table>
 					<tr>
-						<td><a href="/megafon/servleti/uredi/lozinka">[Promjena
+						<td><a href="/megafon/servleti/uredi/korisnik?id=${admin.id}">[Promjena
 								osobnih podataka]</a></td>
 
 					</tr>
@@ -75,7 +75,7 @@
 					</li>
 
 					<li>Prikaz svih registiranih oglašivača <a
-						href="/megafon/servleti/prikazOglasivaca">[link]</a>
+						href="/megafon/servleti/prikaz/oglasivac">[link]</a>
 					</li>
 				</ul>
 
