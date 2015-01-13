@@ -78,7 +78,6 @@ public class IzbrisiServlet extends HttpServlet {
 			Oglasivac o = (Oglasivac) req.getSession().getAttribute("user");
 			Oglas oglas = DAOProvider.getDAO().dohvatiOglas(id);
 			if (oglas != null && o.equals(oglas.getAutor())) {
-				req.getSession().invalidate();
 				canDelete = true;
 			}
 		}

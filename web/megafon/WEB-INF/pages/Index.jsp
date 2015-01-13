@@ -106,7 +106,7 @@
 													${oglas.datum}
 												</p>
 												<a href="/megafon/servleti/prikaz/oglas?id=${oglas.id}"
-													class="more float_r">Više</a>
+													class="more float_r">Prikaži</a>
 
 												<div class="cleaner"></div>
 											</div>

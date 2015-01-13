@@ -109,7 +109,7 @@
 														${oglas.datum}
 													</p>
 													<a href="/megafon/servleti/prikaz/oglas?id=${oglas.id}"
-														class="more float_r">Više</a>
+														class="more float_r">Prikaži</a>
 
 													<div class="cleaner"></div>
 												</div>
@@ -138,7 +138,7 @@
 														${oglas.datum}
 													</p>
 													<a href="/megafon/servleti/prikaz/oglas?id=${oglas.id}"
-														class="more float_r">Više</a>
+														class="more float_r">Prikaži</a>
 
 													<div class="cleaner"></div>
 												</div>
@@ -166,7 +166,7 @@
 														${oglas.datum}
 													</p>
 													<a href="/megafon/servleti/prikaz/oglas?id=${oglas.id}"
-														class="more float_r">Više</a>
+														class="more float_r">Prikaži</a>
 
 													<div class="cleaner"></div>
 												</div>
@@ -217,7 +217,7 @@
 											<p>${oglas.opis}</p>
 
 											<a href="/megafon/servleti/prikaz/oglas?id=${oglas.id}"
-												class="more">Više</a>
+												class="more">Prikaži</a>
 
 											<div class="cleaner"></div>
 										</div>

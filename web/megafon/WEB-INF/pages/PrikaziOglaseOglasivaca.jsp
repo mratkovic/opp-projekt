@@ -85,7 +85,7 @@
 											<p>${oglas.opis}</p>
 
 											<a href="/megafon/servleti/prikaz/oglas?id=${oglas.id}"
-												class="more">Više</a>
+												class="more">Prikaži</a>
 
 											<div class="cleaner"></div>
 										</div>

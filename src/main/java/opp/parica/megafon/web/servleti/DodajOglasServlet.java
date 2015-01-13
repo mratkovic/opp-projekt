@@ -2,6 +2,7 @@ package opp.parica.megafon.web.servleti;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -144,7 +145,12 @@ public class DodajOglasServlet extends HttpServlet {
 		HashMap<String, String> fields = new HashMap<>();
 		for (FileItem item : fileItems) {
 			if (item.isFormField()) {
-				fields.put(item.getFieldName(), item.getString());
+				try {
+					fields.put(item.getFieldName(), item.getString("UTF-8"));
+				} catch (UnsupportedEncodingException e) {
+					System.err.println("UNICODE");
+					e.printStackTrace();
+				}
 			}
 
 		}
