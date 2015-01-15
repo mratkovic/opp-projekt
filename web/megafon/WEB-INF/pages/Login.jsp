@@ -32,9 +32,9 @@
 			<div id="site_middle_subpage">
 				<h2>Prijava</h2>
 				<p>
-					Prijavite se na sustav s vasim korisnickim imenom i zaporkom. <br>
-					Ukoliko nemate korisnicki racun na portalu registrirajte se <a
-						href="/megafon/servleti/registracija/oglasivac">ovdje</a>
+					Prijavite se na sustav vašim korisničkim imenom i lozinkom. <br>
+					Ukoliko nemate korisnički račun na portalu registrirajte se <a
+						href="/megafon/servleti/registracija/oglasivac">ovdje.</a>
 				</p>
 			</div>
 
@@ -42,7 +42,7 @@
 				<form action="/megafon/servleti/login" method="post">
 					<table>
 						<tr>
-							<td class=firstCol><label for="username">Korisnicko
+							<td class=firstCol><label for="username">Korisničko
 									ime:</label></td>
 							<td><input type="text" name="username"
 								value='${zapis.username}' size=40> <c:if

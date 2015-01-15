@@ -46,7 +46,7 @@
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Prikaz svih oglasa oglasivaca ${autor}</h2>
+				<h2>Prikaz svih oglasa oglašivača ${autor}</h2>
 				<p>
 					Prikaz svih oglasa kreiranih od strane ovog autora <br>
 					Brisanje oglasa omoguceno

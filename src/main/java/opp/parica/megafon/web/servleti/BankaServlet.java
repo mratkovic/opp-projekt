@@ -32,7 +32,7 @@ public class BankaServlet extends HttpServlet {
 		if ("Odustani".equals(metoda) || rnd < POSTOTAK_GRESKE) {
 
 			req.setAttribute("msg",
-				"Uplata nije uspjesno realizirana. Molimo pokušajte ponovno te ukoliko se "
+				"Uplata nije uspješno realizirana. Molimo pokušajte ponovno te ukoliko se "
 					+ "problem ponovi kontaktirajte administratora");
 			UrediPodatkeServlet.clanstvoStatus(req);
 			req.getRequestDispatcher("/WEB-INF/pages/ClanstvoStatus.jsp").forward(req, resp);
@@ -67,7 +67,7 @@ public class BankaServlet extends HttpServlet {
 
 		UrediPodatkeServlet.clanstvoStatus(req);
 		req.setAttribute("msg",
-			"Promjena tipa članstva uspjesno realizirana.");
+			"Promjena tipa članstva uspješno realizirana.");
 		req.getRequestDispatcher("/WEB-INF/pages/ClanstvoStatus.jsp").forward(req, resp);
 
 	}

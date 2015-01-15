@@ -303,7 +303,7 @@ public class UrediPodatkeServlet extends HttpServlet {
 		if (!forma.hasError()) {
 			System.out.println("Nema greske, spremi oglas");
 			forma.spremiStavke(oglas);
-			String msg = "Oglas " + oglas.getNaslov() + " dodan";
+			String msg = "Oglas " + oglas.getNaslov() + " izmjenjen";
 
 			req.setAttribute("msg", msg);
 			req.setAttribute("title", "Uspješno");
@@ -391,7 +391,7 @@ public class UrediPodatkeServlet extends HttpServlet {
 			}
 
 			req.setAttribute("msg", "Uspješno izmjenjeni podaci");
-			req.setAttribute("title", "Registracija uspješna");
+			req.setAttribute("title", "Uspješno");
 			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
 			return;
 		}

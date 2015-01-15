@@ -41,14 +41,19 @@ public class PrikaziServlet extends HttpServlet {
 			req.setAttribute("msg", "Neispravan URL");
 			req.setAttribute("title", "Greška");
 			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
+
 		} else if (param.equals("oglasivac")) {
 			prikazOglasivacDoGet(req, resp);
+
 		} else if (param.equals("slika")) {
 			prikaziSlikuGet(req, resp);
+
 		} else if (param.equals("lista_oglasivaca")) {
 			izlistajOglasivace(req, resp);
+
 		} else if (param.equals("oglas")) {
 			prikaziOglasDoGet(req, resp);
+
 		} else if (param.equals("oglasi_oglasivaca")) {
 			prikaziSveOglaseOglasivacaDoGet(req, resp);
 
@@ -122,7 +127,6 @@ public class PrikaziServlet extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/pages/PrikazOglasivaca.jsp").forward(req, resp);
 		}
 	}
-
 
 	protected final void prikaziSlikuGet(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
@@ -235,7 +239,8 @@ public class PrikaziServlet extends HttpServlet {
 
 	}
 
-	protected final void prikaziSveOglaseOglasivacaDoGet(final HttpServletRequest req, final HttpServletResponse resp)
+	protected final void prikaziSveOglaseOglasivacaDoGet(final HttpServletRequest req,
+		final HttpServletResponse resp)
 		throws ServletException, IOException {
 		String idParam = req.getParameter("id");
 		boolean korisnikPrikazujeSvoje = false;

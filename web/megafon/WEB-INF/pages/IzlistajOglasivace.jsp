@@ -46,7 +46,7 @@
 			<!-- end of site_menu -->
 
 			<div id="site_middle_subpage">
-				<h2>Prikaz svih oglasivaca</h2>
+				<h2>Prikaz svih oglašivača</h2>
 				<p>
 					Prikaz svih korisničkih računa ovog portala. <br> Uređivanje i
 					brisanje omogućeno!

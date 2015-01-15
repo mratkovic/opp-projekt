@@ -51,8 +51,8 @@
 			<div id="site_middle_subpage">
 				<h2>Stvaranje novog oglašivača</h2>
 				<p>
-					Stvaranje novog oglasivaca. <br> Potrebno je ispuniti zadanu
-					formu za registraciju oglasivaca.
+					Stvaranje novog oglasivača. <br> Potrebno je ispuniti zadanu
+					formu za registraciju oglašivača.
 				</p>
 			</div>
 

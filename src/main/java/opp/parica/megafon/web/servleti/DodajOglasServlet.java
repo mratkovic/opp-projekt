@@ -187,8 +187,7 @@ public class DodajOglasServlet extends HttpServlet {
 	}
 
 	public static void uploadajSlikeKoristeciApache(final HttpServletRequest req, final List<FileItem> fileItems,
-		final OglasForma forma, final Oglas o)
-	{
+		final OglasForma forma, final Oglas o) {
 
 		for (FileItem item : fileItems) {
 

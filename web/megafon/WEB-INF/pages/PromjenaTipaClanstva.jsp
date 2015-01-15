@@ -36,7 +36,7 @@
 				<h2>Promjena tipa članstva</h2>
 				<p>
 					Promjena tipa članstva oglašivača <br> Informirajte se o
-					pogodnostima različitih tipova članstva te odaberite željeni
+					pogodnostima različitih tipova članstva te odaberite željeni.
 				</p>
 			</div>
 
@@ -49,9 +49,9 @@
 				<p>
 					<br>
 				</p>
-				<p>
+
 				<h3>Odabir novog tipa članstva</h3>
-				</p>
+
 				<form action="/megafon/servleti/uredi/tip" method="post">
 
 					<select name="odabraniTip" size="1">
@@ -64,11 +64,11 @@
 
 				</form>
 				<p class=fusnota>*Ukoliko se ne obnovi članarina do datuma
-					isteka, tip računa se prebacuje u Besplatni tip</p>
-				<p class=fusnota>*Ukoliko već imate neki od plačenih modela
-					clanstva, te odlučite odabrati i platiti članarinu za isti tip u
-					tom slucaju vam se postoječi datum isteka produzi za dodatnih
-					mjesec dana</p>
+					isteka, tip računa se prebacuje u Besplatni tip.</p>
+				<p class=fusnota>*Ukoliko već imate neki od plaćenih modela
+					članstva, te odlučite odabrati i platiti članarinu za isti tip u
+					tom slučaju vam se postojeći datum isteka produži za dodatnih
+					mjesec dana.</p>
 			</div>
 			<!-- end of main -->
 		</div>

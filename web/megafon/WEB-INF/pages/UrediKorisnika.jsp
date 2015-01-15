@@ -40,7 +40,7 @@
 			<div id="site_middle_subpage">
 				<h2>Uređivanje podataka</h2>
 				<p>
-					Stvaranje novog oglasivaca. <br> Potrebno je ispuniti zadani
+					Stvaranje novog oglašivača. <br> Potrebno je ispuniti zadani
 					obrazac za izmjenu korisnickih podataka.
 				</p>
 			</div>

@@ -98,21 +98,21 @@
 									dodatnih stavki:</label></td>
 							<td><select name="brStavki" size="1" style='width:271px'>
 									<option value='0' selected>0</option>
-									<option value='2'>1</option>
-									<option value='3'>2</option>
-									<option value='4'>3</option>
-									<option value='5'>4</option>
-									<option value='6'>5</option>
-									<option value='7'>6</option>
-									<option value='8'>7</option>
-									<option value='9'>8</option>
-									<option value='10'>9</option>
-									<option value='11'>10</option>
+									<option value='1'>1</option>
+									<option value='2'>2</option>
+									<option value='3'>3</option>
+									<option value='4'>4</option>
+									<option value='5'>5</option>
+									<option value='6'>6</option>
+									<option value='7'>7</option>
+									<option value='8'>8</option>
+									<option value='9'>9</option>
+									<option value='10'>10</option>
 							</select></td>
 							<td></td>
 						</tr>
 					</table>
-					<div class='stavka2 box dodatneStavkeDiv'>
+					<div class='stavka1 box dodatneStavkeDiv'>
 						<table>
 							<tr>
 
@@ -121,12 +121,11 @@
 								<td class='title'>Tip vrijednosti</td>
 							</tr>
 
-							<c:set var="count" value="2" scope="page" />
 							<c:set var="i" value="1" scope="page" />
 							<c:forEach var="stavka" items="${zapis.dodatneStavke}">
 
 
-								<tr class="stavka${count} box">
+								<tr class="stavka${i} box">
 									<td><label class="labelStavkaID">Stavka ${i}</label></td>
 									<td><input type="text" name="stavka${i}"
 										value='${stavka.first}' size=40></td>
@@ -138,7 +137,6 @@
 										<div class="greska">${zapis.getError('dodatneStavke')}</div>
 									</c:if>
 								</tr>
-								<c:set var="count" value="${count + 1}" scope="page" />
 								<c:set var="i" value="${i + 1}" scope="page" />
 							</c:forEach>
 							<tr>

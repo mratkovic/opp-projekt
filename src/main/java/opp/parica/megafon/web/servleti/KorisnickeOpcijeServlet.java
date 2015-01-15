@@ -17,7 +17,7 @@ import opp.parica.megafon.model.PravnaOsoba;
 import opp.parica.megafon.pomocno.Potpora;
 
 @WebServlet("/servleti/postavkeRacuna")
-public class DodatneOpcijeServlet extends HttpServlet {
+public class KorisnickeOpcijeServlet extends HttpServlet {
 	/** *Defaultni serial version UID. */
 	private static final long serialVersionUID = 1L;
 
