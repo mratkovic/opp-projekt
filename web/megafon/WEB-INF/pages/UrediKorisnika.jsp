@@ -57,7 +57,8 @@
 						${!jePravna ? 'style="display: table;"':'style="display: none;"'}>
 						<tr>
 							<td class=firstCol><label for="ID_fo"></label></td>
-							<td><input type="hidden" name="id" value='${zapisFO.id}'
+							<td><input type="hidden" name="id_fo" value='${zapisFO.id}'
+							
 								size=5> <c:if test="${zapisFO.hasError('id')}">
 									<div class="greska">${zapisFO.getError('id')}</div>
 								</c:if></td>
@@ -128,7 +129,7 @@
 						${jePravna ? 'style="display: table;"':'style="display: none;"'}>
 						<tr>
 							<td class=firstCol><label for="id_po"></label></td>
-							<td><input type="hidden" name="id" value='${zapisPO.id}'
+							<td><input type="hidden" name="id_po" value='${zapisPO.id}'
 								size=5> <c:if test="${zapisPO.hasError('id')}">
 									<div class="greska">${zapisPO.getError('id')}</div>
 								</c:if></td>

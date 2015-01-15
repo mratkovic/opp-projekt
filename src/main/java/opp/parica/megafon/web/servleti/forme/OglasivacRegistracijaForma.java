@@ -33,7 +33,8 @@ public class OglasivacRegistracijaForma extends ApstraktnaWebForma {
 		username = trimParameter(req.getParameter("username" + ekstenzija));
 		password = req.getParameter("password" + ekstenzija);
 		telefon = req.getParameter("telefon" + ekstenzija);
-		id = req.getParameter("id");
+		id = req.getParameter("id" + ekstenzija);
+		System.out.println("PARSIRANI ID: "+ id);
 		uvjetiPrihvaceni = !trimParameter(req.getParameter("prihvacam" + ekstenzija)).isEmpty();
 	}
 

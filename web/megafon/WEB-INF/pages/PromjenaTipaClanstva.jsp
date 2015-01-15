@@ -41,8 +41,48 @@
 			</div>
 
 			<div id="site_main">
-				<p>Trenutni tip članstva: ${trenutniTip}</p>
-				<p>Datum isteka članstva: ${datumIsteka}</p>
+				<h3>Tipovi članstva</h3>
+				<p>Registracija i oglašavanje u većini kategorija na Megafonu su
+					besplatni. Ukoliko želite ostvariti dodatne usluge i brojne
+					pogodnosti, odaberite jedan od ponuđenih viših tipova članstva.
+					Iznosi mjesečnih članarina su navedene na dnu stranice.</p>
+				<div class='tipoviClanstvaLista'>
+					<ul>
+						<li><label>Besplatni tip članstva</label> predstavlja osnovni
+							tip članstva. Oglašavanje u svim kategorijama osim Auto-moto i
+							Nekretnine je besplatno. Oglašavanje u svim kategorijama osim
+							Auto-moto i Nekretnine je besplatno. Za oglašavanje u prethodno
+							spomenutim kategorijama korisnik mora odabrati neki od plaćenih
+							tipova članstva.</li>
+						<li><label>Standard tip članstva</label> omogućava
+							korisnicima da objavljuju oglase u svim katrgorijama.</li>
+
+						<li><label>Optimum tip članstva</label> uz sve pogodnosti
+							nižih razina osigurava da Vaš oglas bude na vrhu kategorija
+							tijekom cijelog mjeseca.</li>
+						<li><label class='labela'>Premium tip članstva</label> nudi
+							svojim članovima jedinstvenu priliku da istaknu svoje oglase na
+							početnoj stranici portala.</li>
+					</ul>
+				</div>
+				<p>
+					<br>
+				</p>
+				<table>
+					<tr>
+						<td><label>Trenutni tip članstva: </label></td>
+						<td>${trenutniTip}</td>
+					</tr>
+					<tr>
+						<td><label>Datum isteka članstva: </label></td>
+						<td>${datumIsteka}</td>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+
+				</table>
+
 				<p>
 					<br>
 				</p>

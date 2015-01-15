@@ -92,81 +92,6 @@ public class UrediPodatkeServlet extends HttpServlet {
 		return params[0];
 	}
 
-	private void urediPodatkeDoGet(final HttpServletRequest req, final HttpServletResponse resp)
-		throws ServletException,
-		IOException {
-		if (req.getSession().getAttribute("logged") == null) {
-			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
-			return;
-		}
-
-		String idParam = req.getParameter("id");
-		if (idParam == null) {
-			req.setAttribute("title", "Greška");
-			req.setAttribute("msg",
-				"Neispravan poziv. Nedostaje parametar 'id' koji oznacava korisnika koji se treba editirati.");
-			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
-			return;
-		}
-		long id;
-		try {
-			id = Long.parseLong(idParam);
-		} catch (NumberFormatException e) {
-			req.setAttribute("title", "Greška");
-			req.setAttribute(
-				"msg",
-				"Neispravan poziv. Parametar 'id' koji oznacava korisnika"
-					+ " je neispravnog formata. Ocekivana cijelobrojna vrijednost.");
-			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
-			return;
-		}
-		Korisnik korisnik = DAOProvider.getDAO().dohvatiKorisnika(id);
-		if (korisnik == null) {
-			req.setAttribute("title", "Greška");
-			req.setAttribute(
-				"msg",
-				"Neispravan poziv. Parametar 'id' koji oznacava korisnika"
-					+ " ne postoji.");
-			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
-			return;
-		}
-
-		Oglasivac o = (Oglasivac) req.getSession().getAttribute("user");
-		if (o != null && !o.getId().equals(id)) {
-			req.setAttribute("title", "Greška");
-			req.setAttribute(
-				"msg",
-				"Neispravan poziv.");
-			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
-			return;
-		}
-		if (korisnik instanceof Admin) {
-			// uredi nekog admina
-			RegistracijaAdminaForma form = new RegistracijaAdminaForma();
-			form.fillFromObject(korisnik);
-			req.setAttribute("zapis", form);
-			req.getRequestDispatcher("/WEB-INF/pages/UrediAdmina.jsp").forward(req,
-				resp);
-			return;
-
-		} else if (korisnik instanceof PravnaOsoba) {
-			PravnaOsobaRegistracijaForma form = new PravnaOsobaRegistracijaForma();
-			form.fillFromObject(korisnik);
-			req.setAttribute("zapisPO", form);
-			req.setAttribute("jePravna", true);
-
-		} else {
-			FizickaOsobaRegistracijaForma form = new FizickaOsobaRegistracijaForma();
-			form.fillFromObject(korisnik);
-			req.setAttribute("zapisFO", form);
-			req.setAttribute("jePravna", false);
-
-		}
-		req.getRequestDispatcher("/WEB-INF/pages/UrediKorisnika.jsp").forward(req,
-			resp);
-
-	}
-
 	private final void urediOglasDoGet(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
 		if (req.getSession().getAttribute("logged") == null) {
@@ -319,6 +244,81 @@ public class UrediPodatkeServlet extends HttpServlet {
 
 	}
 
+	private void urediPodatkeDoGet(final HttpServletRequest req, final HttpServletResponse resp)
+		throws ServletException,
+		IOException {
+		if (req.getSession().getAttribute("logged") == null) {
+			resp.sendRedirect(req.getServletContext().getContextPath() + "/servleti/pocetna");
+			return;
+		}
+
+		String idParam = req.getParameter("id");
+		if (idParam == null) {
+			req.setAttribute("title", "Greška");
+			req.setAttribute("msg",
+				"Neispravan poziv. Nedostaje parametar 'id' koji oznacava korisnika koji se treba editirati.");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
+			return;
+		}
+		long id;
+		try {
+			id = Long.parseLong(idParam);
+		} catch (NumberFormatException e) {
+			req.setAttribute("title", "Greška");
+			req.setAttribute(
+				"msg",
+				"Neispravan poziv. Parametar 'id' koji oznacava korisnika"
+					+ " je neispravnog formata. Ocekivana cijelobrojna vrijednost.");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
+			return;
+		}
+		Korisnik korisnik = DAOProvider.getDAO().dohvatiKorisnika(id);
+		if (korisnik == null) {
+			req.setAttribute("title", "Greška");
+			req.setAttribute(
+				"msg",
+				"Neispravan poziv. Parametar 'id' koji oznacava korisnika"
+					+ " ne postoji.");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
+			return;
+		}
+
+		Oglasivac o = (Oglasivac) req.getSession().getAttribute("user");
+		if (o != null && !o.getId().equals(id)) {
+			req.setAttribute("title", "Greška");
+			req.setAttribute(
+				"msg",
+				"Neispravan poziv.");
+			req.getRequestDispatcher("/WEB-INF/pages/PrikazPoruke.jsp").forward(req, resp);
+			return;
+		}
+		if (korisnik instanceof Admin) {
+			// uredi nekog admina
+			RegistracijaAdminaForma form = new RegistracijaAdminaForma();
+			form.fillFromObject(korisnik);
+			req.setAttribute("zapis", form);
+			req.getRequestDispatcher("/WEB-INF/pages/UrediAdmina.jsp").forward(req,
+				resp);
+			return;
+
+		} else if (korisnik instanceof PravnaOsoba) {
+			PravnaOsobaRegistracijaForma form = new PravnaOsobaRegistracijaForma();
+			form.fillFromObject(korisnik);
+			req.setAttribute("zapisPO", form);
+			req.setAttribute("jePravna", true);
+
+		} else {
+			FizickaOsobaRegistracijaForma form = new FizickaOsobaRegistracijaForma();
+			form.fillFromObject(korisnik);
+			req.setAttribute("zapisFO", form);
+			req.setAttribute("jePravna", false);
+
+		}
+		req.getRequestDispatcher("/WEB-INF/pages/UrediKorisnika.jsp").forward(req,
+			resp);
+
+	}
+
 	private final void urediPodatkeDoPost(final HttpServletRequest req, final HttpServletResponse resp)
 		throws ServletException, IOException {
 
@@ -381,8 +381,12 @@ public class UrediPodatkeServlet extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/pages/UrediKorisnika.jsp").forward(req, resp);
 		} else {
 			long id = Long.parseLong(regForm.getId());
+			System.out.println("ID oglasivaca koji se mjenja:" + id);
+
 			oglasivac = DAOProvider.getDAO().dohvatiOglasivaca(id);
+			System.out.println("Prije" + oglasivac);
 			regForm.fillToObject(oglasivac);
+			System.out.println("Poslje" + oglasivac);
 			DAOProvider.getDAO().dodajOglasivaca(oglasivac);
 
 			if (req.getSession().getAttribute("admin") == null) {

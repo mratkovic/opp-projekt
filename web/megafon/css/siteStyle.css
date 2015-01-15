@@ -956,9 +956,25 @@ table label {
 	font-weight: bold;
 	padding-right: 25px;
 }
-#buttonRow {
-	padding-top:25px;
+
+.labela {
+	color: #5FA008;
+	font-weight: bold;
 }
+
+.tipoviClanstvaLista {
+	font-size: 1.2em;
+}
+
+.tipoviClanstvaLista label {
+	color: #5FA008;
+	font-weight: bold;
+}
+
+#buttonRow {
+	padding-top: 25px;
+}
+
 #pretragaTable td {
 	padding-top: 10px;
 }
