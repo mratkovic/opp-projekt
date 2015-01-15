@@ -52,23 +52,14 @@
 					</c:otherwise>
 				</c:choose>
 				<tr>
+					<td><label>OIB: </label></td>
+					<td>${korisnik.oib}</td>
+				</tr>
+				<tr>
 					<td><label>Korisničko ime: </label></td>
 					<td>${korisnik.username}</td>
 				</tr>
-				<tr>
-					<td><label>Trenutni tip članstva: </label></td>
-					<td>${korisnik.tipClanstva.naziv}
-					<a href="/megafon/servleti/uredi/tip" style='padding-left: 5px'>[Promjeni tip]</a>
-					</td>
-				</tr>
-				<tr>
-					<td><label>Datum isteka članstva: </label></td>
-					<td>${datumIsteka}</td>
-				</tr>
-				<tr>
-					<td><label>Datum registracije: </label></td>
-					<td>${datumRegistracije}</td>
-				</tr>
+
 				<tr>
 					<td><label>Adresa: </label></td>
 					<td>${korisnik.adresa}</td>
@@ -81,8 +72,21 @@
 					<td><label>Telefon: </label></td>
 					<td>${korisnik.telefon}</td>
 				</tr>
-
-
+				<tr>
+					<td><label>Trenutni tip članstva: </label></td>
+					<td>${korisnik.tipClanstva.naziv}<a
+						href="/megafon/servleti/uredi/tip" style='padding-left: 5px'>[Promjeni
+							tip]</a>
+					</td>
+				</tr>
+				<tr>
+					<td><label>Datum isteka članstva: </label></td>
+					<td>${datumIsteka}</td>
+				</tr>
+				<tr>
+					<td><label>Datum registracije: </label></td>
+					<td>${datumRegistracije}</td>
+				</tr>
 				<c:choose>
 					<c:when test='${pravna != null}'>
 						<tr>

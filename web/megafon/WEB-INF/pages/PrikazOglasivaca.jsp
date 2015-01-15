@@ -70,21 +70,14 @@
 						</c:otherwise>
 					</c:choose>
 					<tr>
+						<td><label>OIB: </label></td>
+						<td>${korisnik.oib}</td>
+					</tr>
+					<tr>
 						<td><label>Korisničko ime: </label></td>
 						<td>${korisnik.username}</td>
 					</tr>
-					<tr>
-						<td><label>Trenutni tip članstva: </label></td>
-						<td>${korisnik.tipClanstva.naziv}</td>
-					</tr>
-					<tr>
-						<td><label>Datum isteka članstva: </label></td>
-						<td>${datumIsteka}</td>
-					</tr>
-					<tr>
-						<td><label>Datum registracije: </label></td>
-						<td>${datumRegistracije}</td>
-					</tr>
+
 					<tr>
 						<td><label>Adresa: </label></td>
 						<td>${korisnik.adresa}</td>
@@ -108,6 +101,19 @@
 
 						</c:when>
 					</c:choose>
+
+					<tr>
+						<td><label>Trenutni tip članstva: </label></td>
+						<td>${korisnik.tipClanstva.naziv}</td>
+					</tr>
+					<tr>
+						<td><label>Datum isteka članstva: </label></td>
+						<td>${datumIsteka}</td>
+					</tr>
+					<tr>
+						<td><label>Datum registracije: </label></td>
+						<td>${datumRegistracije}</td>
+					</tr>
 				</table>
 				<br>
 				<table>

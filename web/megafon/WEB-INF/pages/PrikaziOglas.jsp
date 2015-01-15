@@ -155,7 +155,7 @@
 				<c:choose>
 					<c:when test='${autorFO != null}'>
 						<c:choose>
-							<c:when test='${autorPO.id == sessionScope["id"] }'>
+							<c:when test='${autorFO.id == sessionScope["id"] }'>
 								<a
 									href="/megafon/servleti/prikaz/oglasi_oglasivaca?id=${autorFO.id}"
 									target="_blank">[Prikazi sve moje oglase]</a>
