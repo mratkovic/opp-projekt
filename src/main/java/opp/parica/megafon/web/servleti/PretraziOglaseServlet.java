@@ -1,6 +1,7 @@
 package opp.parica.megafon.web.servleti;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -61,11 +62,27 @@ public class PretraziOglaseServlet extends HttpServlet {
 
 		if (!forma.getKategorija().isEmpty()) {
 			System.out.println("-Odabrana kategorija: " + forma.getKategorija());
-			List<Oglas> premium = DAOProvider.getDAO().
+			Kategorija kat = DAOProvider.getDAO().dohvatiKategoriju(Long.parseLong(forma.getKategorija()));
+			List<Oglas> premium = new ArrayList<Oglas>();
+			List<Oglas> tmp = DAOProvider.getDAO().
 				dohvatiPremiumOglase(Long.parseLong(forma.getKategorija()));
-			Collections.sort(premium, Potpora.OGLASI_KOMPARATOR);
-			System.out.println("Premium velicina" + premium.size());
-			req.setAttribute("premium", OglasKratkaForma.prilagodiZaPrikaz(premium, 25, 45));
+			if (tmp != null && !tmp.isEmpty()) {
+				premium.addAll(tmp);
+			}
+
+			for (Kategorija pod : kat.getPodkategorije()) {
+				tmp = DAOProvider.getDAO().
+					dohvatiPremiumOglase(pod.getId());
+				if (tmp != null && !tmp.isEmpty()) {
+					premium.addAll(tmp);
+				}
+			}
+
+			if (premium != null && !premium.isEmpty()) {
+				Collections.sort(premium, Potpora.OGLASI_KOMPARATOR);
+				System.out.println("Premium velicina" + premium.size());
+				req.setAttribute("premium", OglasKratkaForma.prilagodiZaPrikaz(premium, 25, 45));
+			}
 		}
 
 		req.setAttribute("kriteriji", forma.getKriterijiString());
